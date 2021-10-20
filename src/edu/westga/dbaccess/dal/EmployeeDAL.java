@@ -1,6 +1,7 @@
 package edu.westga.dbaccess.dal;
 
 import java.sql.Connection;
+import java.util.Objects;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ public class EmployeeDAL {
 	public boolean validateEmployeeByLoginCredentials(String username, String password) throws SQLException {
 
 		Employee employee = null;
-		String query = "select address1, address2, employeeId, firstName, lastName, password, phoneNumber, username from employee when username=? and ";
+		String query = "select address1, address2, employeeId, firstName, lastName, password, phoneNumber, username from employee where username=? and password=?";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(query)) {
 
@@ -27,7 +28,7 @@ public class EmployeeDAL {
 			stmt.setString(2, password);
 
 			ResultSet rs = stmt.executeQuery();
-			while (rs.first()) {
+			while (rs.next()) {
 				employee = new Employee(rs.getString("address1"), rs.getString("address2"), rs.getInt("employeeId"),
 						rs.getString("firstName"), rs.getString("lastName"), rs.getString("password"),
 						rs.getString("phoneNumber"), rs.getString("username"));

@@ -63,6 +63,7 @@ public class RegisterWindowCodeBehind {
     @FXML
     void registerBtnClick(ActionEvent event) {
     	Date date = Date.valueOf(birthdayDatePicker.getValue());
+    	System.out.println(Date.valueOf(LocalDate.now()));
     }
     
     @FXML

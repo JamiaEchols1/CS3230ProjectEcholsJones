@@ -11,12 +11,13 @@ public LoginWindowController() {
 }
 
 public boolean login(String username, String password) {
+	boolean login = false;
 	try {
-		this.dal.validateEmployeeByLoginCredentials(username, password);
+		login = this.dal.validateEmployeeByLoginCredentials(username, password);
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
-	return false;
+	return login;
 }
 
 }

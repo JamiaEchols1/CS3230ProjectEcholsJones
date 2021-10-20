@@ -16,13 +16,17 @@ public class Customer {
 	private String phoneNumber;
 	private Date birthday;
 	private Date registrationDate;
+	private String gender;
 
-	public Customer(int id, String name, String address1, String address2, String phoneNumber, Date birthday, Date registrationDate) {
+	public Customer(int id, String name, String gender, String address1, String address2, String phoneNumber, Date birthday, Date registrationDate) {
 		if (id <= 0) {
 			throw new IllegalArgumentException("Id must be greater than 0");
 		}
 		if (name == null) {
 			throw new IllegalArgumentException("Name must not be null");
+		}
+		if (gender == null) {
+			throw new IllegalArgumentException("gender must not be null");
 		}
 		if (address1 == null) {
 			throw new IllegalArgumentException("address1 must not be null");
@@ -39,8 +43,9 @@ public class Customer {
 		if (registrationDate == null) {
 			throw new IllegalArgumentException("registrationDate must not be null");
 		}
-		
+		this.memberID = id;
 		this.name = name;
+		this.gender = gender;
 		this.address1 = address1;
 		this.address2 = address2;
 		this.phoneNumber = phoneNumber;
@@ -56,12 +61,6 @@ public class Customer {
 		return memberID;
 	}
 
-	/**
-	 * @param memberID the memberID to set
-	 */
-	public void setMemberID(int memberID) {
-		this.memberID = memberID;
-	}
 
 	/**
 	 * @return the name
@@ -70,12 +69,6 @@ public class Customer {
 		return name;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * @return the address1
@@ -84,25 +77,12 @@ public class Customer {
 		return address1;
 	}
 
-	/**
-	 * @param address1 the address1 to set
-	 */
-	public void setAddress1(String address1) {
-		this.address1 = address1;
-	}
 
 	/**
 	 * @return the address2
 	 */
 	public String getAddress2() {
 		return address2;
-	}
-
-	/**
-	 * @param address2 the address2 to set
-	 */
-	public void setAddress2(String address2) {
-		this.address2 = address2;
 	}
 
 	/**
@@ -113,25 +93,12 @@ public class Customer {
 	}
 
 	/**
-	 * @param phoneNumber the phoneNumber to set
-	 */
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	/**
 	 * @return the birthday
 	 */
 	public Date getBirthday() {
 		return birthday;
 	}
 
-	/**
-	 * @param birthday the birthday to set
-	 */
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
 
 	/**
 	 * @return the registrationDate
@@ -140,10 +107,7 @@ public class Customer {
 		return registrationDate;
 	}
 
-	/**
-	 * @param registrationDate the registrationDate to set
-	 */
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
+	public String getGender() {
+		return gender;
 	}
 }

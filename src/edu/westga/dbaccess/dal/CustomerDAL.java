@@ -15,19 +15,18 @@ import edu.westga.dbaccess.model.Customer;
  */
 public class CustomerDAL {
 
-	public Customer getCustomerWithUsername(String username, String password) throws SQLException{
+	public Customer getCustomerWithUsername(int memberId) throws SQLException{
 		
-		String query = "select memberID, name, address1, address2, phoneNumber, birthday, registrationDate, username, password from customer where username = ? and password = ?";
+		String query = "select memberID, name, gender, address1, address2, phoneNumber, birthday, registrationDate from customer where memberId = ?";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 				PreparedStatement stmt = connection.prepareStatement(query)){ 
 		    
-			stmt.setString(1, username);
-			stmt.setString(2, password);
+			stmt.setInt(1, memberId);
 	
 			ResultSet rs = stmt.executeQuery();
 			Customer customer = null;
 			while(rs.next()) {
-			customer = new Customer(rs.getInt("memberId"), rs.getString("name"), rs.getString("address1"), rs.getString("address2"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate"));
+			customer = new Customer(rs.getInt("memberId"), rs.getString("name"), rs.getString("gender"), rs.getString("address1"), rs.getString("address2"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate"));
 			}
 			return customer;
         } 

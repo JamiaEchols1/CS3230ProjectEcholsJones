@@ -1,8 +1,5 @@
 package edu.westga.dbaccess;
 
-import java.sql.SQLException;
-
-import edu.westga.dbaccess.dal.CustomerDAL;
 import edu.westga.dbaccess.model.Customer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +21,7 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent parent = FXMLLoader.load(getClass().getResource("/edu/westga/dbaccess/view/LoginWindow.fxml"));
+		Parent parent = FXMLLoader.load(getClass().getResource("/edu/westga/dbaccess/view/RegisterWindow.fxml"));
 		Scene scene = new Scene(parent);
 		primaryStage.setTitle("Login");
 		primaryStage.setScene(scene);

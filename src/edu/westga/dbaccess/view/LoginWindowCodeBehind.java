@@ -1,5 +1,6 @@
 package edu.westga.dbaccess.view;
 
+import edu.westga.devops.controller.LoginWindowController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,10 +25,16 @@ public class LoginWindowCodeBehind {
 
     @FXML
     private Label loginFailedLbl;
+    
+    private LoginWindowController controller;
 
     @FXML
-    void login(ActionEvent event) {
-
+    void loginBtnClick(ActionEvent event) {
+    	if (this.controller.login(this.userIdTextField.getText(), this.passwordTxtField.getText())) {
+    		this.loginFailedLbl.setText("good!");
+    	} else {
+    		this.loginFailedLbl.setText("No good!");
+    	}
     }
 
 }

@@ -1,8 +1,10 @@
 package edu.westga.dbaccess.view;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
+import edu.westga.devops.controller.RegisterWindowController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -54,6 +56,8 @@ public class RegisterWindowCodeBehind {
 
     @FXML
     private Button clearBtn;
+    
+    private RegisterWindowController controller;
 
     @FXML
     void clearBtnClick(ActionEvent event) {
@@ -61,9 +65,8 @@ public class RegisterWindowCodeBehind {
     }
 
     @FXML
-    void registerBtnClick(ActionEvent event) {
-    	Date date = Date.valueOf(birthdayDatePicker.getValue());
-    	System.out.println(Date.valueOf(LocalDate.now()));
+    void registerBtnClick(ActionEvent event) throws SQLException {
+    	this.controller.registerCustomer(this.fullNameTxtField.getText(), this.genderComboBox.getSelectionModel().getSelectedItem(), this.address1TxtField.getText(), this.addressComboBox.getSelectionModel().getSelectedItem(), this.phoneNumberTxtField.getText(), Date.valueOf(this.birthdayDatePicker.getValue()), Date.valueOf(LocalDate.now()));
     }
     
     @FXML
@@ -119,6 +122,8 @@ public class RegisterWindowCodeBehind {
     			"West Virginia",
     			"Wisconsin",
     			"Wyoming");
+    	this.genderComboBox.getItems().addAll("Male", "Female", "Other");
+    	this.controller = new RegisterWindowController();
     }
 
 }

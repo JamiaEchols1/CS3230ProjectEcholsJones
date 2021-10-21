@@ -1,7 +1,6 @@
 package edu.westga.dbaccess.dal;
 
 import java.sql.Connection;
-import java.util.Objects;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

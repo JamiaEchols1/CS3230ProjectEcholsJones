@@ -8,26 +8,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="287.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.RegisterWindowCodeBehind">
+<VBox prefHeight="287.0" prefWidth="364.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.RegisterWindowCodeBehind">
    <children>
-      <AnchorPane prefHeight="409.0" prefWidth="418.0">
+      <AnchorPane prefHeight="287.0" prefWidth="335.0">
          <children>
-            <Label fx:id="addressLbl" layoutX="14.0" layoutY="45.0" prefHeight="18.0" prefWidth="58.0" text="Address:" />
-            <TextField fx:id="address1TxtField" layoutX="62.0" layoutY="42.0" promptText="ex. 123 Place drive" />
+            <Label fx:id="addressLbl" layoutX="82.0" layoutY="45.0" prefHeight="18.0" prefWidth="58.0" text="Address:" />
+            <TextField fx:id="address1TxtField" layoutX="130.0" layoutY="42.0" promptText="ex. 123 Place drive" />
             <Label fx:id="stateLbl" layoutX="14.0" layoutY="77.0" text="State:" />
-            <ComboBox fx:id="addressComboBox" layoutX="55.0" layoutY="73.0" prefWidth="150.0" promptText="Select State" />
-            <Label fx:id="birthdayLbl" layoutX="15.0" layoutY="113.0" text="Birthday:" />
-            <DatePicker fx:id="birthdayDatePicker" layoutX="66.0" layoutY="109.0" />
-            <Label fx:id="fullNameLbl" layoutX="15.0" layoutY="144.0" text="Full Name:" />
-            <TextField fx:id="fullNameTxtField" layoutX="69.0" layoutY="140.0" />
-            <Label fx:id="phoneNumberLbl" layoutX="17.0" layoutY="171.0" text="Phone Number:" />
-            <TextField fx:id="phoneNumberTxtField" layoutX="111.0" layoutY="167.0" promptText="ex 5551112222" />
-            <Label fx:id="genderLbl" layoutX="15.0" layoutY="209.0" text="Gender:" />
-            <ComboBox fx:id="genderComboBox" layoutX="68.0" layoutY="205.0" prefWidth="150.0" promptText="Select Gender" />
-            <Button fx:id="registerBtn" layoutX="113.0" layoutY="248.0" mnemonicParsing="false" onAction="#registerBtnClick" text="Register" />
-            <Label fx:id="employeeNameLbl" layoutX="25.0" layoutY="14.0" prefHeight="17.0" prefWidth="60.0" />
-            <Label fx:id="usernameLbl" layoutX="96.0" layoutY="14.0" prefHeight="17.0" prefWidth="68.0" />
-            <Label fx:id="idLbl" layoutX="171.0" layoutY="14.0" prefHeight="17.0" prefWidth="68.0" />
+            <ComboBox fx:id="addressComboBox" layoutX="123.0" layoutY="73.0" prefWidth="150.0" promptText="Select State" />
+            <Label fx:id="birthdayLbl" layoutX="83.0" layoutY="113.0" text="Birthday:" />
+            <DatePicker fx:id="birthdayDatePicker" layoutX="134.0" layoutY="109.0" />
+            <Label fx:id="fullNameLbl" layoutX="83.0" layoutY="144.0" text="Full Name:" />
+            <TextField fx:id="fullNameTxtField" layoutX="137.0" layoutY="140.0" />
+            <Label fx:id="phoneNumberLbl" layoutX="85.0" layoutY="171.0" text="Phone Number:" />
+            <TextField fx:id="phoneNumberTxtField" layoutX="179.0" layoutY="167.0" promptText="ex 5551112222" />
+            <Label fx:id="genderLbl" layoutX="83.0" layoutY="209.0" text="Gender:" />
+            <ComboBox fx:id="genderComboBox" layoutX="136.0" layoutY="205.0" prefWidth="150.0" promptText="Select Gender" />
+            <Button fx:id="registerBtn" layoutX="181.0" layoutY="248.0" mnemonicParsing="false" onAction="#registerBtnClick" text="Register" />
+            <Label fx:id="employeeNameLbl" layoutX="8.0" layoutY="14.0" prefHeight="17.0" prefWidth="126.0" />
+            <Label fx:id="usernameLbl" layoutX="130.0" layoutY="14.0" prefHeight="17.0" prefWidth="126.0" />
+            <Label fx:id="idLbl" layoutX="292.0" layoutY="14.0" prefHeight="17.0" prefWidth="60.0" />
          </children>
       </AnchorPane>
    </children>

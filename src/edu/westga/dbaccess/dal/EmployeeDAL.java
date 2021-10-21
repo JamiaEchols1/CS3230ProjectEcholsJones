@@ -54,14 +54,24 @@ public class EmployeeDAL {
 		return employee != null;
 	}
 
+	/**
+	 * @return this.name
+	 */
 	public String getName() {
 		return name;
 	}
-
+	/**
+	 * 
+	 *@return this.username
+	 */
 	public String getUsername() {
 		return username;
 	}
 
+	/**
+	 * 
+	 * @return this.id
+	 */
 	public int getId() {
 		return id;
 	}

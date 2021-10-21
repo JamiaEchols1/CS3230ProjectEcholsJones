@@ -30,6 +30,10 @@ public class LoginWindowController {
 		return login;
 	}
 	
+	/**
+	 * 
+	 * @return this.employeeDal
+	 */
 	public EmployeeDAL getEmployeeDAL() {
 		return this.employeeDal;
 	}

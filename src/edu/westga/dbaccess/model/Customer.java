@@ -120,6 +120,10 @@ public class Customer {
 		return registrationDate;
 	}
 
+	/**
+	 * 
+	 * @return return this.gender
+	 */
 	public String getGender() {
 		return gender;
 	}

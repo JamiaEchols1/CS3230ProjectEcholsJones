@@ -53,11 +53,17 @@ public class RegisterWindowCodeBehind {
 
     @FXML
     private Button registerBtn;
-
-    @FXML
-    private Button clearBtn;
     
     private RegisterWindowController controller;
+    
+    @FXML
+    private Label employeeNameLbl;
+
+    @FXML
+    private Label usernameLbl;
+
+    @FXML
+    private Label idLbl;
 
     @FXML
     void clearBtnClick(ActionEvent event) {
@@ -124,6 +130,12 @@ public class RegisterWindowCodeBehind {
     			"Wyoming");
     	this.genderComboBox.getItems().addAll("Male", "Female", "Other");
     	this.controller = new RegisterWindowController();
+    }
+    
+    public void setTitle(String name, String username, int id) {
+    	this.employeeNameLbl.setText(name);
+    	this.usernameLbl.setText(username);   	
+    	this.idLbl.setText(String.valueOf(id));
     }
 
 }

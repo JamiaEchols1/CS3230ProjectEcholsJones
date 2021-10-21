@@ -17,7 +17,13 @@ import edu.westga.dbaccess.model.Customer;
  */
 public class CustomerDAL {
 
-	public Customer getCustomerWithUsername(int memberId) throws SQLException{
+	/**
+	 * Gets a customer based on their memberId
+	 * @param memberId the memberId to get the customer for
+	 * @return a customer with the given memberId
+	 * @throws SQLException
+	 */
+	public Customer getCustomerWithMemberId(int memberId) throws SQLException{
 		
 		String query = "select memberID, name, gender, address1, address2, phoneNumber, birthday, registrationDate from customer where memberId = ?";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
@@ -35,6 +41,17 @@ public class CustomerDAL {
 	}
 	
 	
+	/**
+	 * Registers a customer to the system.
+	 * @param name the customers name
+	 * @param gender the customers gender
+	 * @param address1 the customers first address portion
+	 * @param address2 the customers state
+	 * @param phoneNumber the customers phone number
+	 * @param birthday the customers birthday
+	 * @param registrationDate the registration date
+	 * @throws SQLException
+	 */
 	public void registerCustomer(String name, String gender, String address1, String address2, String phoneNumber, Date birthday, Date registrationDate) throws SQLException {
 		String query = "insert into customer (name, gender, address1, address2, phoneNumber, birthday, registrationDate) values (?,?,?,?,?,?,?)";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 

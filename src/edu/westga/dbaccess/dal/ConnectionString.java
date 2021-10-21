@@ -2,7 +2,7 @@ package edu.westga.dbaccess.dal;
 
 /**
  * Connection string
- * @author lyang
+ * @author Rasheed Jones
  * @verison 1.0
  */
 public class ConnectionString {

@@ -50,10 +50,12 @@ public class LoginWindowCodeBehind {
     			root = loader.load();
 
     			RegisterWindowCodeBehind registerWindow = loader.getController();
-
+    			
+    			registerWindow.setTitle(this.controller.getEmployeeDAL().getName(), this.controller.getEmployeeDAL().getUsername(), this.controller.getEmployeeDAL().getId());
+    			
     			Stage stage = new Stage();
 
-    			stage.setTitle("Main Window");
+    			stage.setTitle("Registration Window");
 
     			stage.setScene(new Scene(root, 272, 440));
 
@@ -71,7 +73,7 @@ public class LoginWindowCodeBehind {
 
             }
     	} else {
-    		this.loginFailedLbl.setText("No good!");
+    		this.loginFailedLbl.setText("Invalid login");
     	}
     }
     

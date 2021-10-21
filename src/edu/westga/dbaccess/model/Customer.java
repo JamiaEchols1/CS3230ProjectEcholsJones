@@ -18,6 +18,19 @@ public class Customer {
 	private Date registrationDate;
 	private String gender;
 
+	/**
+	 * 
+	 * Constructor for customers
+	 * 
+	 * @param id the customers id
+	 * @param name the customers name
+	 * @param gender the customers gender
+	 * @param address1 the customers first address portion
+	 * @param address2 the customer's state
+	 * @param phoneNumber the customers phone number
+	 * @param birthday the customers birthday
+	 * @param registrationDate the customers registration date;
+	 */
 	public Customer(int id, String name, String gender, String address1, String address2, String phoneNumber, Date birthday, Date registrationDate) {
 		if (id <= 0) {
 			throw new IllegalArgumentException("Id must be greater than 0");

@@ -1,6 +1,5 @@
 package edu.westga.dbaccess;
 
-import edu.westga.dbaccess.model.Customer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,15 +7,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-
+	
+	/**
+	 * Entry for the program
+	 */
 	public static void main(String[] args) {
 
 		launch(args);
 
-	}
-
-	private static void printEmployees(Customer customer) {
-		System.out.println(customer.getName() + "\t\t" + customer.getMemberID() + "\t\t" + customer.getBirthday());
 	}
 
 	@Override

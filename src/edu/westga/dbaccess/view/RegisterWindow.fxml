@@ -24,8 +24,10 @@
             <TextField fx:id="phoneNumberTxtField" layoutX="111.0" layoutY="167.0" promptText="ex 5551112222" />
             <Label fx:id="genderLbl" layoutX="15.0" layoutY="209.0" text="Gender:" />
             <ComboBox fx:id="genderComboBox" layoutX="68.0" layoutY="205.0" prefWidth="150.0" promptText="Select Gender" />
-            <Button fx:id="registerBtn" layoutX="36.0" layoutY="249.0" mnemonicParsing="false" onAction="#registerBtnClick" text="Register" />
-            <Button fx:id="clearBtn" layoutX="160.0" layoutY="249.0" mnemonicParsing="false" onAction="#clearBtnClick" text="Clear" />
+            <Button fx:id="registerBtn" layoutX="113.0" layoutY="248.0" mnemonicParsing="false" onAction="#registerBtnClick" text="Register" />
+            <Label fx:id="employeeNameLbl" layoutX="25.0" layoutY="14.0" prefHeight="17.0" prefWidth="60.0" />
+            <Label fx:id="usernameLbl" layoutX="96.0" layoutY="14.0" prefHeight="17.0" prefWidth="68.0" />
+            <Label fx:id="idLbl" layoutX="171.0" layoutY="14.0" prefHeight="17.0" prefWidth="68.0" />
          </children>
       </AnchorPane>
    </children>

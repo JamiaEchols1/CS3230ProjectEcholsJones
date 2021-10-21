@@ -57,7 +57,7 @@ public class LoginWindowCodeBehind {
 
     			stage.setTitle("Registration Window");
 
-    			stage.setScene(new Scene(root, 272, 440));
+    			stage.setScene(new Scene(root, 452, 440));
 
     			stage.show();
 

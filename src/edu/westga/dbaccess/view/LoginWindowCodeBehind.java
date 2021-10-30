@@ -43,15 +43,15 @@ public class LoginWindowCodeBehind {
 
     		try{
 
-    			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\RegisterWindow.fxml"));
+    			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
 
-    			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\MainWindow.fxml"));
+    			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\LandingWindow.fxml"));
 
     			root = loader.load();
 
-    			RegisterWindowCodeBehind registerWindow = loader.getController();
+    			LandingWindowCodeBehind landingWindow = loader.getController();
     			
-    			registerWindow.setTitle(this.controller.getEmployeeDAL().getName(), this.controller.getEmployeeDAL().getUsername(), this.controller.getEmployeeDAL().getId());
+    			landingWindow.setTitle(this.controller.getEmployee().getFullName(), this.controller.getEmployee().getUsername(), this.controller.getEmployee().getEmployeeId());
     			
     			Stage stage = new Stage();
 

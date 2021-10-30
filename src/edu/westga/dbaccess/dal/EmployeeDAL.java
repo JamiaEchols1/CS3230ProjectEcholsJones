@@ -16,18 +16,15 @@ import edu.westga.dbaccess.model.Employee;
  */
 public class EmployeeDAL {
 
-	private String name;
-	private String username;
-	private int id;
-
 	/**
 	 * Validates an employee by their username and password.
+	 * 
 	 * @param username the employee's username
 	 * @param password the employee's password
 	 * @return
 	 * @throws SQLException
 	 */
-	public boolean validateEmployeeByLoginCredentials(String username, String password) throws SQLException {
+	public Employee getEmployeeByLoginCredentials(String username, String password) throws SQLException {
 
 		Employee employee = null;
 		String query = "select address1, address2, employeeId, firstName, lastName, password, phoneNumber, username from employee where username=? and password=?";
@@ -45,34 +42,7 @@ public class EmployeeDAL {
 			}
 
 		}
-		if (employee != null) {
-			this.name = employee.getFirstName() + " " + employee.getLastName();
-			this.username = employee.getUsername();
-			this.id = employee.getEmployeeId();
-			
-		}
-		return employee != null;
-	}
 
-	/**
-	 * @return this.name
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * 
-	 *@return this.username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * 
-	 * @return this.id
-	 */
-	public int getId() {
-		return id;
+		return employee;
 	}
 }

@@ -37,11 +37,13 @@ public class LoginWindowCodeBehind {
 
     @FXML
     void loginBtnClick(ActionEvent event) {
-    	if (this.controller.login(this.userIdTextField.getText(), this.passwordTxtField.getText())) {
+    	try {
+    		this.controller.login(this.userIdTextField.getText(), this.passwordTxtField.getText());
+    	
     		this.loginFailedLbl.setText("good!");
     		Parent root;
 
-    		try{
+    		try {
 
     			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
 
@@ -72,7 +74,7 @@ public class LoginWindowCodeBehind {
                 e.printStackTrace();
 
             }
-    	} else {
+    	} catch (Exception e) {
     		this.loginFailedLbl.setText("Invalid login!");
     	}
     }

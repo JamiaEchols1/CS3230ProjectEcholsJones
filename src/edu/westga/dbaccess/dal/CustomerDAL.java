@@ -25,7 +25,7 @@ public class CustomerDAL {
 	 */
 	public Customer getCustomerWithMemberId(int memberId) throws SQLException{
 		
-		String query = "select memberID, name, gender, address1, address2, phoneNumber, birthday, registrationDate from customer where memberId = ?";
+		String query = "select memberID, firstName, lastName, gender, address1, state, zipcode, city, phoneNumber, birthday, registrationDate from customer where memberId = ?";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 				PreparedStatement stmt = connection.prepareStatement(query)){ 
 		    
@@ -56,7 +56,7 @@ public class CustomerDAL {
 	 * @throws SQLException
 	 */
 	public void registerCustomer(String firstName, String lastName, String gender, String address1, String zipcode, String state, String city, String phoneNumber, Date birthday, Date registrationDate) throws SQLException {
-		String query = "insert into customer (name, gender, address1, address2, phoneNumber, birthday, registrationDate) values (?,?,?,?,?,?,?)";
+		String query = "insert into customer (firstname, lastname, gender, address1, zipcode, state, city, phonenumber, birthday, registrationdate) values (?,?,?,?,?,?,?,?,?,?)";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 				PreparedStatement stmt = connection.prepareStatement(query)) { 
 			stmt.setString(1, firstName);

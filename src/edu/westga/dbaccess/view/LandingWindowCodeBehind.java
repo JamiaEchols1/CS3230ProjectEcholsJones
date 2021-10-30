@@ -39,15 +39,11 @@ public class LandingWindowCodeBehind {
 
 			root = loader.load();
 
-			RegisterWindowCodeBehind registerWindow = loader.getController();
-			
-			registerWindow.setTitle(this.employeeNameLbl.getText(), this.usernameLbl.getText(), Integer.parseInt(this.idLbl.getText()));
-			
 			Stage stage = new Stage();
 
 			stage.setTitle("Registration Window");
 
-			stage.setScene(new Scene(root, 452, 440));
+			stage.setScene(new Scene(root));
 
 			stage.show();
 

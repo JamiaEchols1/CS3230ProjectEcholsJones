@@ -73,7 +73,7 @@ public class LoginWindowCodeBehind {
 
             }
     	} else {
-    		this.loginFailedLbl.setText("Invalid login");
+    		this.loginFailedLbl.setText("Invalid login!");
     	}
     }
     

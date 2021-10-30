@@ -102,4 +102,8 @@ public class Employee {
 	public String getUsername() {
 		return username;
 	}
+
+	public String getFullName() {
+		return this.firstName + " " + this.lastName;
+	}
 }

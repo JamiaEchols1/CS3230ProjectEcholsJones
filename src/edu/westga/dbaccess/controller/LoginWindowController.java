@@ -1,11 +1,13 @@
-package edu.westga.devops.controller;
+package edu.westga.dbaccess.controller;
 
 import java.sql.SQLException;
 
 import edu.westga.dbaccess.dal.EmployeeDAL;
+import edu.westga.dbaccess.model.Employee;
 
 public class LoginWindowController {
 	private EmployeeDAL employeeDal;
+	private Employee login;
 
 	/**
 	 * Constructor for the login window controller
@@ -21,21 +23,20 @@ public class LoginWindowController {
 	 * @return true if the login was successful, false otherwise
 	 */
 	public boolean login(String username, String password) {
-		boolean login = false;
 		try {
-			login = this.employeeDal.validateEmployeeByLoginCredentials(username, password);
+			this.login = this.employeeDal.getEmployeeByLoginCredentials(username, password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return login;
+		return !this.login.equals(null);
 	}
 	
 	/**
 	 * 
 	 * @return this.employeeDal
 	 */
-	public EmployeeDAL getEmployeeDAL() {
-		return this.employeeDal;
+	public Employee getEmployee() {
+		return this.login;
 	}
 
 }

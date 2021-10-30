@@ -17,16 +17,19 @@ public class RegisterWindowController {
 
 	/**
 	 * Registers a customer
-	 * @param name
+	 * @param firstName
+	 * @param lastName
 	 * @param gender
 	 * @param address1
-	 * @param address2
+	 * @param zipcode
+	 * @param state
+	 * @param city
 	 * @param phoneNumber
 	 * @param birthday
 	 * @param registrationDate
 	 * @throws SQLException
 	 */
-	public void registerCustomer(String name, String gender, String address1, String address2, String phoneNumber, Date birthday, Date registrationDate) throws SQLException {
-		this.customerDal.registerCustomer(name, gender, address1, address2, phoneNumber, birthday, registrationDate);
+	public void registerCustomer(String firstName, String lastName, String zipcode, String state, String city, String gender, String address1, String phoneNumber, Date birthday, Date registrationDate) throws SQLException {
+		this.customerDal.registerCustomer(firstName, lastName, zipcode, state, city, gender, address1, phoneNumber, birthday, registrationDate);
 	}
 }

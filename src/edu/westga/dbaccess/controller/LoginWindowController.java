@@ -1,4 +1,4 @@
-package edu.westga.devops.controller;
+package edu.westga.dbaccess.controller;
 
 import java.sql.SQLException;
 

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="32.0" layoutY="49.0" prefHeight="408.0" prefWidth="462.0">
+         <children>
+            <HBox prefHeight="72.0" prefWidth="462.0" spacing="5.0">
+               <children>
+                  <Label fx:id="firstNameLabel" text="First name:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="firstNameTextField" prefHeight="25.0" prefWidth="160.0" promptText="FIRST NAME">
+                     <opaqueInsets>
+                        <Insets right="5.0" top="5.0" />
+                     </opaqueInsets>
+                  </TextField>
+                  <Label fx:id="lastNameLabel" text="Last Name:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="lastNameTextBox" prefHeight="25.0" prefWidth="170.0" promptText="LAST NAME" />
+               </children>
+            </HBox>
+            <HBox prefHeight="75.0" prefWidth="462.0" spacing="5.0">
+               <children>
+                  <Label fx:id="addressLabel" text="Address:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="addressTextField" promptText="ADDRESS" />
+                  <Label fx:id="cityLabel" text="City:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="cityTexfield" prefHeight="25.0" prefWidth="96.0" promptText="CITY" />
+                  <Label fx:id="zipCodeLabel" text="Zip code:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="zipCodeTextField" prefHeight="25.0" prefWidth="72.0" promptText="ZIP CODE" />
+               </children>
+            </HBox>
+            <HBox prefHeight="71.0" prefWidth="462.0" spacing="5.0">
+               <children>
+                  <Label fx:id="stateLabel" text="State:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="stateComboBox" prefWidth="150.0" promptText="SELECT STATE" />
+                  <Label fx:id="dateOfBirthLabel" text="Date of Birth">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <DatePicker fx:id="birthdateDatePicker" promptText="SELECT BIRTHDATE" />
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label fx:id="phoneNumberLabel" text="Phone number:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="phoneNumberTextField" promptText="PHONE NUMBER" />
+                  <Label fx:id="genderLabel" text="Gender:">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ComboBox fx:id="genderComboBox" prefWidth="150.0" promptText="SELECT GENDER" />
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="462.0" spacing="15.0">
+               <children>
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEditClick" prefHeight="25.0" prefWidth="230.0" text="EDIT">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelClick" prefHeight="25.0" prefWidth="230.0" text="CANCEL">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ComboBox fx:id="selectionComboBox" layoutX="215.0" layoutY="14.0" prefWidth="150.0" promptText="Select Member" />
+   </children>
+</AnchorPane>

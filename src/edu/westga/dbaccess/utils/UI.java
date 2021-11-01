@@ -32,5 +32,10 @@ public class UI {
         public static final String CITY_EMPTY = "City cannot be empty";
         public static final String ZIPCODE_EMPTY = "Zipcode cannot be empty";
         public static final String PHONENUMBER_EMPTY = "Phone number cannot be empty";
+        public static final String FURNITUREID_NEGATIVE = "Furniture id must be positive";
+        public static final String PRICE_NEGATIVE = "Price must be positive";
+        public static final String STYLE_NEGATIVE = "Style must be positive";
+        public static final String CATEGORY_NEGATIVE = "Category must be positive";
+        public static final String QUANTITY_NEGATIVE = "Quantity cannot be negative";
     }
 }

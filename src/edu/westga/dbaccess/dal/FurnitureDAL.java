@@ -1,11 +1,19 @@
 package edu.westga.dbaccess.dal;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.List;
+
 import edu.westga.dbaccess.model.Furniture;
+
 /**
 * The furniture dal
 *
-* @author Jamie Echols
+* @author Jamia Echols
 * @version Fall 2021
 **/
 public class FurnitureDAL {
@@ -27,12 +35,12 @@ public class FurnitureDAL {
 			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(styleQuery)) {
 
-				stmt.setString(1, styleId);
+				stmt.setLong(1, styleId);
 
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
-					furniture.add(new Furniture(rs.getInt("furnitureId")), rs.getDouble("price"), rs.getInt("styleId"),
-						rs.getInt("categoryId"), rs.getInt("quantity"));
+					furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("price"), rs.getInt("styleId"),
+						rs.getInt("categoryId"), rs.getInt("quantity")));
 				}
 
 			}
@@ -42,12 +50,12 @@ public class FurnitureDAL {
 			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(styleQuery)) {
 
-				stmt.setString(1, styleId);
+				stmt.setLong(1, categoryId);
 
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
-					furniture.add(new Furniture(rs.getInt("furnitureId")), rs.getDouble("price"), rs.getInt("styleId"),
-						rs.getInt("categoryId"), rs.getInt("quantity"));
+					furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("price"), rs.getInt("styleId"),
+						rs.getInt("categoryId"), rs.getInt("quantity")));
 				}
 
 			}

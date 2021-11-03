@@ -1,5 +1,6 @@
 package edu.westga.dbaccess.view;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,6 +8,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import edu.westga.dbaccess.dal.FurnitureDAL;
+import edu.westga.dbaccess.model.Furniture;
+
+import java.util.List;
+import java.util.HashSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class FurnitureSearchCodeBehind {
 
@@ -23,7 +30,7 @@ public class FurnitureSearchCodeBehind {
     private ComboBox<?> categoryComboBox;
 
     @FXML
-    private ListView<?> furnitureListView;
+    private ListView<Furniture> furnitureListView;
 
     private FurnitureDAL furnitureDal;
 
@@ -43,10 +50,10 @@ public class FurnitureSearchCodeBehind {
     }
 
     @FXML
-    void handleSearchButtonClick(ActionEvent event) {
-        this.styleIds = (List<Integer>) this.styleFilterComboBox.getSelectionModel().getSelectedItems();
-        this.categoryIds = (List<Integer>) this.categoryComboBox.getSelectionModel().getSelectedItems();
-        List<Furniture> furnture = new ArrayList<Furniture> (this.furnitureDal.getFurnitureByCriteria(this.styleIds, this.categoryIds));
+    void handleSearchButtonClick(ActionEvent event) throws SQLException {
+        this.styleIds = (List<Integer>) this.styleFilterComboBox.getSelectionModel().getSelectedItem();
+        this.categoryIds = (List<Integer>) this.categoryComboBox.getSelectionModel().getSelectedItem();
+        ObservableList<Furniture> furniture = (ObservableList<Furniture>) new ArrayList<Furniture> (this.furnitureDal.getFurnitureByCriteria(this.styleIds, this.categoryIds));
         this.furnitureListView.setItems(furniture);
     }
 

@@ -2,6 +2,7 @@ package edu.westga.dbaccess.view;
 
 import java.io.IOException;
 
+import edu.westga.dbaccess.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -25,6 +27,12 @@ public class LandingWindowCodeBehind {
 
     @FXML
     private Button registerBtn;
+    
+    @FXML
+    private ComboBox<Customer> customerComboBox;
+    
+    @FXML
+    private Button shopButton;
 
 
     @FXML
@@ -61,7 +69,16 @@ public class LandingWindowCodeBehind {
     }
     
     @FXML
-    void handleSearchClick(ActionEvent event) {
+    void initilize() {
+    	this.shopButton.isDisable();
+    	this.setupBindings();
+    }
+    
+    private void setupBindings() {
+    	    }
+    
+    @FXML
+    void handleShopClick(ActionEvent event) {
     	Parent root;
 
 		try{
@@ -69,7 +86,13 @@ public class LandingWindowCodeBehind {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\FurnitureSearchWindow.fxml"));
 
 			root = loader.load();
-
+			
+			FurnitureSearchCodeBehind codeBehind = loader.getController();
+			
+			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem().getMemberID());
+			
+			codeBehind.setEmployee(Integer.parseInt(this.idLbl.getText()));
+			
 			Stage stage = new Stage();
 
 			stage.setTitle("Search Window");

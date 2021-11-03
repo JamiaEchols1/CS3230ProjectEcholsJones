@@ -11,5 +11,7 @@
       <ComboBox fx:id="styleFilterComboBox" layoutX="35.0" layoutY="29.0" prefHeight="25.0" prefWidth="230.0" promptText="SELECT STYLE" />
       <ComboBox fx:id="categoryComboBox" layoutX="328.0" layoutY="29.0" prefWidth="230.0" promptText="SELECT CATEGORY" />
       <ListView fx:id="furnitureListView" layoutX="35.0" layoutY="80.0" prefHeight="200.0" prefWidth="650.0" />
+      <Button fx:id="addToCartButton" layoutX="98.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleAddToCartButtonClick" text="ADD TO CART" />
+      <Button fx:id="checkoutButton" layoutX="449.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleCheckoutButton" text="CHECKOUT" />
    </children>
 </AnchorPane>

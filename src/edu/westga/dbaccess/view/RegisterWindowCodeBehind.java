@@ -22,6 +22,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * The register window
+ * 
+ * @author 
+ *
+ */
 public class RegisterWindowCodeBehind {
 
 	@FXML

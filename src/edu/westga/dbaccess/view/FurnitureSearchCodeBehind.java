@@ -64,6 +64,16 @@ public class FurnitureSearchCodeBehind {
     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByCriteria(this.getStyleId(this.styleFilterComboBox.getSelectionModel().getSelectedItem()), this.getCategoryId(this.categoryComboBox.getSelectionModel().getSelectedItem())));
     }
     
+    @FXML
+    void handleAddToCartButtonClick(ActionEvent event) throws SQLException {
+    	
+    }
+    
+    @FXML
+    void handleCheckoutButtonClick(ActionEvent event) throw SQLException {
+    	
+    }
+    
     private int getStyleId(String styleLabel) {
     	for (Style style : this.styles) {
     		if (style.getLabel() == styleLabel) {

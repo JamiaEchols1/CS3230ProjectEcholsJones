@@ -24,7 +24,7 @@ public class UI {
         public static final String BIRTHDAY_NULL = "Birthday cannot be null";
         public static final String PHONENUMBER_NULL = "Phone number cannot be null";
         public static final String REGISTATIONDATE_NULL = "Registation date cannot be null";
-        public static final String FISTNAME_EMPTY = "Firstname cannot be empty";
+        public static final String FIRSTNAME_EMPTY = "Firstname cannot be empty";
         public static final String LASTNAME_EMPTY = "Lastname cannot be empty";
         public static final String ADDRESS_EMPTY = "Address cannot be empty";
         public static final String STATE_EMPTY = "State cannot be empty";
@@ -39,5 +39,6 @@ public class UI {
         public static final String QUANTITY_NEGATIVE = "Quantity cannot be negative";
         public static final String LABEL_NULL = "Label cannot be null";
         public static final String LABEL_EMPTY = "Label cannot be empty";
+        public static final String ID_NEGATIVE = "Id cannot be negative";
     }
 }

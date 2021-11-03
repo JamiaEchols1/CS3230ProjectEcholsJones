@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -27,8 +28,10 @@ public class RentalTransactionDAL {
 	 * @param employeeId the employeeId
 	 * 
 	 * @throws SQLException
+	 * 
+	 * @return the transaction Id
 	 */
-	public void createRentalTransaction(Date dueDate, Date transactionDate, int customerId, int employeeId) throws SQLException {
+	public int createRentalTransaction(Date dueDate, Date transactionDate, int customerId, int employeeId) throws SQLException {
 		String query = "insert onto rental_transaction (dueDate, transactionDate, customerId, employeeId values (?,?,?,?)";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 					PreparedStatement stmt = connection.prepareStatement(query)) { 
@@ -36,8 +39,9 @@ public class RentalTransactionDAL {
 				stmt.setDate(2, transactionDate);
 				stmt.setInt(3, customerId);
 				stmt.setInt(4, employeeId);
-				stmt.execute();
+				ResultSet rs = stmt.executeQuery();
+				
+				return rs.getInt("transactionId");
 			}
-		
 	}
 }

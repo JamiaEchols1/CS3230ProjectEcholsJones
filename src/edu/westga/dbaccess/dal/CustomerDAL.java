@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.util.HashMap;
 
 import edu.westga.dbaccess.model.Customer;
 
@@ -16,6 +17,25 @@ import edu.westga.dbaccess.model.Customer;
  * @version 1.0
  */
 public class CustomerDAL {
+	
+	/**
+	 * Gets the list of customers;
+	 * 
+	 * @return the map of the customers
+	 */
+	public HashMap<Integer, Customer> getAllCustomers() throws SQLException {
+		HashMap<Integer, Customer> customers = new HashMap<Integer, Customer>();
+		String query = "select * from customer";
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+				PreparedStatement stmt = connection.prepareStatement(query)){ 
+			
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				customers.put(rs.getInt("memberId"), new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"), rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate")));
+			}
+			return customers;
+		}
+	}
 
 	/**
 	 * Gets a customer based on their memberId
@@ -24,7 +44,6 @@ public class CustomerDAL {
 	 * @throws SQLException
 	 */
 	public Customer getCustomerWithMemberId(int memberId) throws SQLException{
-		
 		String query = "select memberID, firstName, lastName, gender, address1, state, zipcode, city, phoneNumber, birthday, registrationDate from customer where memberId = ?";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 				PreparedStatement stmt = connection.prepareStatement(query)){ 

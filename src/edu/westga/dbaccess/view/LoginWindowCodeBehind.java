@@ -3,6 +3,7 @@ package edu.westga.dbaccess.view;
 import java.io.IOException;
 
 import edu.westga.dbaccess.controller.LoginWindowController;
+import edu.westga.dbaccess.dal.CustomerDAL;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

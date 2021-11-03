@@ -1,7 +1,10 @@
 package edu.westga.dbaccess.view;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.HashMap;
 
+import edu.westga.dbaccess.dal.CustomerDAL;
 import edu.westga.dbaccess.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +36,12 @@ public class LandingWindowCodeBehind {
     
     @FXML
     private Button shopButton;
-
+    
+    private CustomerDAL customerDal;
+    
+    public LandingWindowCodeBehind() {
+    	this.customerDal = new CustomerDAL();
+    }
 
     @FXML
     void registerBtnClick(ActionEvent event) {
@@ -69,13 +77,21 @@ public class LandingWindowCodeBehind {
     }
     
     @FXML
-    void initilize() {
-    	this.shopButton.isDisable();
+    void initialize() throws SQLException {
+    	this.shopButton.setDisable(true);
+    	this.customerComboBox.getItems().setAll(this.customerDal.getAllCustomers().values());
     	this.setupBindings();
     }
     
-    private void setupBindings() {
-    	    }
+    private void setupBindings() throws SQLException {
+    	 this.customerComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		 if (newValue != null) {
+    			 this.shopButton.setDisable(false);
+    		 } else {
+    			 this.shopButton.setDisable(true);
+    		 }
+    	 });
+    }
     
     @FXML
     void handleShopClick(ActionEvent event) {

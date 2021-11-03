@@ -29,19 +29,32 @@ public class RentalTransactionDAL {
 	 * 
 	 * @throws SQLException
 	 * 
-	 * @return the transaction Id
 	 */
-	public int createRentalTransaction(Date dueDate, Date transactionDate, int customerId, int employeeId) throws SQLException {
-		String query = "insert onto rental_transaction (dueDate, transactionDate, customerId, employeeId values (?,?,?,?)";
+	public void createRentalTransaction(int transactionId, Date dueDate, Date transactionDate, int customerId, int employeeId) throws SQLException {
+		String query = "insert into rental_transaction (transactionId, dueDate, transactionDate, customerId, employeeId) values (?,?,?,?,?)";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 					PreparedStatement stmt = connection.prepareStatement(query)) { 
-				stmt.setDate(1, dueDate);
-				stmt.setDate(2, transactionDate);
-				stmt.setInt(3, customerId);
-				stmt.setInt(4, employeeId);
-				ResultSet rs = stmt.executeQuery();
-				
-				return rs.getInt("transactionId");
+				stmt.setInt(1, transactionId);
+				stmt.setDate(2, dueDate);
+				stmt.setDate(3, transactionDate);
+				stmt.setInt(4, customerId);
+				stmt.setInt(5, employeeId);
+				stmt.execute();
+		}
+	}
+	
+	public int getSizeOfTable() throws SQLException {
+		String idQuery = "select * from rental_transaction";
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+				PreparedStatement stmt = connection.prepareStatement(idQuery)) { 
+
+			ResultSet rs = stmt.executeQuery();
+			
+			int size = 0;
+			while (rs.next()) {
+				size++;
 			}
+			return size;
+		}
 	}
 }

@@ -17,25 +17,50 @@ import edu.westga.dbaccess.model.Furniture;
 * @version Fall 2021
 **/
 public class FurnitureDAL {
+	
+	/**
+	 * Gets all the furniture items
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return a hashset of furniture items
+	 * 
+	 * @throws SQLException
+	 */
+	public HashSet<Furniture> getAllFurniture() throws SQLException {
+		HashSet<Furniture> furniture = new HashSet<Furniture>();
+		String query = "select  furnitureId, price, styleId, categoryId, quantity from furniture";
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+			PreparedStatement stmt = connection.prepareStatement(query)) {
+				
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("price"), rs.getInt("styleId"),
+					rs.getInt("categoryId"), rs.getInt("quantity")));
+			}
+		}
+		return furniture;
+	}
+	
 	/**
 	 * Gets a list of furniture by their style and category
 	 * 
-	 * @param styleIds the list of style Ids
-	 * @param categoryIds the list of category ids 
+	 * @param styleId the style Ids
+	 * @param categoryId the category ids 
 	 *
 	 * @return a hashset of furniture
 
 	 * @throws SQLException
 	 */
-	 public HashSet<Furniture> getFurnitureByCriteria(List<Integer> styleIds, List<Integer> categoryIds) throws SQLException {
+	 public HashSet<Furniture> getFurnitureByCriteria(int styleId, int categoryId) throws SQLException {
 		HashSet<Furniture> furniture = new HashSet<Furniture>();
-		String styleQuery = "select furnitureId, price, styleId, categoryId, quantity from furniture where style=?";
-		String categoryQuery = "select  furnitureId, price, styleId, categoryId, quantity from furniture where category=?";
-		for (Integer styleId : styleIds) {
-			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
-				PreparedStatement stmt = connection.prepareStatement(styleQuery)) {
+		String filterQuery = "select furnitureId, price, styleId, categoryId, quantity from furniture where styleId=? and categoryId=?";
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(filterQuery)) {
 
 				stmt.setLong(1, styleId);
+				stmt.setLong(2, categoryId);
 
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
@@ -44,22 +69,6 @@ public class FurnitureDAL {
 				}
 
 			}
-		}
-
-		for (Integer categoryId : categoryIds) {
-			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
-				PreparedStatement stmt = connection.prepareStatement(styleQuery)) {
-
-				stmt.setLong(1, categoryId);
-
-				ResultSet rs = stmt.executeQuery();
-				while (rs.next()) {
-					furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("price"), rs.getInt("styleId"),
-						rs.getInt("categoryId"), rs.getInt("quantity")));
-				}
-
-			}
-		}
 		return furniture;
 	 }
 }

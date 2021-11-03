@@ -37,5 +37,7 @@ public class UI {
         public static final String STYLE_NEGATIVE = "Style must be positive";
         public static final String CATEGORY_NEGATIVE = "Category must be positive";
         public static final String QUANTITY_NEGATIVE = "Quantity cannot be negative";
+        public static final String LABEL_NULL = "Label cannot be null";
+        public static final String LABEL_EMPTY = "Label cannot be empty";
     }
 }

@@ -59,6 +59,37 @@ public class LandingWindowCodeBehind {
 
         }
     }
+    
+    @FXML
+    void handleSearchClick(ActionEvent event) {
+    	Parent root;
+
+		try{
+
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\FurnitureSearchWindow.fxml"));
+
+			root = loader.load();
+
+			Stage stage = new Stage();
+
+			stage.setTitle("Search Window");
+
+			stage.setScene(new Scene(root));
+
+			stage.show();
+
+			Node node = ((Node)(event.getSource()));
+
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
+
+		} catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+    }
 
 	 public void setTitle(String name, String username, int id) {
     	this.employeeNameLbl.setText(name);

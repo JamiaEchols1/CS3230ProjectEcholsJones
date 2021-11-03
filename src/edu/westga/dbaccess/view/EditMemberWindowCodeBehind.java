@@ -87,6 +87,7 @@ public class EditMemberWindowCodeBehind {
 
     }
     
+    
     @FXML
 	void initialize() {
 		this.stateComboBox.getItems().addAll("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",

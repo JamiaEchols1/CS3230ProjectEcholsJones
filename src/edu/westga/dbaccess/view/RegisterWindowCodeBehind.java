@@ -20,15 +20,38 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
  * The register window
  * 
- * @author 
+ * @author Rasheed Jones
+ * @version Fall 2021
  *
  */
 public class RegisterWindowCodeBehind {
+
+	@FXML
+	private Label nameErrorLabel;
+
+	@FXML
+	private Label cityLabel;
+
+	@FXML
+	private Label addressErrorLabel;
+
+	@FXML
+	private Label birthdayErrorLabel;
+
+	@FXML
+	private Label phoneNumberErrorLabel;
+
+	@FXML
+	private Label genderErrorLabel;
+
+	@FXML
+	private AnchorPane anchorPane;
 
 	@FXML
 	private Label firstNameLabel;
@@ -103,16 +126,10 @@ public class RegisterWindowCodeBehind {
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			alert.setContentText("Customer Updated");
 			alert.show();
-			this.controller.registerCustomer(this.firstNameTextField.getText(), this.lastNameTextBox.getText(),
-					this.zipCodeTextField.getText(), this.cityTexfield.getText(),
-					this.genderComboBox.getSelectionModel().getSelectedItem(), this.addressTextField.getText(),
-					this.stateComboBox.getSelectionModel().getSelectedItem(), this.phoneNumberTextField.getText(),
-					java.sql.Date.valueOf(this.birthdateDatePicker.getValue()), java.sql.Date.valueOf(LocalDate.now()));
-		} catch (Exception e) {
+		} catch (Exception exception) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText(e.getMessage());
+			alert.setContentText(exception.getMessage());
 			alert.show();
-			e.printStackTrace();
 		}
 	}
 
@@ -125,24 +142,25 @@ public class RegisterWindowCodeBehind {
 		try {
 			root = loader.load();
 
-		LandingWindowCodeBehind landingWindow = loader.getController();
-		
-		Stage stage = new Stage();
+			LandingWindowCodeBehind landingWindow = loader.getController();
 
-		stage.setTitle("Registration Window");
+			Stage stage = new Stage();
 
-		stage.setScene(new Scene(root));
+			stage.setTitle("Registration Window");
 
-		stage.show();
+			stage.setScene(new Scene(root));
 
-		Node node = ((Node) (event.getSource()));
+			stage.show();
 
-		Stage thisStage = (Stage) node.getScene().getWindow();
+			Node node = ((Node) (event.getSource()));
 
-		thisStage.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
+		} catch (IOException exception) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText(exception.getMessage());
+			alert.show();
 		}
 	}
 
@@ -157,6 +175,111 @@ public class RegisterWindowCodeBehind {
 				"Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming");
 		this.genderComboBox.getItems().addAll("Male", "Female", "Other");
 		this.controller = new RegisterWindowController();
+		this.setupListeners();
+	}
+
+	private void setupListeners() {
+		try {
+			this.nameValidation();
+			this.nameErrorLabel.setVisible(false);
+		} catch (Exception exception) {
+			this.nameErrorLabel.setVisible(true);
+		}
+		try {
+			this.addressValidation();
+			this.addressErrorLabel.setVisible(false);
+		} catch (Exception exception) {
+			this.addressErrorLabel.setVisible(true);
+		}
+		
+		this.genderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue == null) {
+					throw new IllegalArgumentException();
+				}
+				this.genderErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.genderErrorLabel.setVisible(true);
+			}
+		});
+		this.phoneNumberTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue.isEmpty() || newValue.length() != 10) {
+					throw new IllegalArgumentException();
+				}
+				Integer.parseInt(newValue);
+				this.phoneNumberErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.phoneNumberErrorLabel.setVisible(true);
+			}
+		});
+
+	}
+
+	private void nameValidation() throws Exception {
+		this.firstNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue.isEmpty() || newValue.length() < 1) {
+					throw new IllegalArgumentException();
+				}
+				this.nameErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.nameErrorLabel.setVisible(true);
+			}
+		});
+		this.lastNameTextBox.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue.isEmpty() || newValue.length() < 1) {
+					throw new IllegalArgumentException();
+				} 
+				this.nameErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.nameErrorLabel.setVisible(true);
+			}
+		});
+	}
+	
+	private void addressValidation() throws Exception {
+		this.addressTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue.isEmpty() || newValue.length() < 1) {
+					throw new IllegalArgumentException();
+				}
+				this.addressErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.addressErrorLabel.setVisible(true);
+			}
+		});
+		this.cityTexfield.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {	
+				if (newValue.isEmpty() || newValue.length() < 1) {
+					throw new IllegalArgumentException();
+				}
+				this.addressErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.addressErrorLabel.setVisible(true);
+			}
+		});
+		this.zipCodeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue.isEmpty() || newValue.length() != 6) {
+					throw new IllegalArgumentException();
+				}
+				Integer.parseInt(newValue);this.addressErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.addressErrorLabel.setVisible(true);	
+			}
+		});
+		this.stateComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+		try {
+			if (newValue == null) {
+				throw new IllegalArgumentException();
+			}
+			this.addressErrorLabel.setVisible(false);
+		} catch (Exception exception) {
+			this.addressErrorLabel.setVisible(true);
+		}
+		});
 	}
 
 }

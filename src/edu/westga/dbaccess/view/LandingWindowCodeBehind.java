@@ -17,6 +17,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * The landing page code behind
+ * 
+ * @author Rasheed Jones
+ * @version Fall 2021
+ */
 public class LandingWindowCodeBehind {
 
     @FXML

@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="467.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.EditMemberWindowCodeBehind">
    <children>
       <VBox layoutX="32.0" layoutY="49.0" prefHeight="408.0" prefWidth="462.0">
          <children>
@@ -108,6 +107,5 @@
             </HBox>
          </children>
       </VBox>
-      <ComboBox fx:id="selectionComboBox" layoutX="215.0" layoutY="14.0" prefWidth="150.0" promptText="Select Member" />
    </children>
 </AnchorPane>

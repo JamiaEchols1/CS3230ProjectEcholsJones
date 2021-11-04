@@ -37,6 +37,9 @@ public class LandingWindowCodeBehind {
     @FXML
     private Button shopButton;
     
+    @FXML
+    private Button searchBtn;
+    
     private CustomerDAL customerDal;
     
     public LandingWindowCodeBehind() {
@@ -109,6 +112,39 @@ public class LandingWindowCodeBehind {
 			
 			codeBehind.setEmployee(Integer.parseInt(this.idLbl.getText()));
 			
+			Stage stage = new Stage();
+
+			stage.setTitle("Search Window");
+
+			stage.setScene(new Scene(root));
+
+			stage.show();
+
+			Node node = ((Node)(event.getSource()));
+
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
+
+		} catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+    }
+    
+    @FXML
+    void searchBtnClick(ActionEvent event) {
+    	Parent root;
+
+		try{
+
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\SearchWindow.fxml"));
+
+			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\SearchWindow.fxml"));
+
+			root = loader.load();
+
 			Stage stage = new Stage();
 
 			stage.setTitle("Search Window");

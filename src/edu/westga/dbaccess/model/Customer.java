@@ -1,6 +1,6 @@
 package edu.westga.dbaccess.model;
 
-import java.util.Date;
+import java.sql.Date;
 import edu.westga.dbaccess.utils.UI;
 
 /**
@@ -26,19 +26,20 @@ public class Customer {
 	 * 
 	 * Constructor for customers
 	 * 
-	 * @param id the customers id
-	 * @param firstName the first name of the customer
-	 * @param lastName the last name of the customer
-	 * @param gender the customers gender
-	 * @param address1 the customers first address portion
-	 * @param state the customers state
-	 * @param zipcode the customers zipcode
-	 * @param city the customers city
-	 * @param phoneNumber the customers phone number
-	 * @param birthday the customers birthday
+	 * @param id               the customers id
+	 * @param firstName        the first name of the customer
+	 * @param lastName         the last name of the customer
+	 * @param gender           the customers gender
+	 * @param address1         the customers first address portion
+	 * @param state            the customers state
+	 * @param zipcode          the customers zipcode
+	 * @param city             the customers city
+	 * @param phoneNumber      the customers phone number
+	 * @param birthday         the customers birthday
 	 * @param registrationDate the customers registration date;
 	 */
-	public Customer(int id, String firstName, String lastName, String gender, String address1, String state, String city, String zipcode, String phoneNumber, Date birthday, Date registrationDate) {
+	public Customer(int id, String firstName, String lastName, String gender, String address1, String state,
+			String city, String zipcode, String phoneNumber, Date birthday, Date registrationDate) {
 		if (id <= 0) {
 			throw new IllegalArgumentException(UI.ErrorMessages.ID_NULL);
 		}
@@ -88,7 +89,6 @@ public class Customer {
 		return this.memberID;
 	}
 
-
 	/**
 	 * Gets the firstname
 	 * 
@@ -132,7 +132,6 @@ public class Customer {
 		return birthday;
 	}
 
-
 	/**
 	 * @return the registrationDate
 	 */
@@ -142,6 +141,7 @@ public class Customer {
 
 	/**
 	 * Returns the gender
+	 * 
 	 * @return return this.gender
 	 */
 	public String getGender() {
@@ -168,14 +168,14 @@ public class Customer {
 
 	/**
 	 * Returns the city
-	 *  
+	 * 
 	 * @return the city
 	 */
 	public String getCity() {
 		return this.city;
 	}
-	
-	@Override 
+
+	@Override
 	public String toString() {
 		return this.firstName + " " + this.lastName;
 	}

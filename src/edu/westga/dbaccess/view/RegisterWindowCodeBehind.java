@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 /**
  * The register window
  * 
- * @author 
+ * @author
  *
  */
 public class RegisterWindowCodeBehind {
@@ -125,21 +125,21 @@ public class RegisterWindowCodeBehind {
 		try {
 			root = loader.load();
 
-		LandingWindowCodeBehind landingWindow = loader.getController();
-		
-		Stage stage = new Stage();
+			LandingWindowCodeBehind landingWindow = loader.getController();
 
-		stage.setTitle("Registration Window");
+			Stage stage = new Stage();
 
-		stage.setScene(new Scene(root));
+			stage.setTitle("Registration Window");
 
-		stage.show();
+			stage.setScene(new Scene(root));
 
-		Node node = ((Node) (event.getSource()));
+			stage.show();
 
-		Stage thisStage = (Stage) node.getScene().getWindow();
+			Node node = ((Node) (event.getSource()));
 
-		thisStage.close();
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

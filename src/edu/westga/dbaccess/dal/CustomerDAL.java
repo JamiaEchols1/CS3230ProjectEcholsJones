@@ -91,4 +91,38 @@ public class CustomerDAL {
 			stmt.execute();
 		}
 	}
+
+	public Customer getCustomerWithFullName(String firstName, String lastName) throws SQLException {
+		String query = "select memberID, firstName, lastName, gender, address1, state, zipcode, city, phoneNumber, birthday, registrationDate from customer where firstName = ? and lastName = ?";
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+				PreparedStatement stmt = connection.prepareStatement(query)){ 
+		    
+			stmt.setString(1, firstName);
+			stmt.setString(2, lastName);
+	
+			ResultSet rs = stmt.executeQuery();
+			Customer customer = null;
+			while(rs.next()) {
+			customer = new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"), rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate"));
+			}
+			return customer;
+		}
+	}
+
+	public Customer getCustomerWithPhoneNumber(String phoneNumber) throws SQLException {
+		String query = "select memberID, firstName, lastName, gender, address1, state, zipcode, city, phoneNumber, birthday, registrationDate from customer where phoneNumber = ?";
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+				PreparedStatement stmt = connection.prepareStatement(query)){ 
+		    
+			stmt.setString(1, phoneNumber);
+
+	
+			ResultSet rs = stmt.executeQuery();
+			Customer customer = null;
+			while(rs.next()) {
+			customer = new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"), rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate"));
+			}
+			return customer;
+		}
+	}
 }

@@ -28,13 +28,13 @@ public class FurnitureDAL {
 	 */
 	public HashSet<Furniture> getAllFurniture() throws SQLException {
 		HashSet<Furniture> furniture = new HashSet<Furniture>();
-		String query = "select  furnitureId, price, styleId, categoryId, quantity from furniture";
+		String query = "select  furnitureId, daily_rental_rate, styleId, categoryId, quantity from furniture";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 			PreparedStatement stmt = connection.prepareStatement(query)) {
 				
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("price"), rs.getInt("styleId"),
+				furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("daily_rental_rate"), rs.getInt("styleId"),
 					rs.getInt("categoryId"), rs.getInt("quantity")));
 			}
 		}
@@ -52,7 +52,7 @@ public class FurnitureDAL {
 	 */
 	 public HashSet<Furniture> getFurnitureByStyle(int styleId) throws SQLException {
 		HashSet<Furniture> furniture = new HashSet<Furniture>();
-		String filterQuery = "select furnitureId, price, styleId, categoryId, quantity from furniture where styleId=?";
+		String filterQuery = "select furnitureId, daily_rental_rate, styleId, categoryId, quantity from furniture where styleId=?";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(filterQuery)) {
 
@@ -60,7 +60,7 @@ public class FurnitureDAL {
 
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
-					furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("price"), rs.getInt("styleId"),
+					furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("daily_rental_rate"), rs.getInt("styleId"),
 						rs.getInt("categoryId"), rs.getInt("quantity")));
 				}
 
@@ -79,7 +79,7 @@ public class FurnitureDAL {
 		 */
 		 public HashSet<Furniture> getFurnitureByCategory(int categoryId) throws SQLException {
 			HashSet<Furniture> furniture = new HashSet<Furniture>();
-			String filterQuery = "select furnitureId, price, styleId, categoryId, quantity from furniture where categoryId=?";
+			String filterQuery = "select furnitureId, daily_rental_rate, styleId, categoryId, quantity from furniture where categoryId=?";
 			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 					PreparedStatement stmt = connection.prepareStatement(filterQuery)) {
 
@@ -87,7 +87,7 @@ public class FurnitureDAL {
 
 					ResultSet rs = stmt.executeQuery();
 					while (rs.next()) {
-						furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("price"), rs.getInt("styleId"),
+						furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("daily_rental_rate"), rs.getInt("styleId"),
 							rs.getInt("categoryId"), rs.getInt("quantity")));
 					}
 

@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.RegisterWindowCodeBehind">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.RegisterWindowCodeBehind">
    <children>
-      <VBox layoutX="22.0" layoutY="36.0" prefHeight="342.0" prefWidth="462.0">
+      <VBox layoutX="18.0" layoutY="37.0" prefHeight="342.0" prefWidth="462.0">
          <children>
             <HBox prefHeight="72.0" prefWidth="462.0" spacing="5.0">
                <children>
@@ -22,7 +21,7 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="firstNameTextField" prefHeight="25.0" prefWidth="160.0" promptText="FIRST NAME">
+                  <TextField fx:id="firstNameTextField" prefHeight="25.0" prefWidth="160.0">
                      <opaqueInsets>
                         <Insets right="5.0" top="5.0" />
                      </opaqueInsets>
@@ -32,9 +31,10 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="lastNameTextBox" prefHeight="25.0" prefWidth="170.0" promptText="LAST NAME" />
+                  <TextField fx:id="lastNameTextBox" prefHeight="25.0" prefWidth="170.0"/>
                </children>
             </HBox>
+            <Label fx:id="nameErrorLabel" text="Must enter valid Name" textFill="RED" visible="false" />
             <HBox prefHeight="75.0" prefWidth="462.0" spacing="5.0">
                <children>
                   <Label fx:id="addressLabel" text="Address:">
@@ -42,21 +42,22 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="addressTextField" promptText="ADDRESS" />
+                  <TextField fx:id="addressTextField"/>
                   <Label fx:id="cityLabel" text="City:">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="cityTexfield" prefHeight="25.0" prefWidth="96.0" promptText="CITY" />
+                  <TextField fx:id="cityTexfield" prefHeight="25.0" prefWidth="96.0" />
                   <Label fx:id="zipCodeLabel" text="Zip code:">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="zipCodeTextField" prefHeight="25.0" prefWidth="72.0" promptText="ZIP CODE" />
+                  <TextField fx:id="zipCodeTextField" prefHeight="25.0" prefWidth="72.0" />
                </children>
             </HBox>
+            <Label fx:id="addressErrorLabel" text="Must enter vaild address" textFill="RED" visible="false" />
             <HBox prefHeight="71.0" prefWidth="462.0" spacing="5.0">
                <children>
                   <Label fx:id="stateLabel" text="State:">
@@ -76,6 +77,7 @@
                   <Insets />
                </VBox.margin>
             </HBox>
+            <Label fx:id="birthdayErrorLabel" text="Must select birthday" textFill="RED" visible="false" />
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
                   <Label fx:id="phoneNumberLabel" text="Phone number:">
@@ -83,7 +85,7 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="phoneNumberTextField" promptText="PHONE NUMBER"/>
+                  <TextField fx:id="phoneNumberTextField" />
                   <Label fx:id="genderLabel" text="Gender:">
                      <HBox.margin>
                         <Insets top="5.0" />
@@ -92,6 +94,8 @@
                   <ComboBox fx:id="genderComboBox" prefWidth="150.0" promptText="SELECT GENDER" />
                </children>
             </HBox>
+            <Label fx:id="phoneNumberErrorLabel" text="Must have valid phone number (ex. 1234567890)" textFill="RED" visible="false" />
+            <Label fx:id="genderErrorLabel" text="Must select gender" textFill="RED" visible="false" />
             <HBox prefHeight="45.0" prefWidth="462.0" spacing="15.0">
                <children>
                   <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegisterClick" prefHeight="25.0" prefWidth="230.0" text="REGISTER">

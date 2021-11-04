@@ -97,13 +97,13 @@ public class LandingWindowCodeBehind {
     void handleShopClick(ActionEvent event) {
     	Parent root;
 
-		try{
+		try {
 
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\FurnitureSearchWindow.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\FurnitureShopWindow.fxml"));
 
 			root = loader.load();
 			
-			FurnitureSearchCodeBehind codeBehind = loader.getController();
+			FurnitureShopCodeBehind codeBehind = loader.getController();
 			
 			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem().getMemberID());
 			

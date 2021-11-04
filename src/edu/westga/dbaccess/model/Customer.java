@@ -148,14 +148,29 @@ public class Customer {
 		return gender;
 	}
 
+	/**
+	 * Returns the zipcode
+	 * 
+	 * @return the zipcode
+	 */
 	public String getZipcode() {
 		return this.zipcode;
 	}
 
+	/**
+	 * Returns the state
+	 * 
+	 * @return the state
+	 */
 	public String getState() {
 		return this.state;
 	}
 
+	/**
+	 * Returns the city
+	 *  
+	 * @return the city
+	 */
 	public String getCity() {
 		return this.city;
 	}

@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -30,7 +29,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FurnitureSearchCodeBehind {
+/**
+ * The 
+ */
+public class FurnitureShopCodeBehind {
 
     @FXML
     private TextField searchTextField;
@@ -96,7 +98,7 @@ public class FurnitureSearchCodeBehind {
      * @precondition none
      * 
      */
-    public FurnitureSearchCodeBehind () {
+    public FurnitureShopCodeBehind () {
         this.furnitureDal = new FurnitureDAL();
         this.categoryDal = new CategoryDAL();
         this.styleDal = new StyleDAL();

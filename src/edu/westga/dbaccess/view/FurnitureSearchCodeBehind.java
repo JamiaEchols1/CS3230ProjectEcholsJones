@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -60,11 +61,34 @@ public class FurnitureSearchCodeBehind {
     
     private List<Category> categories;
 
-    private HashMap<Integer, Integer> furnitureIds;
+    private HashMap<Furniture, Integer> rentalCart;
     
     private int employeeId;
     
     private int customerId;
+    
+    @FXML
+    private Button searchCategoryButton;
+
+    @FXML
+    private Button addToCartButton;
+
+    @FXML
+    private Button checkoutButton;
+
+    @FXML
+    private Button searchStyleButton;
+
+    @FXML
+    private ListView<Furniture> cartListView;
+
+    @FXML
+    private Button removeButton;
+
+    @FXML
+    private Label costLabel;
+    
+    private double cartCost;
     
     /**
      * Initializes the Furniture search code behind;
@@ -80,9 +104,10 @@ public class FurnitureSearchCodeBehind {
         this.itemDal = new RentalItemDAL();
         this.styles = new ArrayList<Style>();
         this.categories = new ArrayList<Category>();
-        this.furnitureIds = new HashMap<Integer, Integer>();
+        this.rentalCart = new HashMap<Furniture, Integer>();
         this.employeeId = 0;
         this.customerId = 0;
+        this.cartCost = 0.0;
     }
 
     @FXML
@@ -100,23 +125,42 @@ public class FurnitureSearchCodeBehind {
     @FXML
     void handleAddToCartButtonClick(ActionEvent event) throws SQLException {
     	for (Furniture furniture: this.furnitureListView.getSelectionModel().getSelectedItems()) {
-    		if (!this.furnitureIds.containsKey(furniture.getFurnitureId())) {
-    			this.furnitureIds.put(furniture.getFurnitureId(),1);
+    		if (!this.rentalCart.containsKey(furniture)) {
+    			this.rentalCart.put(furniture,1);
+    			this.cartCost += furniture.getPrice();
     		} else {
-    			int quantity = this.furnitureIds.get(furniture.getFurnitureId());
+    			int quantity = this.rentalCart.get(furniture);
     			quantity++;
-    			this.furnitureIds.put(furniture.getFurnitureId(), quantity);
+    			this.rentalCart.put(furniture, quantity);
+    			this.cartCost += furniture.getPrice();
     		}
     	}
+    	this.costLabel.setText( "Total: " + this.cartCost);
+    	this.cartListView.getItems().addAll(this.rentalCart.keySet());
     	this.furnitureListView.getSelectionModel().clearSelection();
+    }
+    
+    @FXML
+    void handleRemoveButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleSearchCategoryButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleSearchStyleButtonClick(ActionEvent event) {
+
     }
     
     @FXML
     void handleCheckoutButtonClick(ActionEvent event) throws SQLException {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
     	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, this.employeeId);
-    	for (int furnitureId : this.furnitureIds.keySet()) {
-    		this.itemDal.createRentalItem(transactionId, furnitureId, this.furnitureIds.get(furnitureId));
+    	for (Furniture furniture: this.rentalCart.keySet()) {
+    		this.itemDal.createRentalItem(transactionId, furniture.getFurnitureId(), this.rentalCart.get(furniture));
     	}
     		Parent root;
 

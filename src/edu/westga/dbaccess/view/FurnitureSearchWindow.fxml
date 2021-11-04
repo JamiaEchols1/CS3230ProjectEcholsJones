@@ -2,16 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="326.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.FurnitureSearchCodeBehind">
    <children>
-      <Button fx:id="searchButton" layoutX="617.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleSearchButtonClick" text="SEARCH" />
-      <ComboBox fx:id="styleFilterComboBox" layoutX="35.0" layoutY="29.0" prefHeight="25.0" prefWidth="230.0" promptText="SELECT STYLE" />
-      <ComboBox fx:id="categoryComboBox" layoutX="328.0" layoutY="29.0" prefWidth="230.0" promptText="SELECT CATEGORY" />
-      <ListView fx:id="furnitureListView" layoutX="35.0" layoutY="80.0" prefHeight="200.0" prefWidth="650.0" />
-      <Button fx:id="addToCartButton" layoutX="98.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleAddToCartButtonClick" text="ADD TO CART" />
-      <Button fx:id="checkoutButton" layoutX="449.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleCheckoutButtonClick" text="CHECKOUT" />
+      <Button fx:id="searchCategoryButton" layoutX="515.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleSearchCategoryButtonClick" text="SEARCH BY CATGORY" />
+      <ComboBox fx:id="styleFilterComboBox" layoutX="35.0" layoutY="29.0" prefHeight="25.0" prefWidth="132.0" promptText="SELECT STYLE" />
+      <ComboBox fx:id="categoryComboBox" layoutX="328.0" layoutY="29.0" prefHeight="25.0" prefWidth="157.0" promptText="SELECT CATEGORY" />
+      <ListView fx:id="furnitureListView" layoutX="35.0" layoutY="80.0" prefHeight="200.0" prefWidth="295.0" />
+      <Button fx:id="addToCartButton" layoutX="35.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleAddToCartButtonClick" text="ADD TO CART" />
+      <Button fx:id="checkoutButton" layoutX="254.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleCheckoutButtonClick" text="CHECKOUT" />
+      <Button fx:id="searchStyleButton" layoutX="190.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleSearchStyleButtonClick" text="SEARCH BY STYLE" />
+      <ListView fx:id="cartListView" layoutX="402.0" layoutY="80.0" prefHeight="200.0" prefWidth="269.0" />
+      <Button fx:id="removeButton" layoutX="608.0" layoutY="287.0" mnemonicParsing="false" onAction="#handleRemoveButtonClick" text="REMOVE" />
+      <Label fx:id="costLabel" layoutX="402.0" layoutY="291.0" text="Total:" />
    </children>
 </AnchorPane>

@@ -161,16 +161,11 @@ public class RegisterWindowCodeBehind {
 			Stage thisStage = (Stage) node.getScene().getWindow();
 
 			thisStage.close();
-<<<<<<< HEAD
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-=======
+
 		} catch (IOException exception) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText(exception.getMessage());
 			alert.show();
->>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
 		}
 	}
 

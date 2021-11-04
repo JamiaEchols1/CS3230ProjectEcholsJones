@@ -118,11 +118,6 @@ public class FurnitureSearchCodeBehind {
     }
 
     @FXML
-    void handleSearchButtonClick(ActionEvent event) throws SQLException {
-    	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByCriteria(this.getStyleId(this.styleFilterComboBox.getSelectionModel().getSelectedItem()), this.getCategoryId(this.categoryComboBox.getSelectionModel().getSelectedItem())));
-    }
-    
-    @FXML
     void handleAddToCartButtonClick(ActionEvent event) throws SQLException {
     	for (Furniture furniture: this.furnitureListView.getSelectionModel().getSelectedItems()) {
     		if (!this.rentalCart.containsKey(furniture)) {
@@ -136,23 +131,36 @@ public class FurnitureSearchCodeBehind {
     		}
     	}
     	this.costLabel.setText( "Total: " + this.cartCost);
-    	this.cartListView.getItems().addAll(this.rentalCart.keySet());
+    	this.cartListView.getItems().setAll(this.rentalCart.keySet());
     	this.furnitureListView.getSelectionModel().clearSelection();
     }
     
     @FXML
     void handleRemoveButtonClick(ActionEvent event) {
-
+    	for (Furniture furniture: this.cartListView.getSelectionModel().getSelectedItems()) {
+    		if (this.rentalCart.get(furniture) > 1) {
+    			this.rentalCart.put(furniture, this.rentalCart.get(furniture)-1);
+    			this.cartCost -= furniture.getPrice();
+    		} else {
+    			this.rentalCart.remove(furniture);
+    			this.cartCost -= furniture.getPrice();
+    		}
+    	}
+    	this.costLabel.setText( "Total: " + this.cartCost);
+    	this.cartListView.getItems().setAll(this.rentalCart.keySet());
+    	this.furnitureListView.getSelectionModel().clearSelection();
+    
     }
 
     @FXML
-    void handleSearchCategoryButtonClick(ActionEvent event) {
-
+    void handleSearchCategoryButtonClick(ActionEvent event) throws SQLException {
+     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByCategory(this.getCategoryId(this.categoryComboBox.getSelectionModel().getSelectedItem())));
+        
     }
 
     @FXML
-    void handleSearchStyleButtonClick(ActionEvent event) {
-
+    void handleSearchStyleButtonClick(ActionEvent event) throws SQLException{
+     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByStyle(this.getStyleId(this.styleFilterComboBox.getSelectionModel().getSelectedItem())));
     }
     
     @FXML

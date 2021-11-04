@@ -42,23 +42,21 @@ public class FurnitureDAL {
 	}
 	
 	/**
-	 * Gets a list of furniture by their style and category
+	 * Gets a list of furniture by their style
 	 * 
 	 * @param styleId the style Ids
-	 * @param categoryId the category ids 
 	 *
 	 * @return a hashset of furniture
 
 	 * @throws SQLException
 	 */
-	 public HashSet<Furniture> getFurnitureByCriteria(int styleId, int categoryId) throws SQLException {
+	 public HashSet<Furniture> getFurnitureByStyle(int styleId) throws SQLException {
 		HashSet<Furniture> furniture = new HashSet<Furniture>();
-		String filterQuery = "select furnitureId, price, styleId, categoryId, quantity from furniture where styleId=? and categoryId=?";
+		String filterQuery = "select furnitureId, price, styleId, categoryId, quantity from furniture where styleId=?";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(filterQuery)) {
 
 				stmt.setLong(1, styleId);
-				stmt.setLong(2, categoryId);
 
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
@@ -69,4 +67,31 @@ public class FurnitureDAL {
 			}
 		return furniture;
 	 }
+	 
+		/**
+		 * Gets a list of furniture by their category
+		 * 
+		 * @param categoryId the category ids 
+		 *
+		 * @return a hashset of furniture
+
+		 * @throws SQLException
+		 */
+		 public HashSet<Furniture> getFurnitureByCategory(int categoryId) throws SQLException {
+			HashSet<Furniture> furniture = new HashSet<Furniture>();
+			String filterQuery = "select furnitureId, price, styleId, categoryId, quantity from furniture where categoryId=?";
+			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+					PreparedStatement stmt = connection.prepareStatement(filterQuery)) {
+
+					stmt.setLong(1, categoryId);
+
+					ResultSet rs = stmt.executeQuery();
+					while (rs.next()) {
+						furniture.add(new Furniture(rs.getInt("furnitureId"), rs.getDouble("price"), rs.getInt("styleId"),
+							rs.getInt("categoryId"), rs.getInt("quantity")));
+					}
+
+				}
+			return furniture;
+		 }
 }

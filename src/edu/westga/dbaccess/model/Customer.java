@@ -141,7 +141,7 @@ public class Customer {
 	}
 
 	/**
-	 * 
+	 * Returns the gender
 	 * @return return this.gender
 	 */
 	public String getGender() {
@@ -158,5 +158,10 @@ public class Customer {
 
 	public String getCity() {
 		return this.city;
+	}
+	
+	@Override 
+	public String toString() {
+		return this.firstName + " " + this.lastName;
 	}
 }

@@ -107,4 +107,9 @@ public class Furniture {
 	public int getQuantity() {
 		return this.quantity;
 	}
+	
+	@Override
+	public String toString() {
+		return "Furniture Id: " + this.furnitureId + " Price: " + this.price + " Category ID: " + this.categoryId + " Style ID: " + this.styleId;
+	}
 }

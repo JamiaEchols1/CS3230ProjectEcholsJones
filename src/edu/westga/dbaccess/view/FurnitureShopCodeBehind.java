@@ -123,7 +123,7 @@ public class FurnitureShopCodeBehind {
     void handleAddToCartButtonClick(ActionEvent event) throws SQLException {
     	for (Furniture furniture: this.furnitureListView.getSelectionModel().getSelectedItems()) {
     		if (!this.rentalCart.containsKey(furniture)) {
-    			this.rentalCart.put(furniture,1);
+				this.rentalCart.put(furniture, 1);
     			this.cartCost += furniture.getPrice();
     		} else {
     			int quantity = this.rentalCart.get(furniture);

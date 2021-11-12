@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.regex.Pattern;
 
 import edu.westga.dbaccess.controller.RegisterWindowController;
-import edu.westga.dbaccess.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,12 +24,12 @@ import javafx.stage.Stage;
 /**
  * The register window
  * 
-<<<<<<< HEAD
- * @author
-=======
+ * <<<<<<< HEAD
+ * 
+ * @author =======
  * @author Rasheed Jones
- * @version Fall 2021
->>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
+ * @version Fall 2021 >>>>>>> branch 'master' of
+ *          https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
  *
  */
 public class RegisterWindowCodeBehind {
@@ -196,7 +194,7 @@ public class RegisterWindowCodeBehind {
 		} catch (Exception exception) {
 			this.addressErrorLabel.setVisible(true);
 		}
-		
+
 		this.genderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			try {
 				if (newValue == null) {
@@ -236,14 +234,14 @@ public class RegisterWindowCodeBehind {
 			try {
 				if (newValue.isEmpty() || newValue.length() < 1) {
 					throw new IllegalArgumentException();
-				} 
+				}
 				this.nameErrorLabel.setVisible(false);
 			} catch (Exception exception) {
 				this.nameErrorLabel.setVisible(true);
 			}
 		});
 	}
-	
+
 	private void addressValidation() throws Exception {
 		this.addressTextField.textProperty().addListener((observable, oldValue, newValue) -> {
 			try {
@@ -256,7 +254,7 @@ public class RegisterWindowCodeBehind {
 			}
 		});
 		this.cityTexfield.textProperty().addListener((observable, oldValue, newValue) -> {
-			try {	
+			try {
 				if (newValue.isEmpty() || newValue.length() < 1) {
 					throw new IllegalArgumentException();
 				}
@@ -270,20 +268,21 @@ public class RegisterWindowCodeBehind {
 				if (newValue.isEmpty() || newValue.length() != 6) {
 					throw new IllegalArgumentException();
 				}
-				Integer.parseInt(newValue);this.addressErrorLabel.setVisible(false);
+				Integer.parseInt(newValue);
+				this.addressErrorLabel.setVisible(false);
 			} catch (Exception exception) {
-				this.addressErrorLabel.setVisible(true);	
+				this.addressErrorLabel.setVisible(true);
 			}
 		});
 		this.stateComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-		try {
-			if (newValue == null) {
-				throw new IllegalArgumentException();
+			try {
+				if (newValue == null) {
+					throw new IllegalArgumentException();
+				}
+				this.addressErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.addressErrorLabel.setVisible(true);
 			}
-			this.addressErrorLabel.setVisible(false);
-		} catch (Exception exception) {
-			this.addressErrorLabel.setVisible(true);
-		}
 		});
 	}
 

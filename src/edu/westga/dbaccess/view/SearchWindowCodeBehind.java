@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import edu.westga.dbaccess.controller.SearchController;
-import edu.westga.dbaccess.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -101,9 +100,20 @@ public class SearchWindowCodeBehind {
 		} else if (this.modeComboBox.getSelectionModel().getSelectedItem() == "FullName") {
 			String first = this.searchTextField.getText().split(" ")[0];
 			String last = this.searchTextField.getText().split(" ")[1];
-			this.customerListView.getItems().add(this.controller.getByFullName(first, last));
+			String[] customerArray = this.controller.getByFullName(first, last).split(",");
+			for(String customer : customerArray) {
+				if (!customer.equals("")) {
+					this.customerListView.getItems().add(customer);
+				}
+			}
+
 		} else if (this.modeComboBox.getSelectionModel().getSelectedItem() == "Phone") {
-			this.customerListView.getItems().add(this.controller.getByPhoneNumber(this.searchTextField.getText()));
+			String[] customerArray = this.controller.getByPhoneNumber(this.searchTextField.getText()).split(",");
+			for(String customer : customerArray) {
+				if (!customer.equals("")) {
+					this.customerListView.getItems().add(customer);
+				}
+			}
 		}
 	}
 

@@ -59,9 +59,9 @@ public class FurnitureShopCodeBehind {
     
     private RentalItemDAL itemDal;
 
-    private List<Style> styles;
+    private HashMap<Integer, String> styles;
     
-    private List<Category> categories;
+    private HashMap<Integer, String> categories;
 
     private HashMap<Furniture, Integer> rentalCart;
     
@@ -104,8 +104,8 @@ public class FurnitureShopCodeBehind {
         this.styleDal = new StyleDAL();
         this.transactionDal = new RentalTransactionDAL();
         this.itemDal = new RentalItemDAL();
-        this.styles = new ArrayList<Style>();
-        this.categories = new ArrayList<Category>();
+        this.styles = new HashMap<Integer, String>();
+        this.categories = new HashMap<Integer, String>();
         this.rentalCart = new HashMap<Furniture, Integer>();
         this.employeeId = 0;
         this.customerId = 0;
@@ -117,6 +117,8 @@ public class FurnitureShopCodeBehind {
     	this.furnitureListView.getItems().setAll(this.furnitureDal.getAllFurniture());
     	this.styleFilterComboBox.getItems().setAll(this.styleDal.getStyles().values());
     	this.categoryComboBox.getItems().setAll(this.categoryDal.getCategory().values());
+    	this.styles = this.styleDal.getStyles();
+    	this.categories = this.categoryDal.getCategory();
     }
 
     @FXML
@@ -156,13 +158,13 @@ public class FurnitureShopCodeBehind {
 
     @FXML
     void handleSearchCategoryButtonClick(ActionEvent event) throws SQLException {
-     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByCategory(this.getCategoryId(this.categoryComboBox.getSelectionModel().getSelectedItem())));
+     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByCategory(this.getCategoryId(this.categoryComboBox.getSelectionModel().getSelectedItem().toString())));
         
     }
 
     @FXML
     void handleSearchStyleButtonClick(ActionEvent event) throws SQLException{
-     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByStyle(this.getStyleId(this.styleFilterComboBox.getSelectionModel().getSelectedItem())));
+     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByStyle(this.getStyleId(this.styleFilterComboBox.getSelectionModel().getSelectedItem().toString())));
     }
     
     @FXML
@@ -205,18 +207,18 @@ public class FurnitureShopCodeBehind {
     }
     
     private int getStyleId(String styleLabel) {
-    	for (Style style : this.styles) {
-    		if (style.getLabel() == styleLabel) {
-    			return style.getStyleId();
+    	for (int styleId : this.styles.keySet()) {
+    		if (this.styles.get(styleId).equals(styleLabel)) {
+    			return styleId;
     		}
     	}
     	return 0;
     }
     
     private int getCategoryId(String categoryLabel) {
-    	for (Category category : this.categories) {
-    		if (category.getLabel() == categoryLabel) {
-    			return category.getCategoryId();
+    	for (int categoryId : this.categories.keySet()) {
+    		if (this.categories.get(categoryId).equals(categoryLabel)) {
+    			return categoryId;
     		}
     	}
     	return 0;

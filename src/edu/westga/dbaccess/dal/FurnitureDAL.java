@@ -56,7 +56,7 @@ public class FurnitureDAL {
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(filterQuery)) {
 
-				stmt.setLong(1, styleId);
+				stmt.setInt(1, styleId);
 
 				ResultSet rs = stmt.executeQuery();
 				while (rs.next()) {
@@ -78,12 +78,12 @@ public class FurnitureDAL {
 		 * @throws SQLException
 		 */
 		 public HashSet<Furniture> getFurnitureByCategory(int categoryId) throws SQLException {
-			HashSet<Furniture> furniture = new HashSet<Furniture>();
+			 HashSet<Furniture> furniture = new HashSet<Furniture>();
 			String filterQuery = "select furnitureId, daily_rental_rate, styleId, categoryId, quantity from furniture where categoryId=?";
 			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 					PreparedStatement stmt = connection.prepareStatement(filterQuery)) {
 
-					stmt.setLong(1, categoryId);
+					stmt.setInt(1, categoryId);
 
 					ResultSet rs = stmt.executeQuery();
 					while (rs.next()) {

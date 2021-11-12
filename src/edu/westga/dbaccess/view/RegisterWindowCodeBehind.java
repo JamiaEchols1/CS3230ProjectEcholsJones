@@ -24,20 +24,8 @@ import javafx.stage.Stage;
 /**
  * The register window
  * 
-<<<<<<< HEAD
- * <<<<<<< HEAD
- * 
- * @author =======
-=======
->>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
  * @author Rasheed Jones
-<<<<<<< HEAD
- * @version Fall 2021 >>>>>>> branch 'master' of
- *          https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
-=======
  * @version Fall 2021
->>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
- *
  */
 public class RegisterWindowCodeBehind {
 
@@ -128,9 +116,9 @@ public class RegisterWindowCodeBehind {
 	void handleRegisterClick(ActionEvent event) throws SQLException {
 		try {
 			this.controller.registerCustomer(this.firstNameTextField.getText(), this.lastNameTextBox.getText(),
-					this.zipCodeTextField.getText(), this.cityTexfield.getText(),
 					this.genderComboBox.getSelectionModel().getSelectedItem(), this.addressTextField.getText(),
-					this.stateComboBox.getSelectionModel().getSelectedItem(), this.phoneNumberTextField.getText(),
+					this.zipCodeTextField.getText(), this.stateComboBox.getSelectionModel().getSelectedItem(),
+					this.cityTexfield.getText(), this.phoneNumberTextField.getText(),
 					Date.valueOf(this.birthdateDatePicker.getValue()), Date.valueOf(LocalDate.now()));
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			alert.setContentText("Customer Updated");
@@ -192,72 +180,72 @@ public class RegisterWindowCodeBehind {
 		this.nameValidation();
 		this.addressValidation();
 		this.genderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-				if (newValue == null) {
-					this.genderErrorLabel.setVisible(true);
-				} else {
-					this.genderErrorLabel.setVisible(false);
-				}
+			if (newValue == null) {
+				this.genderErrorLabel.setVisible(true);
+			} else {
+				this.genderErrorLabel.setVisible(false);
+			}
 		});
 		this.phoneNumberTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.phoneNumberTextField.getText().isEmpty() || this.phoneNumberTextField.getText().length() != 10) {
+			if (this.phoneNumberTextField.getText().isEmpty() || this.phoneNumberTextField.getText().length() != 10) {
+				this.phoneNumberErrorLabel.setVisible(true);
+			} else {
+				try {
+					Integer.parseInt(this.phoneNumberTextField.getText());
+					this.phoneNumberErrorLabel.setVisible(false);
+				} catch (Exception exception) {
 					this.phoneNumberErrorLabel.setVisible(true);
-				} else {
-					try {
-						Integer.parseInt(this.phoneNumberTextField.getText());
-						this.phoneNumberErrorLabel.setVisible(false);
-					} catch (Exception exception) {
-						this.phoneNumberErrorLabel.setVisible(true);
-					}
 				}
+			}
 		});
 
 	}
 
 	private void nameValidation() {
 		this.firstNameTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.firstNameTextField.getText().isEmpty() || this.firstNameTextField.getText().length() < 1) {
-					this.nameErrorLabel.setVisible(true);
-				} else {
-					this.nameErrorLabel.setVisible(false);
-				}
+			if (this.firstNameTextField.getText().isEmpty() || this.firstNameTextField.getText().length() < 1) {
+				this.nameErrorLabel.setVisible(true);
+			} else {
+				this.nameErrorLabel.setVisible(false);
+			}
 		});
 
 		this.lastNameTextBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.lastNameTextBox.getText().isEmpty() || this.lastNameTextBox.getText().length() < 1) {
-					this.nameErrorLabel.setVisible(true);
-				} else {
-					this.nameErrorLabel.setVisible(false);
-				}
+			if (this.lastNameTextBox.getText().isEmpty() || this.lastNameTextBox.getText().length() < 1) {
+				this.nameErrorLabel.setVisible(true);
+			} else {
+				this.nameErrorLabel.setVisible(false);
+			}
 		});
 	}
-	
+
 	private void addressValidation() {
 		this.addressTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.addressTextField.getText().isEmpty() || this.addressTextField.getText().length() < 1) {
-					this.addressErrorLabel.setVisible(true);
-				} else {
-					this.addressErrorLabel.setVisible(false);
-				}
+			if (this.addressTextField.getText().isEmpty() || this.addressTextField.getText().length() < 1) {
+				this.addressErrorLabel.setVisible(true);
+			} else {
+				this.addressErrorLabel.setVisible(false);
+			}
 		});
 		this.cityTexfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.cityTexfield.getText().isEmpty() || this.cityTexfield.getText().length() < 1) {
-					this.addressErrorLabel.setVisible(true);
-				} else {
-					this.addressErrorLabel.setVisible(false);
-				}
+			if (this.cityTexfield.getText().isEmpty() || this.cityTexfield.getText().length() < 1) {
+				this.addressErrorLabel.setVisible(true);
+			} else {
+				this.addressErrorLabel.setVisible(false);
+			}
 		});
 		this.zipCodeTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.zipCodeTextField.getText().isEmpty() || this.zipCodeTextField.getText().length() != 6) {
+			if (this.zipCodeTextField.getText().isEmpty() || this.zipCodeTextField.getText().length() != 6) {
+				this.addressErrorLabel.setVisible(true);
+			} else {
+				try {
+					Integer.parseInt(this.zipCodeTextField.getText());
+					this.addressErrorLabel.setVisible(false);
+				} catch (Exception exception) {
 					this.addressErrorLabel.setVisible(true);
-				} else {
-					try {
-						Integer.parseInt(this.zipCodeTextField.getText());
-						this.addressErrorLabel.setVisible(false);
-					} catch (Exception exception) {
-						this.addressErrorLabel.setVisible(true);
-					}	
 				}
-				});
+			}
+		});
 		this.stateComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue == null) {
 				this.addressErrorLabel.setVisible(true);

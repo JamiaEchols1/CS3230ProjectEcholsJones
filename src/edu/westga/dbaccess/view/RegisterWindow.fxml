@@ -31,7 +31,7 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="lastNameTextBox" prefHeight="25.0" prefWidth="170.0"/>
+                  <TextField fx:id="lastNameTextBox" prefHeight="25.0" prefWidth="170.0" />
                </children>
             </HBox>
             <Label fx:id="nameErrorLabel" text="Must enter valid Name" textFill="RED" visible="false" />
@@ -42,7 +42,7 @@
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="addressTextField"/>
+                  <TextField fx:id="addressTextField" />
                   <Label fx:id="cityLabel" text="City:">
                      <HBox.margin>
                         <Insets top="5.0" />

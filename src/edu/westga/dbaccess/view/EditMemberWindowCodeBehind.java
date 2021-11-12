@@ -1,18 +1,48 @@
 package edu.westga.dbaccess.view;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import edu.westga.dbaccess.controller.EditMemberWindowController;
 import edu.westga.dbaccess.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class EditMemberWindowCodeBehind {
+
+
+	@FXML
+	private Label nameErrorLabel;
+
+	@FXML
+	private Label cityLabel;
+
+	@FXML
+	private Label addressErrorLabel;
+
+	@FXML
+	private Label birthdayErrorLabel;
+
+	@FXML
+	private Label phoneNumberErrorLabel;
+
+	@FXML
+	private Label genderErrorLabel;
+
+	@FXML
+	private AnchorPane anchorPane;
 
 	@FXML
 	private Label firstNameLabel;
@@ -33,7 +63,7 @@ public class EditMemberWindowCodeBehind {
 	private TextField addressTextField;
 
 	@FXML
-	private Label cityLabel;
+	private Label cityyLabel;
 
 	@FXML
 	private TextField cityTexfield;
@@ -78,7 +108,34 @@ public class EditMemberWindowCodeBehind {
 
 	@FXML
 	void handleCancelClick(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(
+				getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\SearchWindow.fxml"));
 
+		Parent root;
+		try {
+			root = loader.load();
+
+			SearchWindowCodeBehind searchWindow = loader.getController();
+
+			Stage stage = new Stage();
+
+			stage.setTitle("Search Window");
+
+			stage.setScene(new Scene(root));
+
+			stage.show();
+
+			Node node = ((Node) (event.getSource()));
+
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
+
+		} catch (IOException exception) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText(exception.getMessage());
+			alert.show();
+		}
 	}
 
 	@FXML
@@ -97,6 +154,7 @@ public class EditMemberWindowCodeBehind {
 				"Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming");
 		this.genderComboBox.getItems().addAll("Male", "Female", "Other");
 		this.controller = new EditMemberWindowController();
+		this.setupListeners();
 	}
 
 	public void setUp(Customer customer) {
@@ -111,6 +169,83 @@ public class EditMemberWindowCodeBehind {
 		LocalDate date = customer.getBirthday().toLocalDate();
 		this.birthdateDatePicker.setValue(date);
 
+	}
+	
+	private void setupListeners() {
+		this.nameValidation();
+		this.addressValidation();
+		this.genderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+				if (newValue == null) {
+					this.genderErrorLabel.setVisible(true);
+				} else {
+					this.genderErrorLabel.setVisible(false);
+				}
+		});
+		this.phoneNumberTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.phoneNumberTextField.getText().isEmpty() || this.phoneNumberTextField.getText().length() != 10) {
+					this.phoneNumberErrorLabel.setVisible(true);
+				} else {
+					try {
+						Integer.parseInt(this.phoneNumberTextField.getText());
+						this.phoneNumberErrorLabel.setVisible(false);
+					} catch (Exception exception) {
+						this.phoneNumberErrorLabel.setVisible(true);
+					}
+				}
+		});
+
+	}
+
+	private void nameValidation() {
+		this.firstNameTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.firstNameTextField.getText().isEmpty() || this.firstNameTextField.getText().length() < 1) {
+					this.nameErrorLabel.setVisible(true);
+				} else {
+					this.nameErrorLabel.setVisible(false);
+				}
+		});
+
+		this.lastNameTextBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.lastNameTextBox.getText().isEmpty() || this.lastNameTextBox.getText().length() < 1) {
+					this.nameErrorLabel.setVisible(true);
+				} else {
+					this.nameErrorLabel.setVisible(false);
+				}
+		});
+	}
+	
+	private void addressValidation() {
+		this.addressTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.addressTextField.getText().isEmpty() || this.addressTextField.getText().length() < 1) {
+					this.addressErrorLabel.setVisible(true);
+				} else {
+					this.addressErrorLabel.setVisible(false);
+				}
+		});
+		this.cityTexfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.cityTexfield.getText().isEmpty() || this.cityTexfield.getText().length() < 1) {
+					this.addressErrorLabel.setVisible(true);
+				} else {
+					this.addressErrorLabel.setVisible(false);
+				}
+		});
+		this.zipCodeTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.zipCodeTextField.getText().isEmpty() || this.zipCodeTextField.getText().length() != 6) {
+					this.addressErrorLabel.setVisible(true);
+				} else {
+					try {
+						Integer.parseInt(this.zipCodeTextField.getText());
+						this.addressErrorLabel.setVisible(false);
+					} catch (Exception exception) {
+						this.addressErrorLabel.setVisible(true);
+					}	
+				}
+				});
+		this.stateComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue == null) {
+				this.addressErrorLabel.setVisible(true);
+			}
+		});
 	}
 
 }

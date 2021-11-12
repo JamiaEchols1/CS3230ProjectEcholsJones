@@ -186,53 +186,67 @@ public class RegisterWindowCodeBehind {
 		this.genderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 				if (newValue == null) {
 					this.genderErrorLabel.setVisible(true);
+				} else {
+					this.genderErrorLabel.setVisible(false);
 				}
 		});
 		this.phoneNumberTextField.textProperty().addListener((observable, oldValue, newValue) -> {
 				if (newValue.isEmpty() || newValue.length() != 10) {
 					this.phoneNumberErrorLabel.setVisible(true);
-				}
-				try {
-					Integer.parseInt(newValue);
-				} catch (Exception exception) {
-					this.phoneNumberErrorLabel.setVisible(true);
+				} else {
+					try {
+						Integer.parseInt(newValue);
+						this.phoneNumberErrorLabel.setVisible(false);
+					} catch (Exception exception) {
+						this.phoneNumberErrorLabel.setVisible(true);
+					}
 				}
 		});
 
 	}
 
 	private void nameValidation() {
-		this.firstNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-				if (newValue.isEmpty() || newValue.length() < 1) {
+		this.firstNameTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.firstNameTextField.getText().isEmpty() || this.firstNameTextField.getText().length() < 1) {
 					this.nameErrorLabel.setVisible(true);
+				} else {
+					this.nameErrorLabel.setVisible(false);
 				}
 		});
-		this.lastNameTextBox.textProperty().addListener((observable, oldValue, newValue) -> {
-				if (newValue.isEmpty() || newValue.length() < 1) {
+		this.lastNameTextBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.lastNameTextBox.getText().isEmpty() || this.lastNameTextBox.getText().length() < 1) {
 					this.nameErrorLabel.setVisible(true);
-				} 
+				} else {
+					this.nameErrorLabel.setVisible(false);
+				}
 		});
 	}
 	
 	private void addressValidation() {
-		this.addressTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-				if (newValue.isEmpty() || newValue.length() < 1) {
+		this.addressTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.addressTextField.getText().isEmpty() || this.addressTextField.getText().length() < 1) {
 					this.addressErrorLabel.setVisible(true);
+				} else {
+					this.addressErrorLabel.setVisible(false);
 				}
 		});
-		this.cityTexfield.textProperty().addListener((observable, oldValue, newValue) -> {
-				if (newValue.isEmpty() || newValue.length() < 1) {
+		this.cityTexfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
+				if (this.cityTexfield.getText().isEmpty() || this.cityTexfield.getText().length() < 1) {
 					this.addressErrorLabel.setVisible(true);
+				} else {
+					this.addressErrorLabel.setVisible(false);
 				}
 		});
 		this.zipCodeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-				if (newValue.isEmpty() || newValue.length() != 6) {
+				if (this.zipCodeTextField.getText().isEmpty() || this.zipCodeTextField.getText().length() != 6) {
 					this.addressErrorLabel.setVisible(true);
-				}
-				try {
-					Integer.parseInt(newValue);
-				} catch (Exception exception) {
-					this.addressErrorLabel.setVisible(true);
+				} else {
+					try {
+						Integer.parseInt(newValue);
+						this.addressErrorLabel.setVisible(false);
+					} catch (Exception exception) {
+						this.addressErrorLabel.setVisible(true);
+					}
 				}
 			
 		});

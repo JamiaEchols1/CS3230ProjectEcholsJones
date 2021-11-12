@@ -26,12 +26,8 @@ import javafx.stage.Stage;
 /**
  * The register window
  * 
-<<<<<<< HEAD
- * @author
-=======
  * @author Rasheed Jones
  * @version Fall 2021
->>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
  *
  */
 public class RegisterWindowCodeBehind {
@@ -184,106 +180,66 @@ public class RegisterWindowCodeBehind {
 	}
 
 	private void setupListeners() {
-		try {
-			this.nameValidation();
-			this.nameErrorLabel.setVisible(false);
-		} catch (Exception exception) {
-			this.nameErrorLabel.setVisible(true);
-		}
-		try {
-			this.addressValidation();
-			this.addressErrorLabel.setVisible(false);
-		} catch (Exception exception) {
-			this.addressErrorLabel.setVisible(true);
-		}
-		
+		this.nameValidation();
+		this.addressValidation();
+	
 		this.genderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-			try {
 				if (newValue == null) {
-					throw new IllegalArgumentException();
+					this.genderErrorLabel.setVisible(true);
 				}
-				this.genderErrorLabel.setVisible(false);
-			} catch (Exception exception) {
-				this.genderErrorLabel.setVisible(true);
-			}
 		});
 		this.phoneNumberTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-			try {
 				if (newValue.isEmpty() || newValue.length() != 10) {
-					throw new IllegalArgumentException();
+					this.phoneNumberErrorLabel.setVisible(true);
 				}
-				Integer.parseInt(newValue);
-				this.phoneNumberErrorLabel.setVisible(false);
-			} catch (Exception exception) {
-				this.phoneNumberErrorLabel.setVisible(true);
-			}
+				try {
+					Integer.parseInt(newValue);
+				} catch (Exception exception) {
+					this.phoneNumberErrorLabel.setVisible(true);
+				}
 		});
 
 	}
 
-	private void nameValidation() throws Exception {
+	private void nameValidation() {
 		this.firstNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-			try {
 				if (newValue.isEmpty() || newValue.length() < 1) {
-					throw new IllegalArgumentException();
+					this.nameErrorLabel.setVisible(true);
 				}
-				this.nameErrorLabel.setVisible(false);
-			} catch (Exception exception) {
-				this.nameErrorLabel.setVisible(true);
-			}
 		});
 		this.lastNameTextBox.textProperty().addListener((observable, oldValue, newValue) -> {
-			try {
 				if (newValue.isEmpty() || newValue.length() < 1) {
-					throw new IllegalArgumentException();
+					this.nameErrorLabel.setVisible(true);
 				} 
-				this.nameErrorLabel.setVisible(false);
-			} catch (Exception exception) {
-				this.nameErrorLabel.setVisible(true);
-			}
 		});
 	}
 	
-	private void addressValidation() throws Exception {
+	private void addressValidation() {
 		this.addressTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-			try {
 				if (newValue.isEmpty() || newValue.length() < 1) {
-					throw new IllegalArgumentException();
+					this.addressErrorLabel.setVisible(true);
 				}
-				this.addressErrorLabel.setVisible(false);
-			} catch (Exception exception) {
-				this.addressErrorLabel.setVisible(true);
-			}
 		});
 		this.cityTexfield.textProperty().addListener((observable, oldValue, newValue) -> {
-			try {	
 				if (newValue.isEmpty() || newValue.length() < 1) {
-					throw new IllegalArgumentException();
+					this.addressErrorLabel.setVisible(true);
 				}
-				this.addressErrorLabel.setVisible(false);
-			} catch (Exception exception) {
-				this.addressErrorLabel.setVisible(true);
-			}
 		});
 		this.zipCodeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-			try {
 				if (newValue.isEmpty() || newValue.length() != 6) {
-					throw new IllegalArgumentException();
+					this.addressErrorLabel.setVisible(true);
 				}
-				Integer.parseInt(newValue);this.addressErrorLabel.setVisible(false);
-			} catch (Exception exception) {
-				this.addressErrorLabel.setVisible(true);	
-			}
+				try {
+					Integer.parseInt(newValue);
+				} catch (Exception exception) {
+					this.addressErrorLabel.setVisible(true);
+				}
+			
 		});
 		this.stateComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-		try {
 			if (newValue == null) {
-				throw new IllegalArgumentException();
+				this.addressErrorLabel.setVisible(true);
 			}
-			this.addressErrorLabel.setVisible(false);
-		} catch (Exception exception) {
-			this.addressErrorLabel.setVisible(true);
-		}
 		});
 	}
 

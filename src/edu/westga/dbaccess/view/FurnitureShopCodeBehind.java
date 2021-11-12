@@ -23,6 +23,7 @@ import edu.westga.dbaccess.utils.UI;
 import edu.westga.dbaccess.model.Category;
 
 import java.util.List;
+import java.util.Map.Entry;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -82,7 +83,7 @@ public class FurnitureShopCodeBehind {
     private Button searchStyleButton;
 
     @FXML
-    private ListView<Furniture> cartListView;
+    private ListView<Entry<Furniture, Integer>> cartListView;
 
     @FXML
     private Button removeButton;
@@ -135,23 +136,23 @@ public class FurnitureShopCodeBehind {
     		}
     	}
     	this.costLabel.setText( "Total: " + this.cartCost);
-    	this.cartListView.getItems().setAll(this.rentalCart.keySet());
+    	this.cartListView.getItems().setAll(this.rentalCart.entrySet());
     	this.furnitureListView.getSelectionModel().clearSelection();
     }
     
     @FXML
     void handleRemoveButtonClick(ActionEvent event) {
-    	for (Furniture furniture: this.cartListView.getSelectionModel().getSelectedItems()) {
-    		if (this.rentalCart.get(furniture) > 1) {
-    			this.rentalCart.put(furniture, this.rentalCart.get(furniture)-1);
-    			this.cartCost -= furniture.getPrice();
+    	for (Entry<Furniture, Integer> furniture: this.cartListView.getSelectionModel().getSelectedItems()) {
+    		if (this.rentalCart.get(furniture.getKey()) > 1) {
+    			this.rentalCart.put(furniture.getKey(), this.rentalCart.get(furniture.getKey())-1);
+    			this.cartCost -= furniture.getKey().getPrice();
     		} else {
-    			this.rentalCart.remove(furniture);
-    			this.cartCost -= furniture.getPrice();
+    			this.rentalCart.remove(furniture.getKey());
+    			this.cartCost -= furniture.getKey().getPrice();
     		}
     	}
     	this.costLabel.setText( "Total: " + this.cartCost);
-    	this.cartListView.getItems().setAll(this.rentalCart.keySet());
+    	this.cartListView.getItems().setAll(this.rentalCart.entrySet());
     	this.furnitureListView.getSelectionModel().clearSelection();
     
     }

@@ -2,7 +2,6 @@ package edu.westga.dbaccess.view;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 import edu.westga.dbaccess.dal.CustomerDAL;
 import edu.westga.dbaccess.model.Customer;

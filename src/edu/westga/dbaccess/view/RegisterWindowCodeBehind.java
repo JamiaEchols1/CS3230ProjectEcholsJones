@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.regex.Pattern;
 
 import edu.westga.dbaccess.controller.RegisterWindowController;
-import edu.westga.dbaccess.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,8 +24,19 @@ import javafx.stage.Stage;
 /**
  * The register window
  * 
+<<<<<<< HEAD
+ * <<<<<<< HEAD
+ * 
+ * @author =======
+=======
+>>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
  * @author Rasheed Jones
+<<<<<<< HEAD
+ * @version Fall 2021 >>>>>>> branch 'master' of
+ *          https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
+=======
  * @version Fall 2021
+>>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
  *
  */
 public class RegisterWindowCodeBehind {
@@ -180,9 +189,25 @@ public class RegisterWindowCodeBehind {
 	}
 
 	private void setupListeners() {
+<<<<<<< HEAD
+		try {
+			this.nameValidation();
+			this.nameErrorLabel.setVisible(false);
+		} catch (Exception exception) {
+			this.nameErrorLabel.setVisible(true);
+		}
+		try {
+			this.addressValidation();
+			this.addressErrorLabel.setVisible(false);
+		} catch (Exception exception) {
+			this.addressErrorLabel.setVisible(true);
+		}
+
+=======
 		this.nameValidation();
 		this.addressValidation();
 	
+>>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
 		this.genderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 				if (newValue == null) {
 					this.genderErrorLabel.setVisible(true);
@@ -213,14 +238,34 @@ public class RegisterWindowCodeBehind {
 					this.nameErrorLabel.setVisible(false);
 				}
 		});
+<<<<<<< HEAD
+		this.lastNameTextBox.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue.isEmpty() || newValue.length() < 1) {
+					throw new IllegalArgumentException();
+				}
+				this.nameErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.nameErrorLabel.setVisible(true);
+			}
+=======
 		this.lastNameTextBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
 				if (this.lastNameTextBox.getText().isEmpty() || this.lastNameTextBox.getText().length() < 1) {
 					this.nameErrorLabel.setVisible(true);
 				} else {
 					this.nameErrorLabel.setVisible(false);
 				}
+>>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
 		});
 	}
+<<<<<<< HEAD
+
+	private void addressValidation() throws Exception {
+		this.addressTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue.isEmpty() || newValue.length() < 1) {
+					throw new IllegalArgumentException();
+=======
 	
 	private void addressValidation() {
 		this.addressTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -228,13 +273,21 @@ public class RegisterWindowCodeBehind {
 					this.addressErrorLabel.setVisible(true);
 				} else {
 					this.addressErrorLabel.setVisible(false);
+>>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
 				}
 		});
+<<<<<<< HEAD
+		this.cityTexfield.textProperty().addListener((observable, oldValue, newValue) -> {
+			try {
+				if (newValue.isEmpty() || newValue.length() < 1) {
+					throw new IllegalArgumentException();
+=======
 		this.cityTexfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
 				if (this.cityTexfield.getText().isEmpty() || this.cityTexfield.getText().length() < 1) {
 					this.addressErrorLabel.setVisible(true);
 				} else {
 					this.addressErrorLabel.setVisible(false);
+>>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
 				}
 		});
 		this.zipCodeTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -248,10 +301,27 @@ public class RegisterWindowCodeBehind {
 						this.addressErrorLabel.setVisible(true);
 					}
 				}
+<<<<<<< HEAD
+				Integer.parseInt(newValue);
+				this.addressErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+				this.addressErrorLabel.setVisible(true);
+			}
+=======
 			
+>>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
 		});
 		this.stateComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+<<<<<<< HEAD
+			try {
+				if (newValue == null) {
+					throw new IllegalArgumentException();
+				}
+				this.addressErrorLabel.setVisible(false);
+			} catch (Exception exception) {
+=======
 			if (newValue == null) {
+>>>>>>> branch 'master' of https://github.com/JamiaEchols1/CS3230ProjectEcholsJones.git
 				this.addressErrorLabel.setVisible(true);
 			}
 		});

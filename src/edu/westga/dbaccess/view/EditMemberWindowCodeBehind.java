@@ -1,11 +1,8 @@
 package edu.westga.dbaccess.view;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 
 import edu.westga.dbaccess.controller.EditMemberWindowController;
-import edu.westga.dbaccess.controller.RegisterWindowController;
 import edu.westga.dbaccess.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

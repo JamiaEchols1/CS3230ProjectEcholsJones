@@ -108,6 +108,19 @@ public class Furniture {
 		return this.quantity;
 	}
 	
+	/**
+	 * Sets the quantity
+	 * 
+	 * @precondition none
+	 * @postcondition getQuantity() == newQuantity
+	 * 
+	 * @param newQuantity the new quantity
+	 * 
+	 */
+	public void setQuantity(int newQuantity) {
+		this.quantity = newQuantity;
+	}
+	
 	@Override
 	public String toString() {
 		return "Furniture Id: " + this.furnitureId + " Price: " + this.price + " Category ID: " + this.categoryId + " Style ID: " + this.styleId;

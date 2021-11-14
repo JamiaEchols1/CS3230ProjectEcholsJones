@@ -125,14 +125,19 @@ public class FurnitureShopCodeBehind {
     @FXML
     void handleAddToCartButtonClick(ActionEvent event) throws SQLException {
     	for (Furniture furniture: this.furnitureListView.getSelectionModel().getSelectedItems()) {
-    		if (!this.rentalCart.containsKey(furniture)) {
-				this.rentalCart.put(furniture, 1);
-    			this.cartCost += furniture.getPrice();
+    		if (furniture.getQuantity() > 0) {
+    			if (!this.rentalCart.containsKey(furniture)) {
+					this.rentalCart.put(furniture, 1);
+    				this.cartCost += furniture.getPrice();
+    			} else {
+    				int quantity = this.rentalCart.get(furniture);
+    				quantity++;
+    				this.rentalCart.put(furniture, quantity);
+    				this.cartCost += furniture.getPrice();
+    			}
+    			furniture.setQuantity(furniture.getQuantity()-1);
     		} else {
-    			int quantity = this.rentalCart.get(furniture);
-    			quantity++;
-    			this.rentalCart.put(furniture, quantity);
-    			this.cartCost += furniture.getPrice();
+    			//TODO
     		}
     	}
     	this.costLabel.setText( "Total: " + this.cartCost);

@@ -6,6 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.westga.dbaccess.model.RentalTransaction;
 
 /**
  * Rental Transaction DAL
@@ -43,6 +47,16 @@ public class RentalTransactionDAL {
 		}
 	}
 	
+	/**
+	 * Gets the size of the table
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the size of the table
+	 * 
+	 * @throws SQLException
+	 */
 	public int getSizeOfTable() throws SQLException {
 		String idQuery = "select * from rental_transaction";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
@@ -56,5 +70,21 @@ public class RentalTransactionDAL {
 			}
 			return size;
 		}
+	}
+	
+	public List<RentalTransaction> getCustomersTransactions(int customerId) throws SQLException {
+		String query = "select transactionId, dueDate, transactionDate, customerId, employeeId from rental_transaction where customerId=?";
+		List<RentalTransaction> transactions = new ArrayList<RentalTransaction>();
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+			
+			stmt.setInt(1, customerId);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				transactions.add(new RentalTransaction(rs.getInt("transactionId"), rs.getDate("dueDate"), rs.getDate("transactionDate"), rs.getInt("customerId"), rs.getInt("employeeId")));
+			}
+		}
+		return transactions;
 	}
 }

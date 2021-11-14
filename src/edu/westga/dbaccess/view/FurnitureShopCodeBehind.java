@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -137,7 +139,8 @@ public class FurnitureShopCodeBehind {
     			}
     			furniture.setQuantity(furniture.getQuantity()-1);
     		} else {
-    			//TODO
+    			Alert alert = new Alert(AlertType.ERROR, UI.ErrorMessages.FURNITURE_SOLD_OUT);
+                alert.show();
     		}
     	}
     	this.costLabel.setText( "Total: " + this.cartCost);
@@ -164,8 +167,7 @@ public class FurnitureShopCodeBehind {
 
     @FXML
     void handleSearchCategoryButtonClick(ActionEvent event) throws SQLException {
-     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByCategory(this.getCategoryId(this.categoryComboBox.getSelectionModel().getSelectedItem().toString())));
-        
+     	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByCategory(this.getCategoryId(this.categoryComboBox.getSelectionModel().getSelectedItem().toString())));        
     }
 
     @FXML

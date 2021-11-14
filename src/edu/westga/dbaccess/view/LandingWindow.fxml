@@ -17,6 +17,8 @@
             <Button fx:id="shopButton" disable="true" layoutX="71.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleShopClick" text="Shop for furniture" />
             <ComboBox fx:id="customerComboBox" layoutX="181.0" layoutY="81.0" prefWidth="150.0" promptText="SELECT CUSTOMER" />
             <Button fx:id="searchBtn" layoutX="71.0" layoutY="155.0" mnemonicParsing="false" onAction="#searchBtnClick" text="Search" />
+            <ComboBox fx:id="transactionComboBox" layoutX="181.0" layoutY="155.0" prefWidth="150.0" promptText="SELECT TRANSACTION" />
+            <Button fx:id="returnFurnitureButton" layoutX="71.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleReturnFurnitureClick" text="Return Furniture" />
          </children>
       </AnchorPane>
    </children>

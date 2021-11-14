@@ -4,16 +4,21 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import edu.westga.dbaccess.dal.CustomerDAL;
+import edu.westga.dbaccess.dal.RentalTransactionDAL;
 import edu.westga.dbaccess.model.Customer;
+import edu.westga.dbaccess.model.RentalTransaction;
+import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -47,10 +52,61 @@ public class LandingWindowCodeBehind {
     
     private CustomerDAL customerDal;
     
+    private RentalTransactionDAL rentalDal;
+
+    @FXML
+    private ComboBox<RentalTransaction> transactionComboBox;
+
+    @FXML
+    private Button returnFurnitureButton;
+    
+    private RentalTransaction transaction;
+    
     public LandingWindowCodeBehind() {
     	this.customerDal = new CustomerDAL();
+    	this.rentalDal = new RentalTransactionDAL();
     }
 
+    @FXML
+    void handleReturnFurnitureClick(ActionEvent event) {
+    	Parent root;
+
+		try{
+
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\ReturnWindow.fxml"));
+
+			loader.setController(new ReturnWindowCodeBehind());
+			ReturnWindowCodeBehind codeBehind = loader.getController();
+					
+			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem());
+			
+			codeBehind.setEmployee(Integer.parseInt(this.idLbl.getText()));
+			
+			codeBehind.setTransaction(this.transaction);
+			
+			root = loader.load();
+
+			Stage stage = new Stage();
+
+			stage.setTitle("Return Window");
+
+			stage.setScene(new Scene(root));
+
+			stage.show();
+
+			Node node = ((Node)(event.getSource()));
+
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
+
+		} catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+    }
+    
     @FXML
     void registerBtnClick(ActionEvent event) {
     	Parent root;
@@ -87,6 +143,7 @@ public class LandingWindowCodeBehind {
     @FXML
     void initialize() throws SQLException {
     	this.shopButton.setDisable(true);
+    	this.returnFurnitureButton.setDisable(true);
     	this.customerComboBox.getItems().setAll(this.customerDal.getAllCustomers().values());
     	this.setupBindings();
     }
@@ -95,10 +152,25 @@ public class LandingWindowCodeBehind {
     	 this.customerComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
     		 if (newValue != null) {
     			 this.shopButton.setDisable(false);
+    			 try {
+					this.transactionComboBox.getItems().setAll(this.rentalDal.getCustomersTransactions(this.customerComboBox.getSelectionModel().getSelectedItem().getMemberID()));
+				} catch (SQLException e) {
+	    			Alert alert = new Alert(AlertType.ERROR, UI.ErrorMessages.FURNITURE_SOLD_OUT);
+	                alert.show();
+				}
     		 } else {
     			 this.shopButton.setDisable(true);
     		 }
     	 });
+    	 this.transactionComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+    		 if (newValue != null) {
+    			 this.returnFurnitureButton.setDisable(false);
+    			 this.transaction = this.transactionComboBox.getValue();
+    		 } else {
+    			 this.returnFurnitureButton.setDisable(true);
+    		 }
+    	});
+    	 
     }
     
     @FXML

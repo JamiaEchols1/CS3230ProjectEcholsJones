@@ -1,7 +1,14 @@
 package edu.westga.dbaccess.view;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.westga.dbaccess.dal.FurnitureDAL;
+import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Furniture;
+import edu.westga.dbaccess.model.RentalItem;
 import edu.westga.dbaccess.model.RentalTransaction;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
@@ -36,15 +43,36 @@ public class ReturnWindowCodeBehind {
 	private int employeeId;
 
 	private RentalTransaction transaction;
+	
+	private RentalItemDAL rentalDal;
+	
+	private FurnitureDAL furnitureDal;
 
 	private Customer customer;
 	
+
+	public ReturnWindowCodeBehind() {
+		this.rentalDal = new RentalItemDAL();
+		this.furnitureDal = new FurnitureDAL();
+	}
+	
 	@FXML
-	void initialize() {
+	void initialize() throws SQLException {
 		this.customerInformationLabel.setText(this.customerInformationLabel.getText() + " " + this.customer);
 		this.transactionNumberLabel.setText(this.transactionNumberLabel.getText() + " " + this.transaction.getTransactionId());
+		this.transactionListView.getItems().setAll(this.getFurniture());
 	}
 
+	private List<Furniture> getFurniture() throws SQLException {
+		List<RentalItem> items = this.rentalDal.rentalItems(this.transaction.getTransactionId());
+		List<Furniture> furniture = new ArrayList<Furniture>();
+		
+		for (RentalItem item : items) {
+			furniture.add(this.furnitureDal.getFurniture(item.getFurnitureId()));
+		}
+		
+		return furniture;
+	}
     @FXML
     void handleAddToReturnClick(ActionEvent event) {
 

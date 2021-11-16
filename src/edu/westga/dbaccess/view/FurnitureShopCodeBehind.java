@@ -161,7 +161,7 @@ public class FurnitureShopCodeBehind {
     	}
     	this.costLabel.setText( "Total: " + this.cartCost);
     	this.cartListView.getItems().setAll(this.rentalCart.entrySet());
-    	this.furnitureListView.getSelectionModel().clearSelection();
+    	this.cartListView.getSelectionModel().clearSelection();
     
     }
 

@@ -96,4 +96,9 @@ public class RentalTransaction {
 		return this.employeeeId;
 	}
 
+	@Override
+	public String toString() {
+		return "RentalTransaction [transactionId=" + transactionId + ", dueDate=" + dueDate + ", transactionDate="
+				+ transactionDate + ", customerId=" + customerId + ", employeeeId=" + employeeeId + "]";
+	}
 }

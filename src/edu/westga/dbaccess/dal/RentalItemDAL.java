@@ -28,7 +28,7 @@ public class RentalItemDAL {
 	 * @throws SQLException
 	 */
 	public void createRentalItem(int transactionId, int furnitureId, int quantity) throws SQLException {
-		String query = "Insert one rental_item (transactionId, furnitureId, quantity) values (?,?,?)";
+		String query = "Insert one rental_item (rentalId, furnitureId, quantity) values (?,?,?)";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 				PreparedStatement stmt = connection.prepareStatement(query)) { 
 			stmt.setInt(1, transactionId);
@@ -39,14 +39,15 @@ public class RentalItemDAL {
 	} 
 	
 	public List<RentalItem> rentalItems(int transactionId) throws SQLException {
-		String query = "Select transactionId, furnitureId, quantity from rental_item";
+		String query = "Select rentalId, furnitureId, quantity from rental_item where rentalId=?";
 		List<RentalItem> items = new ArrayList<RentalItem>();
 		try( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(query)) {
+			stmt.setInt(1, transactionId);
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				items.add(new RentalItem(rs.getInt("transactionId"), rs.getInt("furnitureId"), rs.getInt("quantity")));
+				items.add(new RentalItem(rs.getInt("rentalId"), rs.getInt("furnitureId"), rs.getInt("quantity")));
 			}
 		}
 		return items;

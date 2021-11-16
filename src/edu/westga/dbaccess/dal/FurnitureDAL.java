@@ -94,4 +94,31 @@ public class FurnitureDAL {
 				}
 			return furniture;
 		 }
+		 
+			/**
+			 * Gets a furniture by its Id
+			 * 
+			 * @param furnitureId the furniture id
+			 *
+			 * @return a furniture
+
+			 * @throws SQLException
+			 */
+			 public Furniture getFurnitureById(int furnitureId) throws SQLException {
+				String filterQuery = "select furnitureId, daily_rental_rate, styleId, categoryId, quantity from furniture where furnitureId=?";
+				Furniture furniture = null;
+				try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+						PreparedStatement stmt = connection.prepareStatement(filterQuery)) {
+
+						stmt.setInt(1, furnitureId);
+
+						ResultSet rs = stmt.executeQuery();
+						
+						while (rs.next()) {
+							furniture = new Furniture(rs.getInt("furnitureId"), rs.getDouble("daily_rental_rate"), rs.getInt("styleId"),
+								rs.getInt("categoryId"), rs.getInt("quantity"));
+						}
+						return furniture;
+					}
+			 }
 }

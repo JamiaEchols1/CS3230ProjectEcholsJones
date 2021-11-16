@@ -68,7 +68,7 @@ public class ReturnWindowCodeBehind {
 		List<Furniture> furniture = new ArrayList<Furniture>();
 		
 		for (RentalItem item : items) {
-			furniture.add(this.furnitureDal.getFurniture(item.getFurnitureId()));
+			furniture.add(this.furnitureDal.getFurnitureById(item.getFurnitureId()));
 		}
 		
 		return furniture;

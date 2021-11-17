@@ -171,13 +171,21 @@ public class FurnitureShopCodeBehind {
      	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByStyle(this.getStyleId(this.styleFilterComboBox.getSelectionModel().getSelectedItem().toString())));
     }
     
+    private String createRentalItems(int transactionId) {
+    	String rentalItems = "";
+    	for (Entry<Furniture, Integer> furniture : this.rentalCart.entrySet()) {
+    		rentalItems += ",(" + transactionId + "," + furniture.getKey().getFurnitureId() + "," + furniture.getValue() + ")";
+    	}
+    	return rentalItems.replaceFirst(",", "");
+    }
+    
     @FXML
     void handleCheckoutButtonClick(ActionEvent event) throws SQLException {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
-    	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, this.employeeId);
-    	for (Furniture furniture: this.rentalCart.keySet()) {
-    		this.itemDal.createRentalItem(transactionId, furniture.getFurnitureId(), this.rentalCart.get(furniture));
-    	}
+    	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, this.employeeId, this.createRentalItems(transactionId));
+//    	for (Furniture furniture: this.rentalCart.keySet()) {
+//    		this.itemDal.createRentalItem(transactionId, furniture.getFurnitureId(), this.rentalCart.get(furniture));
+//    	}
     		Parent root;
 
     		try {

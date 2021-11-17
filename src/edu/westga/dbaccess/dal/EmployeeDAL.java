@@ -13,6 +13,7 @@ import edu.westga.dbaccess.model.Employee;
 
 /**
  * DAL for accessing employee table
+ * @credit Uses MD5 hashing algorithm for password hashing.
  * 
  * @author Rasheed Jones
  * @verison 1.0

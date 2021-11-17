@@ -1,10 +1,13 @@
 package edu.westga.dbaccess.dal;
 
 import java.sql.Connection;
+import java.io.UnsupportedEncodingException;
+import java.security.*;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import edu.westga.dbaccess.model.Employee;
 
@@ -15,7 +18,6 @@ import edu.westga.dbaccess.model.Employee;
  * @verison 1.0
  */
 public class EmployeeDAL {
-
 	/**
 	 * Validates an employee by their username and password.
 	 * 
@@ -27,12 +29,20 @@ public class EmployeeDAL {
 	public Employee getEmployeeByLoginCredentials(String username, String password) throws SQLException {
 
 		Employee employee = null;
+		String hashedPassword = "";
 		String query = "select address1, address2, employeeId, firstName, lastName, password, phoneNumber, username from employee where username=? and password=?";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(query)) {
 
 			stmt.setString(1, username);
-			stmt.setString(2, password);
+			try {
+				byte[] passwordBytes = password.getBytes("UTF-8");
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				hashedPassword =  Base64.getEncoder().encodeToString(md.digest(passwordBytes));
+			} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+			stmt.setString(2, hashedPassword);
 
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {

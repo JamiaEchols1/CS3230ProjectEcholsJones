@@ -5,7 +5,6 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ListView fx:id="transactionListView" layoutX="37.0" layoutY="70.0" prefHeight="288.0" prefWidth="263.0" />
@@ -15,5 +14,6 @@
       <Button fx:id="submitButton" layoutX="597.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleSubmitButtonClick" text="SUBMIT" />
       <Label fx:id="customerInformationLabel" layoutX="37.0" layoutY="30.0" text="Customer information:" />
       <Label fx:id="transactionNumberLabel" layoutX="361.0" layoutY="30.0" text="Transaction Number:" />
+      <Label fx:id="finesLabel" layoutX="361.0" layoutY="369.0" text="Fines: " />
    </children>
 </AnchorPane>

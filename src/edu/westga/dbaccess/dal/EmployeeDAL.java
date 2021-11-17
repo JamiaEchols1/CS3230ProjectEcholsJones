@@ -55,4 +55,36 @@ public class EmployeeDAL {
 
 		return employee;
 	}
+
+	/**
+	 * Gets the employee by the employee Id
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param employeeId the employeeId
+	 * 
+	 * @return the employee
+	 * 
+	 * @throws SQLException
+	 */
+	public Employee getEmployeeByEmployeeId(int employeeId) throws SQLException {
+		Employee employee = null;
+		String query = "select address1, address2, employeeId, firstName, lastName, password, phoneNumber, username from employee where employeeId=?";
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+
+			stmt.setInt(1, employeeId);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				employee = new Employee(rs.getString("address1"), rs.getString("address2"), rs.getInt("employeeId"),
+						rs.getString("firstName"), rs.getString("lastName"), rs.getString("password"),
+						rs.getString("phoneNumber"), rs.getString("username"));
+			}
+
+		}
+
+		return employee;
+	}
 }

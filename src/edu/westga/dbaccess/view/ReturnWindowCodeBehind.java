@@ -51,6 +51,9 @@ public class ReturnWindowCodeBehind {
 
     @FXML
     private Button submitButton;
+    
+    @FXML
+    private Label finesLabel;
 
     @FXML
     private Label customerInformationLabel;
@@ -74,6 +77,8 @@ public class ReturnWindowCodeBehind {
 	
 	private HashMap<Furniture, Integer> returnCart;
 	
+	private double fineCost;
+	
 
 	public ReturnWindowCodeBehind() {
 		this.rentalDal = new RentalItemDAL();
@@ -81,6 +86,7 @@ public class ReturnWindowCodeBehind {
 		this.transactionDal = new ReturnTransactionDAL();
 		this.itemDal = new ReturnItemDAL();
 		this.returnCart = new HashMap<Furniture, Integer>();
+		this.fineCost = 0.0;
 	}
 	
 	@FXML
@@ -120,6 +126,10 @@ public class ReturnWindowCodeBehind {
     	
     			this.returnListView.getItems().setAll(this.returnCart.entrySet());
     		this.transactionListView.getSelectionModel().clearSelection();
+    		if (LocalDate.now().compareTo(this.transaction.getDueDate().toLocalDate()) < 0) {
+    			this.fineCost += furniture.getPrice();
+    			this.finesLabel.setText("Fines: $" + this.fineCost);
+    		}
     	}
     }
     
@@ -132,6 +142,10 @@ public class ReturnWindowCodeBehind {
     			this.returnCart.remove(furniture.getKey());
     		}
     		this.transactionListView.getItems().add(furniture.getKey());
+    		if (LocalDate.now().compareTo(this.transaction.getDueDate().toLocalDate()) < 0) {
+    			this.fineCost -= furniture.getKey().getPrice();
+    			this.finesLabel.setText("Fines: $" + this.fineCost);
+    		}
     	}
     	this.returnListView.getItems().setAll(this.returnCart.entrySet());
     }

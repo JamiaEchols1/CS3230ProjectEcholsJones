@@ -1,5 +1,18 @@
 package edu.westga.dbaccess.view;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
+import edu.westga.dbaccess.dal.CategoryDAL;
+import edu.westga.dbaccess.dal.FurnitureDAL;
+import edu.westga.dbaccess.dal.RentalItemDAL;
+import edu.westga.dbaccess.dal.RentalTransactionDAL;
+import edu.westga.dbaccess.dal.StyleDAL;
+import edu.westga.dbaccess.model.Furniture;
+import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,23 +27,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import edu.westga.dbaccess.dal.CategoryDAL;
-import edu.westga.dbaccess.dal.FurnitureDAL;
-import edu.westga.dbaccess.dal.RentalItemDAL;
-import edu.westga.dbaccess.dal.RentalTransactionDAL;
-import edu.westga.dbaccess.dal.StyleDAL;
-import edu.westga.dbaccess.model.Furniture;
-import edu.westga.dbaccess.model.Style;
-import edu.westga.dbaccess.utils.UI;
-import edu.westga.dbaccess.model.Category;
-
-import java.util.List;
-import java.util.Map.Entry;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * The 

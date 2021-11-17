@@ -72,6 +72,18 @@ public class RentalTransactionDAL {
 		}
 	}
 	
+	/**
+	 * Gets the customers transaction
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param customerId the customer id
+	 * 
+	 * @return the list of transactions
+	 * 
+	 * @throws SQLException
+	 */
 	public List<RentalTransaction> getCustomersTransactions(int customerId) throws SQLException {
 		String query = "select transactionId, dueDate, transactionDate, customerId, employeeId from rental_transaction where customerId=?";
 		List<RentalTransaction> transactions = new ArrayList<RentalTransaction>();
@@ -79,6 +91,59 @@ public class RentalTransactionDAL {
 				PreparedStatement stmt = connection.prepareStatement(query)) {
 			
 			stmt.setInt(1, customerId);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				transactions.add(new RentalTransaction(rs.getInt("transactionId"), rs.getDate("dueDate"), rs.getDate("transactionDate"), rs.getInt("customerId"), rs.getInt("employeeId")));
+			}
+		}
+		return transactions;
+	}
+
+	/**
+	 * Gets all transactions
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return list of transactions
+	 * 
+	 * @throws SQLException
+	 */
+	public List<RentalTransaction> getAllTransactions() throws SQLException {
+		String query = "select transactionId, dueDate, transactionDate, customerId, employeeId from rental_transaction";
+		List<RentalTransaction> transactions = new ArrayList<RentalTransaction>();
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+	
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				transactions.add(new RentalTransaction(rs.getInt("transactionId"), rs.getDate("dueDate"), rs.getDate("transactionDate"), rs.getInt("customerId"), rs.getInt("employeeId")));
+			}
+		}
+		return transactions;
+	}
+
+	/**
+	 * Gets the employee's transactions
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param employeeId the employee id
+	 * 
+	 * @return list of transactions
+	 * 
+	 * @throws SQLException
+	 */
+	public List<RentalTransaction> getEmployeesTransactions(int employeeId) throws SQLException {
+		String query = "select transactionId, dueDate, transactionDate, customerId, employeeId from rental_transaction where employeeId=?";
+		List<RentalTransaction> transactions = new ArrayList<RentalTransaction>();
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+			
+			stmt.setInt(1, employeeId);
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {

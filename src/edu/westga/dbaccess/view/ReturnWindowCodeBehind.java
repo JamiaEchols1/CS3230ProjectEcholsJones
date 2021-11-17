@@ -23,11 +23,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -107,8 +105,10 @@ public class ReturnWindowCodeBehind {
 	
     @FXML
     void handleAddToReturnClick(ActionEvent event) {
-    	Furniture furniture =this.transactionListView.getSelectionModel().getSelectedItem();
-    			if (!this.returnCart.containsKey(furniture)) {
+    	Furniture furniture = this.transactionListView.getSelectionModel().getSelectedItem();
+    			
+    	if (furniture != null) {
+    		if (!this.returnCart.containsKey(furniture)) {
 					this.returnCart.put(furniture, 1);
     			} else {
     				int quantity = this.returnCart.get(furniture);
@@ -118,13 +118,13 @@ public class ReturnWindowCodeBehind {
     			furniture.setQuantity(furniture.getQuantity()+1);
     			this.transactionListView.getItems().remove(furniture);
     	
-    	this.returnListView.getItems().setAll(this.returnCart.entrySet());
-    	this.transactionListView.getSelectionModel().clearSelection();
+    			this.returnListView.getItems().setAll(this.returnCart.entrySet());
+    		this.transactionListView.getSelectionModel().clearSelection();
+    	}
     }
-
+    
     @FXML
     void handleRemoveClick(ActionEvent event) {
-
     	for (Entry<Furniture, Integer> furniture: this.returnListView.getSelectionModel().getSelectedItems()) {
     		if (this.returnCart.get(furniture.getKey()) > 1) {
     			this.returnCart.put(furniture.getKey(), this.returnCart.get(furniture.getKey())-1);

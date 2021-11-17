@@ -6,6 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.westga.dbaccess.model.ReturnTransaction;
 
 /**
  * The return transaction dal
@@ -62,6 +66,87 @@ public class ReturnTransactionDAL {
 				stmt.setInt(4, memberID);
 				stmt.setInt(5, employeeId);
 				stmt.execute();
+		}
+	}
+
+	/**
+	 * Gets all the return transactions
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return a list of return transactions 
+	 * 
+	 * @throws SQLException
+	 */
+	public List<ReturnTransaction> getAllTransactions() throws SQLException {
+		List<ReturnTransaction> transactions = new ArrayList<ReturnTransaction>();
+		String query = "select transactionId, returnDate, customerId, employeeId from return_transaction";
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+					PreparedStatement stmt = connection.prepareStatement(query)) { 
+				
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				transactions.add(new ReturnTransaction(rs.getInt("transactionId"), rs.getDate("returnDate"), rs.getInt("customerId"), rs.getInt("employeeId")));
+			}
+			return transactions;
+		}
+	}
+	
+	/**
+	 * Gets the customers return transactions
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param customerId the customers id
+	 * 
+	 * @return a list of transactions
+	 * 
+	 * @throws SQLException
+	 */
+	public List<ReturnTransaction> getCustomersTransactions(int customerId) throws SQLException {
+		List<ReturnTransaction> transactions = new ArrayList<ReturnTransaction>();
+		String query = "select transactionId, returnDate, customerId, employeeId from return_transaction where customerId=?";
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+					PreparedStatement stmt = connection.prepareStatement(query)) { 
+				
+			stmt.setInt(1, customerId);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				transactions.add(new ReturnTransaction(rs.getInt("transactionId"), rs.getDate("returnDate"), rs.getInt("customerId"), rs.getInt("employeeId")));
+			}
+			return transactions;
+		}
+	}
+
+	/**
+	 * Gets the employees transactions
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param employeeId the employee id
+	 * 
+	 * @return the list of transactions
+	 * 
+	 * @throws SQLException
+	 */
+	public List<ReturnTransaction> getEmployeesTransactions(int employeeId) throws SQLException {
+		List<ReturnTransaction> transactions = new ArrayList<ReturnTransaction>();
+		String query = "select transactionId, returnDate, customerId, employeeId from return_transaction where employeeId=?";
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+					PreparedStatement stmt = connection.prepareStatement(query)) { 
+				
+			stmt.setInt(1, employeeId);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				transactions.add(new ReturnTransaction(rs.getInt("transactionId"), rs.getDate("returnDate"), rs.getInt("customerId"), rs.getInt("employeeId")));
+			}
+			return transactions;
 		}
 	}
 

@@ -158,7 +158,7 @@ public class ReturnWindowCodeBehind {
     	LocalDate date = LocalDate.now();
     	java.sql.Date sqlDate = java.sql.Date.valueOf(date.toString());
     	for (Entry<Furniture, Integer> furniture: this.returnListView.getItems()) {
-    		returnItems += ",(" + this.transaction.getTransactionId() + "," + transactionId + "," + sqlDate.toString() + "," + furniture.getKey().getFurnitureId() + "," + furniture.getValue() + ")";
+    		returnItems += ",(" + this.transaction.getTransactionId() + "," + transactionId + ",'" + sqlDate.toString() + "'," + furniture.getKey().getFurnitureId() + "," + furniture.getValue() + ")";
     	}
     	this.transactionDal.createReturnTransaction(transactionId, sqlDate, this.customer.getMemberID(), this.employeeId, returnItems.replaceFirst(",", ""));
     	

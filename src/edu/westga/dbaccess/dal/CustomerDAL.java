@@ -14,11 +14,12 @@ import edu.westga.dbaccess.model.Customer;
 
 /**
  * DAL for accessing Customer table
+ * 
  * @author Rasheed Jones
  * @version 1.0
  */
 public class CustomerDAL {
-	
+
 	/**
 	 * Gets the list of customers;
 	 * 
@@ -28,11 +29,15 @@ public class CustomerDAL {
 		HashMap<Integer, Customer> customers = new HashMap<Integer, Customer>();
 		String query = "select * from customer";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
-				PreparedStatement stmt = connection.prepareStatement(query)){ 
-			
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				customers.put(rs.getInt("memberId"), new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"), rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate")));
+				customers.put(rs.getInt("memberId"),
+						new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"),
+								rs.getString("gender"), rs.getString("address1"), rs.getString("state"),
+								rs.getString("city"), rs.getString("zipcode"), rs.getString("phoneNumber"),
+								rs.getDate("birthday"), rs.getDate("registrationDate")));
 			}
 			return customers;
 		}
@@ -40,29 +45,33 @@ public class CustomerDAL {
 
 	/**
 	 * Gets a customer based on their memberId
+	 * 
 	 * @param memberId the memberId to get the customer for
 	 * @return a customer with the given memberId
 	 * @throws SQLException
 	 */
-	public Customer getCustomerWithMemberId(int memberId) throws SQLException{
+	public Customer getCustomerWithMemberId(int memberId) throws SQLException {
 		String query = "select memberID, firstName, lastName, gender, address1, state, zipcode, city, phoneNumber, birthday, registrationDate from customer where memberId = ?";
-		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
-				PreparedStatement stmt = connection.prepareStatement(query)){ 
-		    
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+
 			stmt.setInt(1, memberId);
-	
+
 			ResultSet rs = stmt.executeQuery();
 			Customer customer = null;
-			while(rs.next()) {
-			customer = new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"), rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate"));
+			while (rs.next()) {
+				customer = new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"),
+						rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"),
+						rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"),
+						rs.getDate("registrationDate"));
 			}
 			return customer;
 		}
 	}
-	
-	
+
 	/**
- * Registers a customer
+	 * Registers a customer
+	 * 
 	 * @param firstName
 	 * @param lastName
 	 * @param gender
@@ -75,10 +84,11 @@ public class CustomerDAL {
 	 * @param registrationDate
 	 * @throws SQLException
 	 */
-	public void registerCustomer(String firstName, String lastName, String gender, String address1, String zipcode, String state, String city, String phoneNumber, Date birthday, Date registrationDate) throws SQLException {
+	public void registerCustomer(String firstName, String lastName, String gender, String address1, String zipcode,
+			String state, String city, String phoneNumber, Date birthday, Date registrationDate) throws SQLException {
 		String query = "insert into customer (firstname, lastname, gender, address1, zipcode, state, city, phonenumber, birthday, registrationdate) values (?,?,?,?,?,?,?,?,?,?)";
-		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
-				PreparedStatement stmt = connection.prepareStatement(query)) { 
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
 			stmt.setString(1, firstName);
 			stmt.setString(2, lastName);
 			stmt.setString(3, gender);
@@ -95,16 +105,19 @@ public class CustomerDAL {
 
 	public ArrayList<Customer> getCustomerWithFullName(String firstName, String lastName) throws SQLException {
 		String query = "select memberID, firstName, lastName, gender, address1, state, zipcode, city, phoneNumber, birthday, registrationDate from customer where firstName = ? and lastName = ?";
-		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
-				PreparedStatement stmt = connection.prepareStatement(query)){ 
-		    
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+
 			stmt.setString(1, firstName);
 			stmt.setString(2, lastName);
-	
+
 			ResultSet rs = stmt.executeQuery();
 			ArrayList<Customer> customers = new ArrayList<Customer>();
-			while(rs.next()) {
-			customers.add(new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"), rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate")));
+			while (rs.next()) {
+				customers.add(new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"),
+						rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"),
+						rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"),
+						rs.getDate("registrationDate")));
 			}
 			return customers;
 		}
@@ -112,18 +125,56 @@ public class CustomerDAL {
 
 	public ArrayList<Customer> getCustomerWithPhoneNumber(String phoneNumber) throws SQLException {
 		String query = "select memberID, firstName, lastName, gender, address1, state, zipcode, city, phoneNumber, birthday, registrationDate from customer where phoneNumber = ?";
-		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
-				PreparedStatement stmt = connection.prepareStatement(query)){ 
-		    
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+
 			stmt.setString(1, phoneNumber);
 
-	
 			ResultSet rs = stmt.executeQuery();
 			ArrayList<Customer> customers = new ArrayList<Customer>();
-			while(rs.next()) {
-			customers.add(new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"), rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"), rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"), rs.getDate("registrationDate")));
+			while (rs.next()) {
+				customers.add(new Customer(rs.getInt("memberId"), rs.getString("firstName"), rs.getString("lastName"),
+						rs.getString("gender"), rs.getString("address1"), rs.getString("state"), rs.getString("city"),
+						rs.getString("zipcode"), rs.getString("phoneNumber"), rs.getDate("birthday"),
+						rs.getDate("registrationDate")));
 			}
 			return customers;
+		}
+	}
+
+	/**
+	 * Edits a customer
+	 * 
+	 * @param firstName
+	 * @param lastName
+	 * @param gender
+	 * @param address1
+	 * @param zipcode
+	 * @param state
+	 * @param city
+	 * @param phoneNumber
+	 * @param birthday
+	 * @param registrationDate
+	 * @throws SQLException
+	 */
+	public void editCustomer(int memberID, String firstName, String lastName, String gender, String address1,
+			String zipcode, String state, String city, String phoneNumber, Date birthday) {
+		String query = " call uspEditCustomer(?,?,?,?,?,?,?,?,?,?)";
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+			stmt.setInt(1, memberID);
+			stmt.setString(2, firstName);
+			stmt.setString(3, lastName);
+			stmt.setString(4, gender);
+			stmt.setString(5, address1);
+			stmt.setString(6, zipcode);
+			stmt.setString(7, state);
+			stmt.setString(8, city);
+			stmt.setString(9, phoneNumber);
+			stmt.setDate(10, birthday);
+			stmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }

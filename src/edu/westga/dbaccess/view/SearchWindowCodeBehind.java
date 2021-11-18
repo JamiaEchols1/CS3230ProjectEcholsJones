@@ -44,6 +44,9 @@ public class SearchWindowCodeBehind {
 	void backButtonClick(ActionEvent event) {
 
 	}
+	
+	@FXML
+	private TextField searchTextField;
 
 	@FXML
 	void editButtonClick(ActionEvent event) throws NumberFormatException, SQLException {
@@ -88,9 +91,6 @@ public class SearchWindowCodeBehind {
 	void checkRegex(MouseEvent event) {
 
 	}
-
-	@FXML
-	private TextField searchTextField;
 
 	@FXML
 	void searchButtonClick(ActionEvent event) throws NumberFormatException, SQLException {

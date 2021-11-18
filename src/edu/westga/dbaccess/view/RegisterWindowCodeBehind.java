@@ -113,7 +113,7 @@ public class RegisterWindowCodeBehind {
 	private RegisterWindowController controller;
 
 	@FXML
-	void handleRegisterClick(ActionEvent event) throws SQLException {
+	void handleRegisterClick(ActionEvent event) {
 		try {
 			this.controller.registerCustomer(this.firstNameTextField.getText(), this.lastNameTextBox.getText(),
 					this.genderComboBox.getSelectionModel().getSelectedItem(), this.addressTextField.getText(),

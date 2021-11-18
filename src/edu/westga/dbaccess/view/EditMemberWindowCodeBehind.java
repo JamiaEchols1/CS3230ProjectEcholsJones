@@ -1,6 +1,7 @@
 package edu.westga.dbaccess.view;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
 
 import edu.westga.dbaccess.controller.EditMemberWindowController;
@@ -21,7 +22,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class EditMemberWindowCodeBehind {
-
 
 	@FXML
 	private Label nameErrorLabel;
@@ -106,6 +106,8 @@ public class EditMemberWindowCodeBehind {
 
 	private EditMemberWindowController controller;
 
+	private int memberID;
+
 	@FXML
 	void handleCancelClick(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(
@@ -140,7 +142,20 @@ public class EditMemberWindowCodeBehind {
 
 	@FXML
 	void handleEditClick(ActionEvent event) {
-
+		try {
+			this.controller.editCustomer(this.memberID, this.firstNameTextField.getText(),
+					this.lastNameTextBox.getText(), this.genderComboBox.getSelectionModel().getSelectedItem(),
+					this.addressTextField.getText(), this.zipCodeTextField.getText(),
+					this.stateComboBox.getSelectionModel().getSelectedItem(), this.cityTexfield.getText(),
+					this.phoneNumberTextField.getText(), Date.valueOf(this.birthdateDatePicker.getValue()));
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setContentText("Customer Updated");
+			alert.show();
+		} catch (Exception exception) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText(exception.getMessage());
+			alert.show();
+		}
 	}
 
 	@FXML
@@ -168,79 +183,80 @@ public class EditMemberWindowCodeBehind {
 		this.phoneNumberTextField.setText(customer.getPhoneNumber());
 		LocalDate date = customer.getBirthday().toLocalDate();
 		this.birthdateDatePicker.setValue(date);
+		this.memberID = customer.getMemberID();
 
 	}
-	
+
 	private void setupListeners() {
 		this.nameValidation();
 		this.addressValidation();
 		this.genderComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-				if (newValue == null) {
-					this.genderErrorLabel.setVisible(true);
-				} else {
-					this.genderErrorLabel.setVisible(false);
-				}
+			if (newValue == null) {
+				this.genderErrorLabel.setVisible(true);
+			} else {
+				this.genderErrorLabel.setVisible(false);
+			}
 		});
 		this.phoneNumberTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.phoneNumberTextField.getText().isEmpty() || this.phoneNumberTextField.getText().length() != 10) {
+			if (this.phoneNumberTextField.getText().isEmpty() || this.phoneNumberTextField.getText().length() != 10) {
+				this.phoneNumberErrorLabel.setVisible(true);
+			} else {
+				try {
+					Integer.parseInt(this.phoneNumberTextField.getText());
+					this.phoneNumberErrorLabel.setVisible(false);
+				} catch (Exception exception) {
 					this.phoneNumberErrorLabel.setVisible(true);
-				} else {
-					try {
-						Integer.parseInt(this.phoneNumberTextField.getText());
-						this.phoneNumberErrorLabel.setVisible(false);
-					} catch (Exception exception) {
-						this.phoneNumberErrorLabel.setVisible(true);
-					}
 				}
+			}
 		});
 
 	}
 
 	private void nameValidation() {
 		this.firstNameTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.firstNameTextField.getText().isEmpty() || this.firstNameTextField.getText().length() < 1) {
-					this.nameErrorLabel.setVisible(true);
-				} else {
-					this.nameErrorLabel.setVisible(false);
-				}
+			if (this.firstNameTextField.getText().isEmpty() || this.firstNameTextField.getText().length() < 1) {
+				this.nameErrorLabel.setVisible(true);
+			} else {
+				this.nameErrorLabel.setVisible(false);
+			}
 		});
 
 		this.lastNameTextBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.lastNameTextBox.getText().isEmpty() || this.lastNameTextBox.getText().length() < 1) {
-					this.nameErrorLabel.setVisible(true);
-				} else {
-					this.nameErrorLabel.setVisible(false);
-				}
+			if (this.lastNameTextBox.getText().isEmpty() || this.lastNameTextBox.getText().length() < 1) {
+				this.nameErrorLabel.setVisible(true);
+			} else {
+				this.nameErrorLabel.setVisible(false);
+			}
 		});
 	}
-	
+
 	private void addressValidation() {
 		this.addressTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.addressTextField.getText().isEmpty() || this.addressTextField.getText().length() < 1) {
-					this.addressErrorLabel.setVisible(true);
-				} else {
-					this.addressErrorLabel.setVisible(false);
-				}
+			if (this.addressTextField.getText().isEmpty() || this.addressTextField.getText().length() < 1) {
+				this.addressErrorLabel.setVisible(true);
+			} else {
+				this.addressErrorLabel.setVisible(false);
+			}
 		});
 		this.cityTexfield.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.cityTexfield.getText().isEmpty() || this.cityTexfield.getText().length() < 1) {
-					this.addressErrorLabel.setVisible(true);
-				} else {
-					this.addressErrorLabel.setVisible(false);
-				}
+			if (this.cityTexfield.getText().isEmpty() || this.cityTexfield.getText().length() < 1) {
+				this.addressErrorLabel.setVisible(true);
+			} else {
+				this.addressErrorLabel.setVisible(false);
+			}
 		});
 		this.zipCodeTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-				if (this.zipCodeTextField.getText().isEmpty() || this.zipCodeTextField.getText().length() != 6) {
+			if (this.zipCodeTextField.getText().isEmpty() || this.zipCodeTextField.getText().length() != 6) {
+				this.addressErrorLabel.setVisible(true);
+			} else {
+				try {
+					Integer.parseInt(this.zipCodeTextField.getText());
+					this.addressErrorLabel.setVisible(false);
+				} catch (Exception exception) {
 					this.addressErrorLabel.setVisible(true);
-				} else {
-					try {
-						Integer.parseInt(this.zipCodeTextField.getText());
-						this.addressErrorLabel.setVisible(false);
-					} catch (Exception exception) {
-						this.addressErrorLabel.setVisible(true);
-					}	
 				}
-				});
+			}
+		});
 		this.stateComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue == null) {
 				this.addressErrorLabel.setVisible(true);

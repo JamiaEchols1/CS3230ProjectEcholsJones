@@ -2,14 +2,19 @@ package edu.westga.dbaccess.view;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import edu.westga.dbaccess.controller.SearchController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -22,6 +27,10 @@ public class SearchWindowCodeBehind {
 
 	@FXML
 	private Label searchLabel;
+	
+
+    @FXML
+    private Label warningLabel;
 
 	@FXML
 	private Button searchButton;
@@ -37,16 +46,41 @@ public class SearchWindowCodeBehind {
 
 	@FXML
 	private ComboBox<String> modeComboBox;
+	
+	@FXML
+	private TextField searchTextField;
 
 	private SearchController controller;
 
 	@FXML
 	void backButtonClick(ActionEvent event) {
+		FXMLLoader loader = new FXMLLoader(
+				getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
 
+		Parent root;
+		try {
+			root = loader.load();
+
+			Stage stage = new Stage();
+
+			stage.setTitle("Landing Window");
+
+			stage.setScene(new Scene(root));
+
+			stage.show();
+
+			Node node = ((Node) (event.getSource()));
+
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
+
+		} catch (IOException exception) {
+			Alert alert = new Alert(Alert.AlertType.ERROR);
+			alert.setContentText(exception.getMessage());
+			alert.show();
+		}
 	}
-	
-	@FXML
-	private TextField searchTextField;
 
 	@FXML
 	void editButtonClick(ActionEvent event) throws NumberFormatException, SQLException {
@@ -87,10 +121,24 @@ public class SearchWindowCodeBehind {
 		}
 	}
 
-	@FXML
-	void checkRegex(MouseEvent event) {
-
-	}
+	
+	/*private void addListeners() {
+		this.searchTextField.textProperty().addListener((obs, oldText, newText) -> {
+			if (this.modeComboBox.getSelectionModel().getSelectedItem() == "FullName") {
+				Pattern pattern = Pattern.compile("*");
+			    Matcher matcher = pattern.matcher(newText);
+			    boolean matchFound = matcher.find();
+			    if(matchFound) {
+			      this.searchButton.setDisable(true);
+			      this.warningLabel.setText("Must be in format FirstName LastName");
+			    } else {
+			    	this.searchButton.setDisable(false);
+				    this.warningLabel.setText("");
+			    }
+			}
+			
+		});
+	}*/
 
 	@FXML
 	void searchButtonClick(ActionEvent event) throws NumberFormatException, SQLException {

@@ -3,6 +3,7 @@ package edu.westga.dbaccess.view;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -153,10 +154,14 @@ public class ReturnWindowCodeBehind {
     @FXML
     void handleSubmitButtonClick(ActionEvent event) throws SQLException {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
-    	this.transactionDal.createReturnTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now()), this.customer.getMemberID(), this.employeeId);
+    	String returnItems = "";
+    	LocalDate date = LocalDate.now();
+    	java.sql.Date sqlDate = java.sql.Date.valueOf(date.toString());
     	for (Entry<Furniture, Integer> furniture: this.returnListView.getItems()) {
-    		this.itemDal.createReturnItem(transactionId, furniture.getKey().getFurnitureId(), this.transaction.getTransactionId(), java.sql.Date.valueOf(LocalDate.now()), furniture.getValue());
+    		returnItems += ",(" + this.transaction.getTransactionId() + "," + transactionId + "," + sqlDate.toString() + "," + furniture.getKey().getFurnitureId() + "," + furniture.getValue() + ")";
     	}
+    	this.transactionDal.createReturnTransaction(transactionId, sqlDate, this.customer.getMemberID(), this.employeeId, returnItems.replaceFirst(",", ""));
+    	
     		Parent root;
 
     		try {

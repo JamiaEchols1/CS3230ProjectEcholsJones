@@ -183,9 +183,6 @@ public class FurnitureShopCodeBehind {
     void handleCheckoutButtonClick(ActionEvent event) throws SQLException {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
     	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, this.employeeId, this.createRentalItems(transactionId));
-//    	for (Furniture furniture: this.rentalCart.keySet()) {
-//    		this.itemDal.createRentalItem(transactionId, furniture.getFurnitureId(), this.rentalCart.get(furniture));
-//    	}
     		Parent root;
 
     		try {

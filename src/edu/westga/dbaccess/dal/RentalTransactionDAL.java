@@ -35,7 +35,6 @@ public class RentalTransactionDAL {
 	 * 
 	 */
 	public void createRentalTransaction(int transactionId, Date dueDate, Date transactionDate, int customerId, int employeeId, String rentalItems) throws SQLException {
-		//String query = "insert into rental_transaction (transactionId, dueDate, transactionDate, customerId, employeeId) values (?,?,?,?,?)";
 		String query = "CALL uspCreateRentalTransaction(?,?,?,?,?,?)";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 					PreparedStatement stmt = connection.prepareStatement(query)) { 

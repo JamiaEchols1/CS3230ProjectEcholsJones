@@ -57,14 +57,15 @@ public class ReturnTransactionDAL {
 	 * 
 	 * @throws SQLException 
 	 */
-	public void createReturnTransaction(int transactionId, Date date, int memberID, int employeeId) throws SQLException {
-		String query = "insert into return_transaction (transactionId, returnDate, customerId, employeeId) values (?,?,?,?)";
+	public void createReturnTransaction(int transactionId, Date returnDate, int memberID, int employeeId, String returnItem) throws SQLException {
+		String query = "CALL uspCreateReturnTransaction(?,?,?,?,?)";
 		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
 					PreparedStatement stmt = connection.prepareStatement(query)) { 
 				stmt.setInt(1, transactionId);
-				stmt.setDate(2, date);
-				stmt.setInt(4, memberID);
-				stmt.setInt(5, employeeId);
+				stmt.setDate(2, returnDate);
+				stmt.setInt(3, memberID);
+				stmt.setInt(4, employeeId);
+				stmt.setString(5, returnItem);
 				stmt.execute();
 		}
 	}

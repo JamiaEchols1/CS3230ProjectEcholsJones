@@ -16,6 +16,18 @@ import java.sql.SQLException;
  */
 public class AdminQueryInterfaceDAL {
 
+	/**
+	 * Runs the enter query
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param query the query
+	 * 
+	 * @return the result of the query
+	 * 
+	 * @throws SQLException
+	 */
 	public String runQuery(String query) throws SQLException {
 		String results = "";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
@@ -26,7 +38,7 @@ public class AdminQueryInterfaceDAL {
 			int numberOfColumns = rsmd.getColumnCount();
 			while (rs.next()) {
 				for (int i = 1; i <= numberOfColumns; i++) {
-					results += rsmd.getColumnName(i) + ": " + rs.getObject(i) + " |";
+					results += rsmd.getColumnName(i) + ": " + rs.getObject(i) + " | ";
 				}
 				results += System.lineSeparator();
 			}

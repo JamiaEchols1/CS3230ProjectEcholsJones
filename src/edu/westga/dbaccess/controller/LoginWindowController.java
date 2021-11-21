@@ -5,6 +5,13 @@ import java.sql.SQLException;
 import edu.westga.dbaccess.dal.EmployeeDAL;
 import edu.westga.dbaccess.model.Employee;
 
+/**
+ * The login window controller
+ * 
+ * @author Rasheed Jones
+ * @version Fall 2021
+ *
+ */
 public class LoginWindowController {
 	private EmployeeDAL employeeDal;
 	private Employee login;

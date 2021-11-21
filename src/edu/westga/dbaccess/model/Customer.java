@@ -177,6 +177,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return this.firstName + " " + this.lastName;
+		return "Customer [memberID=" + memberID + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", registrationDate=" + registrationDate + "]";
 	}
+
 }

@@ -16,6 +16,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * The login window code behind
+ * 
+ * @author Rasheed Jones
+ * @version Fall 2021
+ *
+ */
 public class LoginWindowCodeBehind {
 
     @FXML
@@ -54,6 +61,8 @@ public class LoginWindowCodeBehind {
     			LandingWindowCodeBehind landingWindow = loader.getController();
     			
     			landingWindow.setTitle(this.controller.getEmployee().getFullName(), this.controller.getEmployee().getUsername(), this.controller.getEmployee().getEmployeeId());
+    			
+    			landingWindow.setEmployee(this.controller.getEmployee());;
     			
     			Stage stage = new Stage();
 

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import edu.westga.dbaccess.dal.CustomerDAL;
 import edu.westga.dbaccess.dal.RentalTransactionDAL;
 import edu.westga.dbaccess.model.Customer;
+import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.RentalTransaction;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
@@ -65,6 +66,8 @@ public class LandingWindowCodeBehind {
     private Button openQueryInterfaceButton;
    
     private RentalTransaction transaction;
+    
+    private Employee employee;
     
     public LandingWindowCodeBehind() {
     	this.customerDal = new CustomerDAL();
@@ -222,8 +225,6 @@ public class LandingWindowCodeBehind {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\SearchWindow.fxml"));
 
-			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\SearchWindow.fxml"));
-
 			root = loader.load();
 
 			Stage stage = new Stage();
@@ -256,6 +257,10 @@ public class LandingWindowCodeBehind {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\AdminQueryWindow.fxml"));
 
 			root = loader.load();
+			
+			AdminQueryWindowCodeBehind codeBehind = loader.getController();
+			
+			codeBehind.setAdminInformation(this.employee);
 
 			Stage stage = new Stage();
 
@@ -284,4 +289,12 @@ public class LandingWindowCodeBehind {
     	this.idLbl.setText(String.valueOf(id));
     }
 
+	 /**
+	  * Sets the employee
+	  * 
+	  * @param employee the employee
+	  */
+	 public void setEmployee(Employee employee) {
+		 this.employee = employee;
+	 }
 }

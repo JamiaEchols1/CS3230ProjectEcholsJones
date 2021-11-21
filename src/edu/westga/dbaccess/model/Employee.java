@@ -103,7 +103,18 @@ public class Employee {
 		return username;
 	}
 
+	/**
+	 * 
+	 * @return the employees full name
+	 */
 	public String getFullName() {
 		return this.firstName + " " + this.lastName;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [employeeId=" + employeeId + ", username=" + username + "]";
+	}
+	
+	
 }

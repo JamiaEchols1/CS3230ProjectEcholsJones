@@ -14,6 +14,6 @@
       <Button fx:id="clearButton" layoutX="98.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleClearButtonCLick" text="CLEAR" />
       <TextArea fx:id="resultsTextArea" layoutX="34.0" layoutY="130.0" prefHeight="236.0" prefWidth="518.0" />
       <Button fx:id="backButton" layoutX="34.0" layoutY="383.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="BACK" />
-      <Label fx:id="adminInformaationLabel" layoutX="34.0" layoutY="22.0" />
+      <Label fx:id="adminInformationLabel" layoutX="34.0" layoutY="22.0" />
    </children>
 </AnchorPane>

@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 
 import edu.westga.dbaccess.dal.CategoryDAL;
 import edu.westga.dbaccess.dal.FurnitureDAL;
-import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.dal.RentalTransactionDAL;
 import edu.westga.dbaccess.dal.StyleDAL;
 import edu.westga.dbaccess.model.Customer;
@@ -64,8 +63,6 @@ public class FurnitureShopCodeBehind {
     private StyleDAL styleDal;
     
     private RentalTransactionDAL transactionDal;
-    
-    private RentalItemDAL itemDal;
 
     private HashMap<Integer, String> styles;
     
@@ -116,7 +113,6 @@ public class FurnitureShopCodeBehind {
         this.categoryDal = new CategoryDAL();
         this.styleDal = new StyleDAL();
         this.transactionDal = new RentalTransactionDAL();
-        this.itemDal = new RentalItemDAL();
         this.styles = new HashMap<Integer, String>();
         this.categories = new HashMap<Integer, String>();
         this.rentalCart = new HashMap<Furniture, Integer>();

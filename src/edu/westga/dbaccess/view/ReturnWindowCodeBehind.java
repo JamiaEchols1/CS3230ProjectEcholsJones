@@ -3,7 +3,6 @@ package edu.westga.dbaccess.view;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.Map.Entry;
 
 import edu.westga.dbaccess.dal.FurnitureDAL;
 import edu.westga.dbaccess.dal.RentalItemDAL;
-import edu.westga.dbaccess.dal.ReturnItemDAL;
 import edu.westga.dbaccess.dal.ReturnTransactionDAL;
 import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Furniture;
@@ -71,8 +69,6 @@ public class ReturnWindowCodeBehind {
 	private FurnitureDAL furnitureDal;
 	
 	private ReturnTransactionDAL transactionDal;
-	
-	private ReturnItemDAL itemDal;
 
 	private Customer customer;
 	
@@ -85,7 +81,6 @@ public class ReturnWindowCodeBehind {
 		this.rentalDal = new RentalItemDAL();
 		this.furnitureDal = new FurnitureDAL();
 		this.transactionDal = new ReturnTransactionDAL();
-		this.itemDal = new ReturnItemDAL();
 		this.returnCart = new HashMap<Furniture, Integer>();
 		this.fineCost = 0.0;
 	}

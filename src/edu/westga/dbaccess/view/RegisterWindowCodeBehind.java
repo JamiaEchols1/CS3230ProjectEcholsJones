@@ -2,7 +2,6 @@ package edu.westga.dbaccess.view;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 import edu.westga.dbaccess.controller.RegisterWindowController;
@@ -138,9 +137,7 @@ public class RegisterWindowCodeBehind {
 		Parent root;
 		try {
 			root = loader.load();
-
-			LandingWindowCodeBehind landingWindow = loader.getController();
-
+			
 			Stage stage = new Stage();
 
 			stage.setTitle("Registration Window");

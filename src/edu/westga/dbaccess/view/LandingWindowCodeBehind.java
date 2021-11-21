@@ -226,6 +226,9 @@ public class LandingWindowCodeBehind {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\SearchWindow.fxml"));
 
 			root = loader.load();
+			
+			SearchWindowCodeBehind codeBehind = loader.getController();
+			codeBehind.setEmployee(this.employee);
 
 			Stage stage = new Stage();
 

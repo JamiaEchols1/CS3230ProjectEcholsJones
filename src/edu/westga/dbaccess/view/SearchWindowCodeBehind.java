@@ -2,12 +2,9 @@ package edu.westga.dbaccess.view;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import edu.westga.dbaccess.controller.SearchController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import edu.westga.dbaccess.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +17,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class SearchWindowCodeBehind {
@@ -51,6 +47,8 @@ public class SearchWindowCodeBehind {
 	private TextField searchTextField;
 
 	private SearchController controller;
+	
+	private Employee employee;
 
 	@FXML
 	void backButtonClick(ActionEvent event) {
@@ -60,6 +58,10 @@ public class SearchWindowCodeBehind {
 		Parent root;
 		try {
 			root = loader.load();
+			
+			LandingWindowCodeBehind codeBehind = loader.getController();
+			
+			codeBehind.setEmployee(this.employee);
 
 			Stage stage = new Stage();
 
@@ -171,4 +173,7 @@ public class SearchWindowCodeBehind {
 		this.controller = new SearchController();
 	}
 
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
 }

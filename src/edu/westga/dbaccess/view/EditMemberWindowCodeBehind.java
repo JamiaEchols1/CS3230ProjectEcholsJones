@@ -117,8 +117,6 @@ public class EditMemberWindowCodeBehind {
 		try {
 			root = loader.load();
 
-			SearchWindowCodeBehind searchWindow = loader.getController();
-
 			Stage stage = new Stage();
 
 			stage.setTitle("Search Window");

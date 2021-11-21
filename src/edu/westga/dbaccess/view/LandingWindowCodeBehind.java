@@ -1,5 +1,6 @@
 package edu.westga.dbaccess.view;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -60,6 +61,9 @@ public class LandingWindowCodeBehind {
     @FXML
     private Button returnFurnitureButton;
     
+    @FXML
+    private Button openQueryInterfaceButton;
+   
     private RentalTransaction transaction;
     
     public LandingWindowCodeBehind() {
@@ -225,6 +229,37 @@ public class LandingWindowCodeBehind {
 			Stage stage = new Stage();
 
 			stage.setTitle("Search Window");
+
+			stage.setScene(new Scene(root));
+
+			stage.show();
+
+			Node node = ((Node)(event.getSource()));
+
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
+
+		} catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+    }
+    
+    @FXML
+    void handleOpenQueryInterfaceButton(ActionEvent event) {
+    	Parent root;
+
+		try{
+
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\AdminQueryWindow.fxml"));
+
+			root = loader.load();
+
+			Stage stage = new Stage();
+
+			stage.setTitle("Admin Query Window");
 
 			stage.setScene(new Scene(root));
 

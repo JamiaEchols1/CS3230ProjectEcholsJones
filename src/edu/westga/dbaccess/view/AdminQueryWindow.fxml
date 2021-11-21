@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.AdminQueryWindowCodeBehind">
    <children>
       <TextField fx:id="queryTextField" layoutX="34.0" layoutY="50.0" prefHeight="25.0" prefWidth="512.0" promptText="ENTER QUERY" />
       <Button fx:id="submitButton" layoutX="396.0" layoutY="87.0" mnemonicParsing="false" onAction="#handleSubmitButton" text="SUBMIT" />

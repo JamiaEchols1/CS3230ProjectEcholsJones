@@ -2,6 +2,7 @@ package edu.westga.dbaccess.view;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -12,6 +13,7 @@ import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.dal.RentalTransactionDAL;
 import edu.westga.dbaccess.dal.StyleDAL;
 import edu.westga.dbaccess.model.Customer;
+import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.Furniture;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
@@ -73,6 +75,8 @@ public class FurnitureShopCodeBehind {
     
     private int employeeId;
     
+    private Employee employee;
+    
     private int customerId;
     
     @FXML
@@ -95,6 +99,9 @@ public class FurnitureShopCodeBehind {
 
     @FXML
     private Label costLabel;
+    
+    @FXML
+    private Button backButton;
     
     private double cartCost;
     
@@ -127,6 +134,45 @@ public class FurnitureShopCodeBehind {
     	this.categories = this.categoryDal.getCategory();
     }
 
+    @FXML
+    void handleBackButtonClick(ActionEvent event) {
+    	Parent root;
+
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
+
+			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\LandingWindow.fxml"));
+
+			root = loader.load();
+
+			LandingWindowCodeBehind landingWindow = loader.getController();
+			
+			landingWindow.setTitle(this.employee.getFullName(), this.employee.getUsername(), this.employee.getEmployeeId());
+			
+			landingWindow.setEmployee(this.employee);
+			
+			Stage stage = new Stage();
+
+			stage.setTitle("Registration Window");
+
+			stage.setScene(new Scene(root, 452, 440));
+
+			stage.show();
+
+			Node node = ((Node)(event.getSource()));
+
+			Stage thisStage = (Stage) node.getScene().getWindow();
+
+			thisStage.close();
+
+		} catch (IOException e) {
+
+            e.printStackTrace();
+
+        }
+    }
+    
     @FXML
     void handleAddToCartButtonClick(ActionEvent event) throws SQLException {
     	for (Furniture furniture: this.furnitureListView.getSelectionModel().getSelectedItems()) {
@@ -162,7 +208,9 @@ public class FurnitureShopCodeBehind {
     			this.cartCost -= furniture.getKey().getPrice();
     		}
     	}
-    	this.costLabel.setText( "Total: " + this.cartCost);
+    	NumberFormat formatter = NumberFormat.getCurrencyInstance();
+    	String moneyString = formatter.format(this.cartCost);
+    	this.costLabel.setText( "Total: " + moneyString);
     	this.cartListView.getItems().setAll(this.rentalCart.entrySet());
     	this.cartListView.getSelectionModel().clearSelection();
     
@@ -248,19 +296,21 @@ public class FurnitureShopCodeBehind {
      * 
      * @param employeeId the employeeId
      */
-    public void setEmployee(int employeeId) {
-    	if (employeeId < 0 ) {
-    		throw new IllegalArgumentException(UI.ErrorMessages.ID_NEGATIVE);
+    public void setEmployee(Employee employee) {
+    	if (employee == null) {
+    		throw new IllegalArgumentException(UI.ErrorMessages.EMPLOYEE_NULL);
     	}
-    	this.employeeId = employeeId;
+    	this.employeeId = employee.getEmployeeId();
+    	this.employee = employee;
+    	
     }
     
     /**
-     * Set the customerId
+     * Set the customer
      * 
-     * @precondition customerId > 0
+     * @precondition customer != null
      * 
-     * @param customerId
+     * @param customer the customer
      */
     public void setCustomer(Customer customer) {
     	if (customer == null) {

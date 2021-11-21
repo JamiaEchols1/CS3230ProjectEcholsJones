@@ -194,7 +194,7 @@ public class LandingWindowCodeBehind {
 			
 			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem());
 			
-			codeBehind.setEmployee(Integer.parseInt(this.idLbl.getText()));
+			codeBehind.setEmployee(this.employee);
 			
 			Stage stage = new Stage();
 

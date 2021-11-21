@@ -12,12 +12,13 @@
       <ComboBox fx:id="styleFilterComboBox" layoutX="35.0" layoutY="54.0" prefHeight="25.0" prefWidth="132.0" promptText="SELECT STYLE" />
       <ComboBox fx:id="categoryComboBox" layoutX="353.0" layoutY="54.0" prefHeight="25.0" prefWidth="157.0" promptText="SELECT CATEGORY" />
       <ListView fx:id="furnitureListView" layoutX="35.0" layoutY="97.0" prefHeight="200.0" prefWidth="295.0" />
-      <Button fx:id="addToCartButton" layoutX="35.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleAddToCartButtonClick" text="ADD TO CART" />
-      <Button fx:id="checkoutButton" layoutX="254.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleCheckoutButtonClick" text="CHECKOUT" />
+      <Button fx:id="addToCartButton" layoutX="238.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleAddToCartButtonClick" text="ADD TO CART" />
+      <Button fx:id="checkoutButton" layoutX="600.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleCheckoutButtonClick" text="CHECKOUT" />
       <Button fx:id="searchStyleButton" layoutX="199.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleSearchStyleButtonClick" text="SEARCH BY STYLE" />
       <ListView fx:id="cartListView" layoutX="407.0" layoutY="97.0" prefHeight="200.0" prefWidth="269.0" />
-      <Button fx:id="removeButton" layoutX="608.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleRemoveButtonClick" text="REMOVE" />
+      <Button fx:id="removeButton" layoutX="500.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleRemoveButtonClick" text="REMOVE" />
       <Label fx:id="costLabel" layoutX="402.0" layoutY="312.0" text="Total:" />
       <Label fx:id="customerInformationLabel" layoutX="35.0" layoutY="22.0" text=" " />
+      <Button fx:id="backButton" layoutX="35.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="BACK" />
    </children>
 </AnchorPane>

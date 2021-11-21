@@ -127,7 +127,7 @@ public class ReturnWindowCodeBehind {
     	
     			this.returnListView.getItems().setAll(this.returnCart.entrySet());
     		this.transactionListView.getSelectionModel().clearSelection();
-    		if (LocalDate.now().compareTo(this.transaction.getDueDate().toLocalDate()) < 0) {
+    		if (LocalDate.now().compareTo(this.transaction.getDueDate().toLocalDate()) > 0) {
     			this.fineCost += furniture.getPrice();
     			this.finesLabel.setText("Fines: $" + this.fineCost);
     		}

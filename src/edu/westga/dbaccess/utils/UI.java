@@ -45,5 +45,6 @@ public class UI {
 		public static final String UNABLE_TO_LOAD_TRANSACTIONS = "Unable to load transactions.";
 		public static final String NULL_TRANSACTION = "Transaction cannot be null";
 		public static final String CUSTOMER_NULL = "Customer cannot be null";
+		public static final String EMPLOYEE_NULL = "Employee cannot be null";
 	}
 }

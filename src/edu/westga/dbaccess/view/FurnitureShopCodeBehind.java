@@ -11,6 +11,7 @@ import edu.westga.dbaccess.dal.FurnitureDAL;
 import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.dal.RentalTransactionDAL;
 import edu.westga.dbaccess.dal.StyleDAL;
+import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Furniture;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
@@ -29,7 +30,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * The 
+ * The furniture shop window code behing
+ * 
+ * @author Jamia Echols
+ * @version Fall 2021
  */
 public class FurnitureShopCodeBehind {
 
@@ -48,6 +52,9 @@ public class FurnitureShopCodeBehind {
     @FXML
     private ListView<Furniture> furnitureListView;
 
+    @FXML
+    private Label customerInformationLabel;
+    
     private FurnitureDAL furnitureDal;
     
     private CategoryDAL categoryDal;
@@ -255,11 +262,12 @@ public class FurnitureShopCodeBehind {
      * 
      * @param customerId
      */
-    public void setCustomer(int customerId) {
-    	if (customerId < 0) {
-    		throw new IllegalArgumentException(UI.ErrorMessages.ID_NEGATIVE);
+    public void setCustomer(Customer customer) {
+    	if (customer == null) {
+    		throw new IllegalArgumentException(UI.ErrorMessages.CUSTOMER_NULL);
     	}
-    	this.customerId = customerId;
+    	this.customerId = customer.getMemberID();
+    	this.customerInformationLabel.setText(customer.toString());
     }
 
 }

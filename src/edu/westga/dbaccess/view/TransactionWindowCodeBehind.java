@@ -5,7 +5,6 @@ import java.util.List;
 
 import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.Item;
-import edu.westga.dbaccess.model.RentalTransaction;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

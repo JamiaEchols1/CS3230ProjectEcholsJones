@@ -7,7 +7,7 @@ package edu.westga.dbaccess.model;
  * @version Fall 2021
  *
  */
-public class RentalItem {
+public class Item {
 	
 	private int transactionId;
 	private int furnitureId;
@@ -20,7 +20,7 @@ public class RentalItem {
 	 * @param furnitureId the furniture id
 	 * @param quantity the quantity
 	 */
-	public RentalItem(int transactionId, int furnitureId, int quantity) {
+	public Item(int transactionId, int furnitureId, int quantity) {
 		this.transactionId = transactionId;
 		this.furnitureId = furnitureId;
 		this.quantity = quantity;

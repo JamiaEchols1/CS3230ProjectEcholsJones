@@ -12,8 +12,9 @@ import edu.westga.dbaccess.dal.FurnitureDAL;
 import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.dal.ReturnTransactionDAL;
 import edu.westga.dbaccess.model.Customer;
+import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.Furniture;
-import edu.westga.dbaccess.model.RentalItem;
+import edu.westga.dbaccess.model.Item;
 import edu.westga.dbaccess.model.RentalTransaction;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
@@ -60,7 +61,7 @@ public class ReturnWindowCodeBehind {
     @FXML
     private Label transactionNumberLabel;
 
-	private int employeeId;
+	private Employee employee;
 
 	private RentalTransaction transaction;
 	
@@ -93,10 +94,10 @@ public class ReturnWindowCodeBehind {
 	}
 
 	private List<Furniture> getFurniture() throws SQLException {
-		List<RentalItem> items = this.rentalDal.rentalItems(this.transaction.getTransactionId());
+		List<Item> items = this.rentalDal.rentalItems(this.transaction.getTransactionId());
 		List<Furniture> furniture = new ArrayList<Furniture>();
 		
-		for (RentalItem item : items) {
+		for (Item item : items) {
 			for (int i = 0; i < item.getQuantity(); i++) {
 				furniture.add(this.furnitureDal.getFurnitureById(item.getFurnitureId()));
 			}
@@ -155,38 +156,45 @@ public class ReturnWindowCodeBehind {
     	for (Entry<Furniture, Integer> furniture: this.returnListView.getItems()) {
     		returnItems += ",(" + this.transaction.getTransactionId() + "," + transactionId + ",'" + sqlDate.toString() + "'," + furniture.getKey().getFurnitureId() + "," + furniture.getValue() + ")";
     	}
-    	this.transactionDal.createReturnTransaction(transactionId, sqlDate, this.customer.getMemberID(), this.employeeId, returnItems.replaceFirst(",", ""));
+    	this.transactionDal.createReturnTransaction(transactionId, sqlDate, this.customer.getMemberID(), this.employee.getEmployeeId(), returnItems.replaceFirst(",", ""));
     	
-    		Parent root;
+    	Parent root;
 
-    		try {
+		try {
 
-    			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\TransactionSummaryWindow.fxml"));
 
-    			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\LandingWindow.fxml"));
+			root = loader.load();
 
-    			root = loader.load();
+			TransactionWindowCodeBehind codeBehind = loader.getController();
+	
+			codeBehind.setEmployee(this.employee);
+			
+			List<Item> items = this.rentalDal.rentalItems(transactionId);
+			
+			codeBehind.setTransactionText((Object) this.transactionDal.getReturnTransaction(transactionId), items);
+			
+			Stage stage = new Stage();
 
+			stage.setTitle("Summary Window");
 
-    			Stage stage = new Stage();
+			stage.setScene(new Scene(root, 452, 440));
 
-    			stage.setTitle("Registration Window");
+			stage.show();
 
-    			stage.setScene(new Scene(root, 452, 440));
+			Node node = ((Node)(event.getSource()));
 
-    			stage.show();
+			Stage thisStage = (Stage) node.getScene().getWindow();
 
-    			Node node = ((Node)(event.getSource()));
+			thisStage.close();
 
-    			Stage thisStage = (Stage) node.getScene().getWindow();
+		} catch (IOException e) {
 
-    			thisStage.close();
+            e.printStackTrace();
 
-    		} catch (IOException e) {
+        }
+	
 
-                e.printStackTrace();
-
-            }
     }
     
     /**
@@ -197,11 +205,11 @@ public class ReturnWindowCodeBehind {
      * 
      * @param employeeId the employeeId
      */
-    public void setEmployee(int employeeId) {
-    	if (employeeId < 0 ) {
-    		throw new IllegalArgumentException(UI.ErrorMessages.ID_NEGATIVE);
+    public void setEmployee(Employee employee) {
+    	if (employee == null) {
+    		throw new IllegalArgumentException(UI.ErrorMessages.EMPLOYEE_NULL);
     	}
-    	this.employeeId = employeeId;
+    	this.employee = employee;
     }
     
     /**

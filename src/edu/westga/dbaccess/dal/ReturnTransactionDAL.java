@@ -151,4 +151,32 @@ public class ReturnTransactionDAL {
 		}
 	}
 
+	/**
+	 * Gets the return transaction
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param transactionId the transaction id
+	 * 
+	 * @return the transaction
+	 * 
+	 * @throws SQLException
+	 */
+	public Object getReturnTransaction(int transactionId) throws SQLException {
+		ReturnTransaction transaction = null;
+		String query = "select transactionId, returnDate, customerId, employeeId from return_transaction where transactionId=?";
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+					PreparedStatement stmt = connection.prepareStatement(query)) { 
+				
+			stmt.setInt(1, transactionId);
+			ResultSet rs = stmt.executeQuery();
+			
+			while (rs.next()) {
+				transaction = new ReturnTransaction(rs.getInt("transactionId"), rs.getDate("returnDate"), rs.getInt("customerId"), rs.getInt("employeeId"));
+			}
+			return transaction;
+		}
+	}
+
 }

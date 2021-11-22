@@ -13,7 +13,7 @@
       <Button fx:id="removeButton" layoutX="375.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleRemoveClick" text="REMOVE" />
       <Button fx:id="submitButton" layoutX="597.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleSubmitButtonClick" text="SUBMIT" />
       <Label fx:id="customerInformationLabel" layoutX="37.0" layoutY="30.0" text="Customer information:" />
-      <Label fx:id="transactionNumberLabel" layoutX="361.0" layoutY="30.0" text="Transaction Number:" />
+      <Label fx:id="transactionNumberLabel" layoutX="361.0" layoutY="47.0" text="Transaction Number:" />
       <Label fx:id="finesLabel" layoutX="361.0" layoutY="369.0" text="Fines: " />
    </children>
 </AnchorPane>

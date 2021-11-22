@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.westga.dbaccess.model.RentalItem;
+import edu.westga.dbaccess.model.Item;
 
 /**
  * Rental item DAL
@@ -38,16 +38,16 @@ public class RentalItemDAL {
 		}
 	} 
 	
-	public List<RentalItem> rentalItems(int transactionId) throws SQLException {
+	public List<Item> rentalItems(int transactionId) throws SQLException {
 		String query = "Select rentalId, furnitureId, quantity from rental_item where rentalId=?";
-		List<RentalItem> items = new ArrayList<RentalItem>();
+		List<Item> items = new ArrayList<Item>();
 		try( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(query)) {
 			stmt.setInt(1, transactionId);
 			ResultSet rs = stmt.executeQuery();
 			
 			while (rs.next()) {
-				items.add(new RentalItem(rs.getInt("rentalId"), rs.getInt("furnitureId"), rs.getInt("quantity")));
+				items.add(new Item(rs.getInt("rentalId"), rs.getInt("furnitureId"), rs.getInt("quantity")));
 			}
 		}
 		return items;

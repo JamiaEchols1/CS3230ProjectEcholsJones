@@ -3,9 +3,8 @@ package edu.westga.dbaccess.view;
 import java.io.IOException;
 import java.util.List;
 
-import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Employee;
-import edu.westga.dbaccess.model.RentalItem;
+import edu.westga.dbaccess.model.Item;
 import edu.westga.dbaccess.model.RentalTransaction;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
@@ -18,6 +17,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
+/**
+ * The Transaction Summary window
+ * 
+ * @author Jamia Echols
+ * @version Fall 2021
+ *
+ */
 public class TransactionWindowCodeBehind {
 
     @FXML
@@ -26,15 +32,7 @@ public class TransactionWindowCodeBehind {
     @FXML
     private Button backToHomeButton;
 
-    @FXML
-    private Button backToCartButton;
-    
     private Employee employee;
-
-    @FXML
-    void handleBackToCartButtonClick(ActionEvent event) {
-
-    }
 
     @FXML
     void handleBackToHomeButtonClick(ActionEvent event) {
@@ -44,14 +42,15 @@ public class TransactionWindowCodeBehind {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
 
-			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\LandingWindow.fxml"));
-
 			root = loader.load();
 
+			LandingWindowCodeBehind  codeBehind = loader.getController();
+			
+			codeBehind.setEmployee(this.employee);
 
 			Stage stage = new Stage();
 
-			stage.setTitle("Registration Window");
+			stage.setTitle("Home Window");
 
 			stage.setScene(new Scene(root, 452, 440));
 
@@ -70,6 +69,14 @@ public class TransactionWindowCodeBehind {
         }
     }
     
+    /**
+     * Sets the employee
+     * 
+     * @precondition employee != null
+     * @postcondition none
+     * 
+     * @param employee the employee
+     */
     public void setEmployee(Employee employee) {
     	if (employee == null) {
     		throw new IllegalArgumentException(UI.ErrorMessages.EMPLOYEE_NULL);
@@ -77,9 +84,18 @@ public class TransactionWindowCodeBehind {
     	this.employee = employee;
     }
     
-    public void setTransactionText(RentalTransaction transaction, List<RentalItem> items) {
+    /**
+     * Sets the transaction text
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     * @param transaction the transaction
+     * @param items the items in the transaction
+     */
+    public void setTransactionText(Object transaction, List<Item> items) {
     	String transactionSummary = transaction.toString() + System.lineSeparator();
-    	for (RentalItem item : items) {
+    	for (Object item : items) {
     		transactionSummary += item.toString() + System.lineSeparator();
     	}
     	this.transactionSummaryTextArea.setText(transactionSummary);

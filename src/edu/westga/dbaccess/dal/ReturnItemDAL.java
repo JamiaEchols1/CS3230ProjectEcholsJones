@@ -4,7 +4,12 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.westga.dbaccess.model.Item;
 
 /**
  * The class return item dal
@@ -42,4 +47,29 @@ public class ReturnItemDAL {
 		}
 	}
 
+	/**
+	 * Gets the items from a transaction
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param transactionId the transaction id
+	 * 
+	 * @return items from the transaction
+	 * 
+	 * @throws SQLException
+	 */
+	public List<Item> getItems(int transactionId) throws SQLException {
+		List<Item> items = new ArrayList<Item>();
+		String query = "Select returnId, furnitureId, quantity from return_item where returnId=?";
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+				PreparedStatement stmt = connection.prepareStatement(query)) { 
+			stmt.setInt(1, transactionId);;
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				items.add(new Item(rs.getInt("returnId"), rs.getInt("furnitureId"), rs.getInt("quantity")));
+			}
+		}
+		return items;
+	}
 }

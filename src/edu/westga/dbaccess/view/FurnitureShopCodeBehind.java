@@ -16,7 +16,7 @@ import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.Furniture;
-import edu.westga.dbaccess.model.RentalItem;
+import edu.westga.dbaccess.model.Item;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -78,8 +78,6 @@ public class FurnitureShopCodeBehind {
     private int employeeId;
     
     private Employee employee;
-    
-    private Customer customer;
     
     private int customerId;
     
@@ -240,7 +238,7 @@ public class FurnitureShopCodeBehind {
     void handleCheckoutButtonClick(ActionEvent event) throws SQLException {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
     	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, this.employeeId, this.createRentalItems(transactionId));
-    	List<RentalItem> items = this.itemsDal.rentalItems(transactionId);
+    	List<Item> items = this.itemsDal.rentalItems(transactionId);
     	Parent root;
 
 		try {
@@ -253,7 +251,7 @@ public class FurnitureShopCodeBehind {
 	
 			codeBehind.setEmployee(this.employee);
 			
-			codeBehind.setTransactionText(this.transactionDal.getRentalTransaction(transactionId), items);
+			codeBehind.setTransactionText((Object) this.transactionDal.getRentalTransaction(transactionId), items);
 			
 			Stage stage = new Stage();
 
@@ -325,7 +323,6 @@ public class FurnitureShopCodeBehind {
     		throw new IllegalArgumentException(UI.ErrorMessages.CUSTOMER_NULL);
     	}
     	this.customerId = customer.getMemberID();
-    	this.customer = customer;
     	this.customerInformationLabel.setText(customer.toString());
     }
 

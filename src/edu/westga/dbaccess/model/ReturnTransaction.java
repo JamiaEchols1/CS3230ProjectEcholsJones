@@ -80,6 +80,11 @@ public class ReturnTransaction {
 	public int getCustomerId() {
 		return this.customerId;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ReturnTransaction [transactionId=" + transactionId + ", date=" + date + ", memberId=" + memberId
+				+ ", customerId=" + customerId + "]";
+	}
 	
 }

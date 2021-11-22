@@ -49,6 +49,31 @@ public class RentalTransactionDAL {
 	}
 	
 	/**
+	 * Gets the rental Transaction
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param transactionId the transaction Id
+	 * @return the transaction
+	 * 
+	 * @throws SQLException
+	 */
+	public RentalTransaction getRentalTransaction(int transactionId) throws SQLException {
+		String query = "Select customerId, dueDate, transactionDate, transactionId, employeeId from rental_transaction where transactionId=?";
+		RentalTransaction transaction = null;
+		try ( Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING); 
+				PreparedStatement stmt = connection.prepareStatement(query)) { 
+			stmt.setInt(1, transactionId);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				transaction = new RentalTransaction(rs.getInt("transactionId"), rs.getDate("dueDate"), rs.getDate("transactionDate"), rs.getInt("customerId"), rs.getInt("employeeId"));
+			}
+			return transaction;
+		}
+	}
+	
+	/**
 	 * Gets the size of the table
 	 * 
 	 * @precondition none

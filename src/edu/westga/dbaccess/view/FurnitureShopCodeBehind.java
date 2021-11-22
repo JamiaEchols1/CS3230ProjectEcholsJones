@@ -5,15 +5,18 @@ import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import edu.westga.dbaccess.dal.CategoryDAL;
 import edu.westga.dbaccess.dal.FurnitureDAL;
 import edu.westga.dbaccess.dal.RentalTransactionDAL;
 import edu.westga.dbaccess.dal.StyleDAL;
+import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.Furniture;
+import edu.westga.dbaccess.model.RentalItem;
 import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,6 +65,8 @@ public class FurnitureShopCodeBehind {
     
     private StyleDAL styleDal;
     
+    private RentalItemDAL itemsDal;
+    
     private RentalTransactionDAL transactionDal;
 
     private HashMap<Integer, String> styles;
@@ -73,6 +78,8 @@ public class FurnitureShopCodeBehind {
     private int employeeId;
     
     private Employee employee;
+    
+    private Customer customer;
     
     private int customerId;
     
@@ -112,6 +119,7 @@ public class FurnitureShopCodeBehind {
         this.furnitureDal = new FurnitureDAL();
         this.categoryDal = new CategoryDAL();
         this.styleDal = new StyleDAL();
+        this.itemsDal = new RentalItemDAL();
         this.transactionDal = new RentalTransactionDAL();
         this.styles = new HashMap<Integer, String>();
         this.categories = new HashMap<Integer, String>();
@@ -137,8 +145,6 @@ public class FurnitureShopCodeBehind {
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
-
-			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\LandingWindow.fxml"));
 
 			root = loader.load();
 
@@ -234,36 +240,42 @@ public class FurnitureShopCodeBehind {
     void handleCheckoutButtonClick(ActionEvent event) throws SQLException {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
     	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, this.employeeId, this.createRentalItems(transactionId));
-    		Parent root;
+    	List<RentalItem> items = this.itemsDal.rentalItems(transactionId);
+    	Parent root;
 
-    		try {
+		try {
 
-    			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\TransactionSummaryWindow.fxml"));
 
-    			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\LandingWindow.fxml"));
+			root = loader.load();
 
-    			root = loader.load();
+			TransactionWindowCodeBehind codeBehind = loader.getController();
+	
+			codeBehind.setEmployee(this.employee);
+			
+			codeBehind.setTransactionText(this.transactionDal.getRentalTransaction(transactionId), items);
+			
+			Stage stage = new Stage();
 
+			stage.setTitle("Summary Window");
 
-    			Stage stage = new Stage();
+			stage.setScene(new Scene(root, 452, 440));
 
-    			stage.setTitle("Registration Window");
+			stage.show();
 
-    			stage.setScene(new Scene(root, 452, 440));
+			Node node = ((Node)(event.getSource()));
 
-    			stage.show();
+			Stage thisStage = (Stage) node.getScene().getWindow();
 
-    			Node node = ((Node)(event.getSource()));
+			thisStage.close();
 
-    			Stage thisStage = (Stage) node.getScene().getWindow();
+		} catch (IOException e) {
 
-    			thisStage.close();
+            e.printStackTrace();
 
-    		} catch (IOException e) {
+        }
+	
 
-                e.printStackTrace();
-
-            }
     }
     
     private int getStyleId(String styleLabel) {
@@ -313,6 +325,7 @@ public class FurnitureShopCodeBehind {
     		throw new IllegalArgumentException(UI.ErrorMessages.CUSTOMER_NULL);
     	}
     	this.customerId = customer.getMemberID();
+    	this.customer = customer;
     	this.customerInformationLabel.setText(customer.toString());
     }
 

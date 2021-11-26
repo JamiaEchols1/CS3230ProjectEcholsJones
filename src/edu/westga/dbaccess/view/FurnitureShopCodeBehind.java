@@ -28,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -43,6 +44,9 @@ public class FurnitureShopCodeBehind {
 
     @FXML
     private TextField searchTextField;
+    
+    @FXML
+    private DatePicker dueDateDatePicker;
 
     @FXML
     private Button searchButton;
@@ -99,7 +103,13 @@ public class FurnitureShopCodeBehind {
     private Label costLabel;
     
     @FXML
+    private TextField quantityTextField;
+    
+    @FXML
     private Button backButton;
+    
+    @FXML
+    private ListView<Integer> quantityListView;
     
     private double cartCost;
     
@@ -141,26 +151,33 @@ public class FurnitureShopCodeBehind {
     
     @FXML
     void handleAddToCartButtonClick(ActionEvent event) throws SQLException {
-    	for (Furniture furniture: this.furnitureListView.getSelectionModel().getSelectedItems()) {
-    		if (furniture.getQuantity() > 0) {
-    			if (!this.rentalCart.containsKey(furniture)) {
-					this.rentalCart.put(furniture, 1);
-    				this.cartCost += furniture.getPrice();
-    			} else {
-    				int quantity = this.rentalCart.get(furniture);
-    				quantity++;
-    				this.rentalCart.put(furniture, quantity);
-    				this.cartCost += furniture.getPrice();
-    			}
-    			furniture.setQuantity(furniture.getQuantity()-1);
-    		} else {
-    			Alert alert = new Alert(AlertType.ERROR, UI.ErrorMessages.FURNITURE_SOLD_OUT);
-                alert.show();
+    	try {
+    		Furniture furniture = this.furnitureListView.getSelectionModel().getSelectedItem();
+    		if (this.quantityTextField.getText().isEmpty()) {
+    			throw new IllegalArgumentException("Must enter quantity");
     		}
+    		if (Integer.parseInt(this.quantityTextField.getText()) > furniture.getQuantity()) {
+    			throw new IllegalArgumentException("Quantity unavailable. Must choose at most " + furniture.getQuantity());
+    		}
+    		this.rentalCart.put(furniture, Integer.parseInt(this.quantityTextField.getText()));
+    		this.setCartCost();
+    		furniture.setQuantity(furniture.getQuantity() - Integer.parseInt(this.quantityTextField.getText()));
+        	this.quantityListView.getItems().setAll(this.rentalCart.values());
+    		this.cartListView.getItems().setAll(this.rentalCart.entrySet());
+        	this.furnitureListView.getSelectionModel().clearSelection();
+    	} catch (Exception exception) {
+    		Alert alert = new Alert(AlertType.ERROR, exception.getMessage());
+            alert.show();
     	}
-    	this.costLabel.setText( "Total: " + this.cartCost);
-    	this.cartListView.getItems().setAll(this.rentalCart.entrySet());
-    	this.furnitureListView.getSelectionModel().clearSelection();
+    }
+    
+    private void setCartCost() {
+		for (Entry<Furniture, Integer> item : this.rentalCart.entrySet()) {
+			this.cartCost += (item.getValue() * item.getKey().getPrice());
+	    	NumberFormat formatter = NumberFormat.getCurrencyInstance();
+	    	String moneyString = formatter.format(this.cartCost);
+	    	this.costLabel.setText( "Total: " + moneyString);
+		}
     }
     
     @FXML
@@ -173,11 +190,12 @@ public class FurnitureShopCodeBehind {
     			this.rentalCart.remove(furniture.getKey());
     			this.cartCost -= furniture.getKey().getPrice();
     		}
+    		furniture.getKey().setQuantity(furniture.getKey().getQuantity() + 1);
     	}
-    	NumberFormat formatter = NumberFormat.getCurrencyInstance();
-    	String moneyString = formatter.format(this.cartCost);
-    	this.costLabel.setText( "Total: " + moneyString);
+    	
+    	this.setCartCost();
     	this.cartListView.getItems().setAll(this.rentalCart.entrySet());
+    	this.quantityListView.getItems().setAll(this.rentalCart.values());
     	this.cartListView.getSelectionModel().clearSelection();
     
     }
@@ -202,8 +220,13 @@ public class FurnitureShopCodeBehind {
     
     @FXML
     void handleCheckoutButtonClick(ActionEvent event) throws SQLException {
+    	try {
+    		
+    	if (this.dueDateDatePicker.getValue().compareTo(LocalDate.now()) < 0) {
+    		throw new IllegalArgumentException("Date must be after today.");
+    	}
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
-    	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, Employee.getEmployee().getEmployeeId(), this.createRentalItems(transactionId));
+    	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(this.dueDateDatePicker.getValue()), java.sql.Date.valueOf(LocalDate.now()), this.customerId, Employee.getEmployee().getEmployeeId(), this.createRentalItems(transactionId));
     	List<Item> items = this.itemsDal.rentalItems(transactionId);
   
     	Parent root;
@@ -237,7 +260,10 @@ public class FurnitureShopCodeBehind {
             e.printStackTrace();
 
         }
-	
+    	} catch (Exception exception) {
+    		Alert alert = new Alert(AlertType.ERROR, exception.getMessage());
+            alert.show();
+    	}
 
     }
     

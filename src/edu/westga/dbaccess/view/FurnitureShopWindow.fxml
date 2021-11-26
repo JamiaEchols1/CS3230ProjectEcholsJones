@@ -2,23 +2,30 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="346.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.FurnitureShopCodeBehind">
+<AnchorPane prefHeight="395.0" prefWidth="722.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.dbaccess.view.FurnitureShopCodeBehind">
    <children>
-      <Button fx:id="searchCategoryButton" layoutX="544.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleSearchCategoryButtonClick" text="SEARCH BY CATGORY" />
-      <ComboBox fx:id="styleFilterComboBox" layoutX="35.0" layoutY="54.0" prefHeight="25.0" prefWidth="132.0" promptText="SELECT STYLE" />
-      <ComboBox fx:id="categoryComboBox" layoutX="353.0" layoutY="54.0" prefHeight="25.0" prefWidth="157.0" promptText="SELECT CATEGORY" />
-      <ListView fx:id="furnitureListView" layoutX="35.0" layoutY="97.0" prefHeight="200.0" prefWidth="295.0" />
-      <Button fx:id="addToCartButton" layoutX="238.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleAddToCartButtonClick" text="ADD TO CART" />
-      <Button fx:id="checkoutButton" layoutX="600.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleCheckoutButtonClick" text="CHECKOUT" />
-      <Button fx:id="searchStyleButton" layoutX="199.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleSearchStyleButtonClick" text="SEARCH BY STYLE" />
-      <ListView fx:id="cartListView" layoutX="407.0" layoutY="97.0" prefHeight="200.0" prefWidth="269.0" />
-      <Button fx:id="removeButton" layoutX="500.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleRemoveButtonClick" text="REMOVE" />
-      <Label fx:id="costLabel" layoutX="402.0" layoutY="312.0" text="Total:" />
+      <Button fx:id="searchCategoryButton" layoutX="218.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleSearchCategoryButtonClick" text="SEARCH BY CATGORY" />
+      <ComboBox fx:id="styleFilterComboBox" layoutX="37.0" layoutY="111.0" prefHeight="25.0" prefWidth="157.0" promptText="SELECT STYLE" />
+      <ComboBox fx:id="categoryComboBox" layoutX="37.0" layoutY="67.0" prefHeight="25.0" prefWidth="157.0" promptText="SELECT CATEGORY" />
+      <ListView fx:id="furnitureListView" layoutX="34.0" layoutY="154.0" prefHeight="158.0" prefWidth="316.0" />
+      <Button fx:id="addToCartButton" layoutX="239.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleAddToCartButtonClick" text="ADD TO CART" />
+      <Button fx:id="checkoutButton" layoutX="600.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleCheckoutButtonClick" text="CHECKOUT" />
+      <Button fx:id="searchStyleButton" layoutX="218.0" layoutY="111.0" mnemonicParsing="false" onAction="#handleSearchStyleButtonClick" prefHeight="25.0" prefWidth="132.0" text="SEARCH BY STYLE" />
+      <ListView fx:id="cartListView" layoutX="403.0" layoutY="136.0" prefHeight="200.0" prefWidth="220.0" />
+      <Button fx:id="removeButton" layoutX="497.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleRemoveButtonClick" text="REMOVE" />
+      <Label fx:id="costLabel" layoutX="403.0" layoutY="354.0" text="Total:" />
       <Label fx:id="customerInformationLabel" layoutX="35.0" layoutY="22.0" text=" " />
-      <Button fx:id="backButton" layoutX="35.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="BACK" />
+      <Button fx:id="backButton" layoutX="39.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleBackButtonClick" text="BACK" />
+      <TextField fx:id="quantityTextField" layoutX="136.0" layoutY="321.0" promptText="ENTER QUANTITY" />
+      <Label fx:id="quantityLabel" layoutX="79.0" layoutY="325.0" text="Quantity:" />
+      <DatePicker fx:id="dueDateDatePicker" layoutX="490.0" layoutY="88.0" />
+      <Label layoutX="418.0" layoutY="92.0" text="Due Date:" />
+      <ListView fx:id="quantityListView" layoutX="645.0" layoutY="136.0" prefHeight="200.0" prefWidth="39.0" />
    </children>
 </AnchorPane>

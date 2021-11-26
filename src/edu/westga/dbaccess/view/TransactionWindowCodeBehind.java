@@ -25,7 +25,10 @@ public class TransactionWindowCodeBehind {
     
     private WindowGenerator newWindow;
 
-
+    @FXML
+    void initialize() {
+    	this.newWindow = new WindowGenerator();
+    }
 
     @FXML
     void handleBackToHomeButtonClick(ActionEvent event) {

@@ -77,7 +77,13 @@ public class ReturnWindowCodeBehind {
 	
 	private double fineCost;
 	
-
+	/**
+	 * Initializes the return window code behind
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 */
 	public ReturnWindowCodeBehind() {
 		this.rentalDal = new RentalItemDAL();
 		this.furnitureDal = new FurnitureDAL();

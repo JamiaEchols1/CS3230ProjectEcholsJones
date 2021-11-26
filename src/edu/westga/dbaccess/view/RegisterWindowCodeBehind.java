@@ -110,6 +110,8 @@ public class RegisterWindowCodeBehind {
 	private Button cancelButton;
 
 	private RegisterWindowController controller;
+	
+	private WindowGenerator newWindow;
 
 	@FXML
 	void handleRegisterClick(ActionEvent event) {
@@ -131,32 +133,8 @@ public class RegisterWindowCodeBehind {
 
 	@FXML
 	void handleCancelClick(ActionEvent event) {
-		FXMLLoader loader = new FXMLLoader(
-				getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
-
-		Parent root;
-		try {
-			root = loader.load();
-			
-			Stage stage = new Stage();
-
-			stage.setTitle("Registration Window");
-
-			stage.setScene(new Scene(root));
-
-			stage.show();
-
-			Node node = ((Node) (event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException exception) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText(exception.getMessage());
-			alert.show();
-		}
+		this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
+		
 	}
 
 	@FXML
@@ -170,6 +148,7 @@ public class RegisterWindowCodeBehind {
 				"Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming");
 		this.genderComboBox.getItems().addAll("Male", "Female", "Other");
 		this.controller = new RegisterWindowController();
+		this.newWindow = new WindowGenerator();
 		this.setupListeners();
 	}
 

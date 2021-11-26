@@ -21,6 +21,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Member edit window
+ * 
+ * @author Rasheed Jones
+ * @version Fall 2021
+ *
+ */
 public class EditMemberWindowCodeBehind {
 
 	@FXML
@@ -107,35 +114,12 @@ public class EditMemberWindowCodeBehind {
 	private EditMemberWindowController controller;
 
 	private int memberID;
+	
+	private WindowGenerator newWindow;
 
 	@FXML
 	void handleCancelClick(ActionEvent event) {
-		FXMLLoader loader = new FXMLLoader(
-				getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\SearchWindow.fxml"));
-
-		Parent root;
-		try {
-			root = loader.load();
-
-			Stage stage = new Stage();
-
-			stage.setTitle("Search Window");
-
-			stage.setScene(new Scene(root));
-
-			stage.show();
-
-			Node node = ((Node) (event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException exception) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText(exception.getMessage());
-			alert.show();
-		}
+		this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\SearchWindow.fxml", event);	
 	}
 
 	@FXML
@@ -167,6 +151,7 @@ public class EditMemberWindowCodeBehind {
 				"Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming");
 		this.genderComboBox.getItems().addAll("Male", "Female", "Other");
 		this.controller = new EditMemberWindowController();
+		this.newWindow = new WindowGenerator();
 		this.setupListeners();
 	}
 

@@ -67,11 +67,12 @@ public class LandingWindowCodeBehind {
    
     private RentalTransaction transaction;
     
-//    private Employee employee;
+    private WindowGenerator newWindow;
     
     public LandingWindowCodeBehind() {
     	this.customerDal = new CustomerDAL();
     	this.rentalDal = new RentalTransactionDAL();
+    	this.newWindow = new WindowGenerator();
     }
 
     @FXML
@@ -114,33 +115,7 @@ public class LandingWindowCodeBehind {
     
     @FXML
     void registerBtnClick(ActionEvent event) {
-    	Parent root;
-
-		try{
-
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\RegisterWindow.fxml"));
-			
-			root = loader.load();
-
-			Stage stage = new Stage();
-
-			stage.setTitle("Registration Window");
-
-			stage.setScene(new Scene(root));
-
-			stage.show();
-
-			Node node = ((Node)(event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
+    	this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\RegisterWindow.fxml", event);
     }
     
     @FXML
@@ -216,63 +191,11 @@ public class LandingWindowCodeBehind {
     
     @FXML
     void searchBtnClick(ActionEvent event) {
-    	Parent root;
-
-		try{
-
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\SearchWindow.fxml"));
-
-			root = loader.load();
-			
-			Stage stage = new Stage();
-
-			stage.setTitle("Search Window");
-
-			stage.setScene(new Scene(root));
-
-			stage.show();
-
-			Node node = ((Node)(event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
+    	this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\SearchWindow.fxml", event);
     }
     
     @FXML
     void handleOpenQueryInterfaceButton(ActionEvent event) {
-    	Parent root;
-
-		try{
-
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\AdminQueryWindow.fxml"));
-
-			root = loader.load();
-	
-			Stage stage = new Stage();
-
-			stage.setTitle("Admin Query Window");
-
-			stage.setScene(new Scene(root));
-
-			stage.show();
-
-			Node node = ((Node)(event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
-    }
+    	this.newWindow.generateWindow("Admin Query Window", "edu\\westga\\dbaccess\\view\\AdminQueryWindow.fxml", event);
+	}
 }

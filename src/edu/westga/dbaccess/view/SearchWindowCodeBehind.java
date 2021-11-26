@@ -54,34 +54,11 @@ public class SearchWindowCodeBehind {
 
 	private SearchController controller;
 	
+	private WindowGenerator newWindow;
+	
 	@FXML
 	void backButtonClick(ActionEvent event) {
-		FXMLLoader loader = new FXMLLoader(
-				getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
-
-		Parent root;
-		try {
-			root = loader.load();
-
-			Stage stage = new Stage();
-
-			stage.setTitle("Landing Window");
-
-			stage.setScene(new Scene(root));
-
-			stage.show();
-
-			Node node = ((Node) (event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException exception) {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setContentText(exception.getMessage());
-			alert.show();
-		}
+		this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
 	}
 
 	@FXML
@@ -92,8 +69,6 @@ public class SearchWindowCodeBehind {
 				String memberId = this.customerListView.getSelectionModel().getSelectedItem().split(" ")[0];
 
 				FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\EditMemberWindow.fxml"));
-
-				System.out.println(getClass().getResource("edu\\westga\\devops\\view\\LandingWindow.fxml"));
 
 				root = loader.load();
 				
@@ -171,5 +146,6 @@ public class SearchWindowCodeBehind {
 	void initialize() {
 		this.modeComboBox.getItems().addAll("MemberID", "FullName", "Phone");
 		this.controller = new SearchController();
+		this.newWindow = new WindowGenerator();
 	}
 }

@@ -103,6 +103,8 @@ public class FurnitureShopCodeBehind {
     
     private double cartCost;
     
+    private WindowGenerator newWindow;
+    
     /**
      * Initializes the Furniture search code behind;
      * 
@@ -120,6 +122,7 @@ public class FurnitureShopCodeBehind {
         this.rentalCart = new HashMap<Furniture, Integer>();
         this.customerId = 0;
         this.cartCost = 0.0;
+        this.newWindow = new WindowGenerator();
     }
 
     @FXML
@@ -133,34 +136,8 @@ public class FurnitureShopCodeBehind {
 
     @FXML
     void handleBackButtonClick(ActionEvent event) {
-    	Parent root;
-
-		try {
-
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
-
-			root = loader.load();
-
-			Stage stage = new Stage();
-
-			stage.setTitle("Registration Window");
-
-			stage.setScene(new Scene(root, 452, 440));
-
-			stage.show();
-
-			Node node = ((Node)(event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
-    }
+    	this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
+	}
     
     @FXML
     void handleAddToCartButtonClick(ActionEvent event) throws SQLException {
@@ -228,6 +205,7 @@ public class FurnitureShopCodeBehind {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
     	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, Employee.getEmployee().getEmployeeId(), this.createRentalItems(transactionId));
     	List<Item> items = this.itemsDal.rentalItems(transactionId);
+  
     	Parent root;
 
 		try {

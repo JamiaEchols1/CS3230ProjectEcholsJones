@@ -1,18 +1,12 @@
 package edu.westga.dbaccess.view;
 
-import java.io.IOException;
 import java.util.List;
 
 import edu.westga.dbaccess.model.Item;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 
 /**
  * The Transaction Summary window
@@ -28,38 +22,14 @@ public class TransactionWindowCodeBehind {
 
     @FXML
     private Button backToHomeButton;
+    
+    private WindowGenerator newWindow;
 
-//    private Employee employee;
+
 
     @FXML
     void handleBackToHomeButtonClick(ActionEvent event) {
-    	Parent root;
-
-		try {
-
-			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
-
-			root = loader.load();
-
-			Stage stage = new Stage();
-
-			stage.setTitle("Home Window");
-
-			stage.setScene(new Scene(root, 452, 440));
-
-			stage.show();
-
-			Node node = ((Node)(event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException e) {
-
-            e.printStackTrace();
-
-        }
+    	this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
     }
     
     /**

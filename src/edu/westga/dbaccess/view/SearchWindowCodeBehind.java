@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import edu.westga.dbaccess.controller.SearchController;
-import edu.westga.dbaccess.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +18,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * The search code behind
+ * 
+ * @author Rasheed Jones
+ * @version Fall 2021
+ *
+ */
 public class SearchWindowCodeBehind {
 
 	@FXML
@@ -48,8 +54,6 @@ public class SearchWindowCodeBehind {
 
 	private SearchController controller;
 	
-	private Employee employee;
-
 	@FXML
 	void backButtonClick(ActionEvent event) {
 		FXMLLoader loader = new FXMLLoader(
@@ -58,10 +62,6 @@ public class SearchWindowCodeBehind {
 		Parent root;
 		try {
 			root = loader.load();
-			
-			LandingWindowCodeBehind codeBehind = loader.getController();
-			
-			codeBehind.setEmployee(this.employee);
 
 			Stage stage = new Stage();
 
@@ -171,9 +171,5 @@ public class SearchWindowCodeBehind {
 	void initialize() {
 		this.modeComboBox.getItems().addAll("MemberID", "FullName", "Phone");
 		this.controller = new SearchController();
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
 	}
 }

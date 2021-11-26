@@ -48,6 +48,7 @@ public class LoginWindowCodeBehind {
     		this.controller.login(this.userIdTextField.getText(), this.passwordTxtField.getText());
     	
     		this.loginFailedLbl.setText("good!");
+    		
     		Parent root;
 
     		try {
@@ -58,12 +59,6 @@ public class LoginWindowCodeBehind {
 
     			root = loader.load();
 
-    			LandingWindowCodeBehind landingWindow = loader.getController();
-    			
-    			landingWindow.setTitle(this.controller.getEmployee().getFullName(), this.controller.getEmployee().getUsername(), this.controller.getEmployee().getEmployeeId());
-    			
-    			landingWindow.setEmployee(this.controller.getEmployee());;
-    			
     			Stage stage = new Stage();
 
     			stage.setTitle("Registration Window");

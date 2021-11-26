@@ -32,6 +32,7 @@ public class LoginWindowController {
 	public boolean login(String username, String password) {
 		try {
 			this.login = this.employeeDal.getEmployeeByLoginCredentials(username, password);
+			Employee.setEmployee(this.login);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

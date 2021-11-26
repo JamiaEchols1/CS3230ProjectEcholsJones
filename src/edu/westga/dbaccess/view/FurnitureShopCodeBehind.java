@@ -75,10 +75,6 @@ public class FurnitureShopCodeBehind {
 
     private HashMap<Furniture, Integer> rentalCart;
     
-    private int employeeId;
-    
-    private Employee employee;
-    
     private int customerId;
     
     @FXML
@@ -122,7 +118,6 @@ public class FurnitureShopCodeBehind {
         this.styles = new HashMap<Integer, String>();
         this.categories = new HashMap<Integer, String>();
         this.rentalCart = new HashMap<Furniture, Integer>();
-        this.employeeId = 0;
         this.customerId = 0;
         this.cartCost = 0.0;
     }
@@ -146,12 +141,6 @@ public class FurnitureShopCodeBehind {
 
 			root = loader.load();
 
-			LandingWindowCodeBehind landingWindow = loader.getController();
-			
-			landingWindow.setTitle(this.employee.getFullName(), this.employee.getUsername(), this.employee.getEmployeeId());
-			
-			landingWindow.setEmployee(this.employee);
-			
 			Stage stage = new Stage();
 
 			stage.setTitle("Registration Window");
@@ -237,7 +226,7 @@ public class FurnitureShopCodeBehind {
     @FXML
     void handleCheckoutButtonClick(ActionEvent event) throws SQLException {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
-    	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, this.employeeId, this.createRentalItems(transactionId));
+    	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(LocalDate.now().plusDays(60)), java.sql.Date.valueOf(LocalDate.now()), this.customerId, Employee.getEmployee().getEmployeeId(), this.createRentalItems(transactionId));
     	List<Item> items = this.itemsDal.rentalItems(transactionId);
     	Parent root;
 
@@ -248,8 +237,6 @@ public class FurnitureShopCodeBehind {
 			root = loader.load();
 
 			TransactionWindowCodeBehind codeBehind = loader.getController();
-	
-			codeBehind.setEmployee(this.employee);
 			
 			codeBehind.setTransactionText((Object) this.transactionDal.getRentalTransaction(transactionId), items);
 			
@@ -292,23 +279,6 @@ public class FurnitureShopCodeBehind {
     		}
     	}
     	return 0;
-    }
-    
-    /**
-     * Sets the employee id
-     * 
-     * @precondition employeeId >0
-     * @postcondition employeeId = employeeId
-     * 
-     * @param employeeId the employeeId
-     */
-    public void setEmployee(Employee employee) {
-    	if (employee == null) {
-    		throw new IllegalArgumentException(UI.ErrorMessages.EMPLOYEE_NULL);
-    	}
-    	this.employeeId = employee.getEmployeeId();
-    	this.employee = employee;
-    	
     }
     
     /**

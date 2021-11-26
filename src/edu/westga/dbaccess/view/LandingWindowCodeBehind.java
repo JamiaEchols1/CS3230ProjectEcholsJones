@@ -67,7 +67,7 @@ public class LandingWindowCodeBehind {
    
     private RentalTransaction transaction;
     
-    private Employee employee;
+//    private Employee employee;
     
     public LandingWindowCodeBehind() {
     	this.customerDal = new CustomerDAL();
@@ -86,9 +86,7 @@ public class LandingWindowCodeBehind {
 			ReturnWindowCodeBehind codeBehind = loader.getController();
 					
 			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem());
-			
-			codeBehind.setEmployee(this.employee);
-			
+						
 			codeBehind.setTransaction(this.transaction);
 			
 			root = loader.load();
@@ -121,9 +119,7 @@ public class LandingWindowCodeBehind {
 		try{
 
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\RegisterWindow.fxml"));
-
-			System.out.println(getClass().getResource("edu\\westga\\devops\\view\\LandingWindow.fxml"));
-
+			
 			root = loader.load();
 
 			Stage stage = new Stage();
@@ -152,6 +148,9 @@ public class LandingWindowCodeBehind {
     	this.shopButton.setDisable(true);
     	this.returnFurnitureButton.setDisable(true);
     	this.customerComboBox.getItems().setAll(this.customerDal.getAllCustomers().values());
+    	this.employeeNameLbl.setText(Employee.getEmployee().getFullName());
+    	this.usernameLbl.setText(Employee.getEmployee().getUsername());   	
+    	this.idLbl.setText(String.valueOf(Employee.getEmployee().getEmployeeId()));
     	this.setupBindings();
     }
     
@@ -194,8 +193,6 @@ public class LandingWindowCodeBehind {
 			
 			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem());
 			
-			codeBehind.setEmployee(this.employee);
-			
 			Stage stage = new Stage();
 
 			stage.setTitle("Search Window");
@@ -227,9 +224,6 @@ public class LandingWindowCodeBehind {
 
 			root = loader.load();
 			
-			SearchWindowCodeBehind codeBehind = loader.getController();
-			codeBehind.setEmployee(this.employee);
-
 			Stage stage = new Stage();
 
 			stage.setTitle("Search Window");
@@ -260,11 +254,7 @@ public class LandingWindowCodeBehind {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\AdminQueryWindow.fxml"));
 
 			root = loader.load();
-			
-			AdminQueryWindowCodeBehind codeBehind = loader.getController();
-			
-			codeBehind.setAdminInformation(this.employee);
-
+	
 			Stage stage = new Stage();
 
 			stage.setTitle("Admin Query Window");
@@ -285,19 +275,4 @@ public class LandingWindowCodeBehind {
 
         }
     }
-
-	 public void setTitle(String name, String username, int id) {
-    	this.employeeNameLbl.setText(name);
-    	this.usernameLbl.setText(username);   	
-    	this.idLbl.setText(String.valueOf(id));
-    }
-
-	 /**
-	  * Sets the employee
-	  * 
-	  * @param employee the employee
-	  */
-	 public void setEmployee(Employee employee) {
-		 this.employee = employee;
-	 }
 }

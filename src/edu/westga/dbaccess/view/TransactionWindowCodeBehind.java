@@ -3,9 +3,7 @@ package edu.westga.dbaccess.view;
 import java.io.IOException;
 import java.util.List;
 
-import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.Item;
-import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +29,7 @@ public class TransactionWindowCodeBehind {
     @FXML
     private Button backToHomeButton;
 
-    private Employee employee;
+//    private Employee employee;
 
     @FXML
     void handleBackToHomeButtonClick(ActionEvent event) {
@@ -42,10 +40,6 @@ public class TransactionWindowCodeBehind {
 			FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\LandingWindow.fxml"));
 
 			root = loader.load();
-
-			LandingWindowCodeBehind  codeBehind = loader.getController();
-			
-			codeBehind.setEmployee(this.employee);
 
 			Stage stage = new Stage();
 
@@ -66,21 +60,6 @@ public class TransactionWindowCodeBehind {
             e.printStackTrace();
 
         }
-    }
-    
-    /**
-     * Sets the employee
-     * 
-     * @precondition employee != null
-     * @postcondition none
-     * 
-     * @param employee the employee
-     */
-    public void setEmployee(Employee employee) {
-    	if (employee == null) {
-    		throw new IllegalArgumentException(UI.ErrorMessages.EMPLOYEE_NULL);
-    	}
-    	this.employee = employee;
     }
     
     /**

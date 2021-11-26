@@ -40,11 +40,16 @@ public class AdminQueryWindowCodeBehind {
     
     private AdminQueryInterfaceDAL adminQueryInterfacedal;
     
-    private Employee employee;
-    
+    /**
+     * Initializes the Admin query
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     */
     public AdminQueryWindowCodeBehind() {
     	this.adminQueryInterfacedal = new AdminQueryInterfaceDAL();
-    	this.employee = null;
+    	this.adminInformationLabel.setText(Employee.getEmployee().toString());
     }
 
     @FXML
@@ -59,12 +64,6 @@ public class AdminQueryWindowCodeBehind {
 
 			root = loader.load();
 
-			LandingWindowCodeBehind landingWindow = loader.getController();
-			
-			landingWindow.setTitle(this.employee.getFullName(), this.employee.getUsername(), this.employee.getEmployeeId());
-			
-			landingWindow.setEmployee(this.employee);
-			
 			Stage stage = new Stage();
 
 			stage.setTitle("Registration Window");
@@ -88,20 +87,7 @@ public class AdminQueryWindowCodeBehind {
 
     @FXML
     void handleClearButtonCLick(ActionEvent event) {
-
-    }
-    
-    /**
-     * Sets the admin information label with the employee;s information
-     * 
-     * @precondition none
-     * @postcondition none
-     * 
-     * @param employee the employee
-     */
-    public void setAdminInformation(Employee employee) {
-    	this.employee = employee;
-    	this.adminInformationLabel.setText(employee.toString());
+    	this.queryTextField.setText("");
     }
 
     @FXML

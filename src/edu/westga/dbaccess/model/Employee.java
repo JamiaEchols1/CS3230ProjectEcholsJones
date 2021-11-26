@@ -15,6 +15,8 @@ public class Employee {
 	private String password;
 	private String phoneNumber;
 	private String username;
+	
+	private static Employee employee = null;
 
 	/**
 	 * Constructor for employees 
@@ -115,6 +117,29 @@ public class Employee {
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", username=" + username + "]";
 	}
+
+	/**
+	 * Sets the employee
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param employee
+	 */
+	public static void setEmployee(Employee employee) {
+		Employee.employee = employee;
+	}
 	
+	/**
+	 * Gets the employee
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the employee
+	 */
+	public static Employee getEmployee() {
+		return Employee.employee;
+	}
 	
 }

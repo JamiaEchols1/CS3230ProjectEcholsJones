@@ -61,7 +61,7 @@ public class ReturnWindowCodeBehind {
     @FXML
     private Label transactionNumberLabel;
 
-	private Employee employee;
+//	private Employee employee;
 
 	private RentalTransaction transaction;
 	
@@ -156,7 +156,7 @@ public class ReturnWindowCodeBehind {
     	for (Entry<Furniture, Integer> furniture: this.returnListView.getItems()) {
     		returnItems += ",(" + this.transaction.getTransactionId() + "," + transactionId + ",'" + sqlDate.toString() + "'," + furniture.getKey().getFurnitureId() + "," + furniture.getValue() + ")";
     	}
-    	this.transactionDal.createReturnTransaction(transactionId, sqlDate, this.customer.getMemberID(), this.employee.getEmployeeId(), returnItems.replaceFirst(",", ""));
+    	this.transactionDal.createReturnTransaction(transactionId, sqlDate, this.customer.getMemberID(), Employee.getEmployee().getEmployeeId(), returnItems.replaceFirst(",", ""));
     	
     	Parent root;
 
@@ -167,8 +167,6 @@ public class ReturnWindowCodeBehind {
 			root = loader.load();
 
 			TransactionWindowCodeBehind codeBehind = loader.getController();
-	
-			codeBehind.setEmployee(this.employee);
 			
 			List<Item> items = this.rentalDal.rentalItems(transactionId);
 			
@@ -195,21 +193,6 @@ public class ReturnWindowCodeBehind {
         }
 	
 
-    }
-    
-    /**
-     * Sets the employee id
-     * 
-     * @precondition employeeId >0
-     * @postcondition employeeId = employeeId
-     * 
-     * @param employeeId the employeeId
-     */
-    public void setEmployee(Employee employee) {
-    	if (employee == null) {
-    		throw new IllegalArgumentException(UI.ErrorMessages.EMPLOYEE_NULL);
-    	}
-    	this.employee = employee;
     }
     
     /**

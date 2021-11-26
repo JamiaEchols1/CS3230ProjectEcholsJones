@@ -65,6 +65,9 @@ public class LandingWindowCodeBehind {
     @FXML
     private Button openQueryInterfaceButton;
    
+    @FXML
+    private Button logoutButton;
+    
     private RentalTransaction transaction;
     
     private WindowGenerator newWindow;
@@ -116,6 +119,12 @@ public class LandingWindowCodeBehind {
     @FXML
     void registerBtnClick(ActionEvent event) {
     	this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\RegisterWindow.fxml", event);
+    }
+    
+    @FXML
+    void handleLogoutButtonClick(ActionEvent event) {
+    	Employee.setEmployee(null);
+    	this.newWindow.generateWindow("Login Window", "edu\\westga\\dbaccess\\view\\LoginWindow.fxml", event);
     }
     
     @FXML

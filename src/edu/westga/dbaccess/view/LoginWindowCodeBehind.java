@@ -36,6 +36,7 @@ public class LoginWindowCodeBehind {
     private LoginWindowController controller;
     
     private WindowGenerator newWindow;
+    
     @FXML
     void loginBtnClick(ActionEvent event) {
     	try {

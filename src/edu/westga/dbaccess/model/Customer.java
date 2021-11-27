@@ -21,6 +21,7 @@ public class Customer {
 	private Date birthday;
 	private Date registrationDate;
 	private String gender;
+	private static Customer customer;
 
 	/**
 	 * 
@@ -175,6 +176,30 @@ public class Customer {
 		return this.city;
 	}
 
+	/**
+	 * Set the customer
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param customer
+	 */
+	public static void setCustomer(Customer customer) {
+		Customer.customer = customer;
+	}
+	
+	/**
+	 * Gets the customer
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the customer
+	 */
+	public static Customer getCustomer() {
+		return Customer.customer;
+	}
+	
 	@Override
 	public String toString() {
 		return "Customer [memberID=" + memberID + ", firstName=" + firstName + ", lastName=" + lastName

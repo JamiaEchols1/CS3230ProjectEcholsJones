@@ -18,7 +18,6 @@ import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.Furniture;
 import edu.westga.dbaccess.model.Item;
 import edu.westga.dbaccess.model.RentalTransaction;
-import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -77,8 +76,6 @@ public class ReturnWindowCodeBehind {
 
 	private ReturnTransactionDAL transactionDal;
 
-	private Customer customer;
-
 	private HashMap<Furniture, int[]> returnCart;
 
 	private double fineCost;
@@ -107,9 +104,9 @@ public class ReturnWindowCodeBehind {
 
 	@FXML
 	void initialize() throws SQLException {
-		this.customerInformationLabel.setText(this.customerInformationLabel.getText() + " " + this.customer);
+		this.customerInformationLabel.setText(this.customerInformationLabel.getText() + " " + Customer.getCustomer());
 		this.transactionComboBox.getItems()
-				.setAll(this.rentalTransactionDal.getCustomersTransactions(this.customer.getMemberID()));
+				.setAll(this.rentalTransactionDal.getCustomersTransactions(Customer.getCustomer().getMemberID()));
 		this.transactionComboBox.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
@@ -194,7 +191,7 @@ public class ReturnWindowCodeBehind {
 			returnItems += ",(" + furniture.getValue()[0] + "," + transactionId + ",'" + sqlDate.toString() + "',"
 					+ furniture.getKey().getFurnitureId() + "," + furniture.getValue()[1] + ")";
 		}
-		this.transactionDal.createReturnTransaction(transactionId, sqlDate, this.customer.getMemberID(),
+		this.transactionDal.createReturnTransaction(transactionId, sqlDate, Customer.getCustomer().getMemberID(),
 				Employee.getEmployee().getEmployeeId(), returnItems.replaceFirst(",", ""));
 
 		Parent root;
@@ -233,19 +230,4 @@ public class ReturnWindowCodeBehind {
 		}
 
 	}
-
-	/**
-	 * Set the customerId
-	 * 
-	 * @precondition customerId > 0
-	 * 
-	 * @param customerId
-	 */
-	public void setCustomer(Customer customer) {
-		if (customer == null) {
-			throw new IllegalArgumentException(UI.ErrorMessages.CUSTOMER_NULL);
-		}
-		this.customer = customer;
-	}
-
 }

@@ -97,19 +97,6 @@ public class SearchWindowCodeBehind {
 		}
 	}
 
-	/*
-	 * private void addListeners() {
-	 * this.searchTextField.textProperty().addListener((obs, oldText, newText) -> {
-	 * if (this.modeComboBox.getSelectionModel().getSelectedItem() == "FullName") {
-	 * Pattern pattern = Pattern.compile("*"); Matcher matcher =
-	 * pattern.matcher(newText); boolean matchFound = matcher.find(); if(matchFound)
-	 * { this.searchButton.setDisable(true);
-	 * this.warningLabel.setText("Must be in format FirstName LastName"); } else {
-	 * this.searchButton.setDisable(false); this.warningLabel.setText(""); } }
-	 * 
-	 * }); }
-	 */
-
 	@FXML
 	void searchButtonClick(ActionEvent event) throws NumberFormatException, SQLException {
 		this.customerListView.getItems().clear();

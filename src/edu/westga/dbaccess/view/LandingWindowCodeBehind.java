@@ -1,6 +1,5 @@
 package edu.westga.dbaccess.view;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 import edu.westga.dbaccess.dal.CustomerDAL;
@@ -8,14 +7,9 @@ import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 /**
  * The landing page code behind
@@ -66,39 +60,7 @@ public class LandingWindowCodeBehind {
 
 	@FXML
 	void handleReturnFurnitureClick(ActionEvent event) {
-		Parent root;
-
-		try {
-
-			FXMLLoader loader = new FXMLLoader(
-					getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\ReturnWindow.fxml"));
-
-			loader.setController(new ReturnWindowCodeBehind());
-			ReturnWindowCodeBehind codeBehind = loader.getController();
-
-			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem());
-
-			root = loader.load();
-
-			Stage stage = new Stage();
-
-			stage.setTitle("Return Window");
-
-			stage.setScene(new Scene(root));
-
-			stage.show();
-
-			Node node = ((Node) (event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-
-		}
+		this.newWindow.generateWindow("Return Window", "edu\\westga\\dbaccess\\view\\ReturnWindow.fxml", event);
 	}
 
 	@FXML
@@ -133,44 +95,14 @@ public class LandingWindowCodeBehind {
 						this.returnFurnitureButton.setDisable(true);
 						this.shopButton.setDisable(true);
 					}
+					Customer.setCustomer(newValue);
 				});
 
 	}
 
 	@FXML
 	void handleShopClick(ActionEvent event) {
-		Parent root;
-
-		try {
-
-			FXMLLoader loader = new FXMLLoader(
-					getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\FurnitureShopWindow.fxml"));
-
-			root = loader.load();
-
-			FurnitureShopCodeBehind codeBehind = loader.getController();
-
-			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem());
-
-			Stage stage = new Stage();
-
-			stage.setTitle("Search Window");
-
-			stage.setScene(new Scene(root));
-
-			stage.show();
-
-			Node node = ((Node) (event.getSource()));
-
-			Stage thisStage = (Stage) node.getScene().getWindow();
-
-			thisStage.close();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-
-		}
+		this.newWindow.generateWindow("Shop Window", "edu\\westga\\dbaccess\\view\\FurnitureShopWindow.fxml", event);
 	}
 
 	@FXML

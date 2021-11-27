@@ -10,14 +10,13 @@ import java.util.Map.Entry;
 
 import edu.westga.dbaccess.dal.CategoryDAL;
 import edu.westga.dbaccess.dal.FurnitureDAL;
+import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.dal.RentalTransactionDAL;
 import edu.westga.dbaccess.dal.StyleDAL;
-import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Employee;
 import edu.westga.dbaccess.model.Furniture;
 import edu.westga.dbaccess.model.Item;
-import edu.westga.dbaccess.utils.UI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -79,8 +78,6 @@ public class FurnitureShopCodeBehind {
 
     private HashMap<Furniture, Integer> rentalCart;
     
-    private int customerId;
-    
     @FXML
     private Button searchCategoryButton;
 
@@ -130,7 +127,6 @@ public class FurnitureShopCodeBehind {
         this.styles = new HashMap<Integer, String>();
         this.categories = new HashMap<Integer, String>();
         this.rentalCart = new HashMap<Furniture, Integer>();
-        this.customerId = 0;
         this.cartCost = 0.0;
         this.newWindow = new WindowGenerator();
     }
@@ -142,6 +138,7 @@ public class FurnitureShopCodeBehind {
     	this.categoryComboBox.getItems().setAll(this.categoryDal.getCategory().values());
     	this.styles = this.styleDal.getStyles();
     	this.categories = this.categoryDal.getCategory();
+    	this.customerInformationLabel.setText(Customer.getCustomer().toString());
     }
 
     @FXML
@@ -226,7 +223,7 @@ public class FurnitureShopCodeBehind {
     		throw new IllegalArgumentException("Date must be after today.");
     	}
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
-    	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(this.dueDateDatePicker.getValue()), java.sql.Date.valueOf(LocalDate.now()), this.customerId, Employee.getEmployee().getEmployeeId(), this.createRentalItems(transactionId));
+    	this.transactionDal.createRentalTransaction(transactionId, java.sql.Date.valueOf(this.dueDateDatePicker.getValue()), java.sql.Date.valueOf(LocalDate.now()), Customer.getCustomer().getMemberID(), Employee.getEmployee().getEmployeeId(), this.createRentalItems(transactionId));
     	List<Item> items = this.itemsDal.rentalItems(transactionId);
   
     	Parent root;
@@ -284,20 +281,4 @@ public class FurnitureShopCodeBehind {
     	}
     	return 0;
     }
-    
-    /**
-     * Set the customer
-     * 
-     * @precondition customer != null
-     * 
-     * @param customer the customer
-     */
-    public void setCustomer(Customer customer) {
-    	if (customer == null) {
-    		throw new IllegalArgumentException(UI.ErrorMessages.CUSTOMER_NULL);
-    	}
-    	this.customerId = customer.getMemberID();
-    	this.customerInformationLabel.setText(customer.toString());
-    }
-
 }

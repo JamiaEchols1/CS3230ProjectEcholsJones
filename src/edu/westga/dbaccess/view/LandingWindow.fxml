@@ -13,14 +13,13 @@
             <Label fx:id="employeeNameLbl" layoutX="8.0" layoutY="14.0" prefHeight="17.0" prefWidth="126.0" />
             <Label fx:id="usernameLbl" layoutX="130.0" layoutY="14.0" prefHeight="17.0" prefWidth="126.0" />
             <Label fx:id="idLbl" layoutX="292.0" layoutY="14.0" prefHeight="17.0" prefWidth="60.0" />
-            <Button fx:id="registerBtn" layoutX="71.0" layoutY="81.0" mnemonicParsing="false" onAction="#registerBtnClick" text="Register" />
-            <Button fx:id="shopButton" disable="true" layoutX="71.0" layoutY="119.0" mnemonicParsing="false" onAction="#handleShopClick" text="Shop for furniture" />
-            <ComboBox fx:id="customerComboBox" layoutX="181.0" layoutY="81.0" prefWidth="150.0" promptText="SELECT CUSTOMER" />
-            <Button fx:id="searchBtn" layoutX="71.0" layoutY="155.0" mnemonicParsing="false" onAction="#searchBtnClick" text="Search" />
-            <ComboBox fx:id="transactionComboBox" layoutX="181.0" layoutY="155.0" prefWidth="150.0" promptText="SELECT TRANSACTION" />
-            <Button fx:id="returnFurnitureButton" layoutX="71.0" layoutY="199.0" mnemonicParsing="false" onAction="#handleReturnFurnitureClick" text="Return Furniture" />
-            <Button fx:id="openQueryInterfaceButton" layoutX="45.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleOpenQueryInterfaceButton" text="OPEN QUERY INTERFACE" />
-            <Button fx:id="logoutButton" layoutX="292.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" text="LOGOUT" />
+            <Button fx:id="registerBtn" layoutX="279.0" layoutY="94.0" mnemonicParsing="false" onAction="#registerBtnClick" text="Register" />
+            <Button fx:id="shopButton" disable="true" layoutX="63.0" layoutY="153.0" mnemonicParsing="false" onAction="#handleShopClick" text="Shop for furniture" />
+            <ComboBox fx:id="customerComboBox" layoutX="32.0" layoutY="94.0" prefWidth="150.0" promptText="SELECT CUSTOMER" />
+            <Button fx:id="searchBtn" layoutX="205.0" layoutY="94.0" mnemonicParsing="false" onAction="#searchBtnClick" text="Search" />
+            <Button fx:id="returnFurnitureButton" layoutX="206.0" layoutY="153.0" mnemonicParsing="false" onAction="#handleReturnFurnitureClick" text="Return Furniture" />
+            <Button fx:id="openQueryInterfaceButton" layoutX="107.0" layoutY="44.0" mnemonicParsing="false" onAction="#handleOpenQueryInterfaceButton" text="OPEN QUERY INTERFACE" />
+            <Button fx:id="logoutButton" layoutX="291.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" text="LOGOUT" />
          </children>
       </AnchorPane>
    </children>

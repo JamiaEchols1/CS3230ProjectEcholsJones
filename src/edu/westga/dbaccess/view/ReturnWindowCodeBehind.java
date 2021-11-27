@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import edu.westga.dbaccess.dal.FurnitureDAL;
 import edu.westga.dbaccess.dal.RentalItemDAL;
 import edu.westga.dbaccess.dal.RentalTransactionDAL;
+import edu.westga.dbaccess.dal.ReturnItemDAL;
 import edu.westga.dbaccess.dal.ReturnTransactionDAL;
 import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Employee;
@@ -72,6 +73,8 @@ public class ReturnWindowCodeBehind {
 	
 	private RentalItemDAL rentalDal;
 	
+	private ReturnItemDAL returnDal;
+	
 	private FurnitureDAL furnitureDal;
 	
 	private ReturnTransactionDAL transactionDal;
@@ -95,6 +98,7 @@ public class ReturnWindowCodeBehind {
 	 */
 	public ReturnWindowCodeBehind() {
 		this.rentalDal = new RentalItemDAL();
+		this.returnDal = new ReturnItemDAL();
 		this.furnitureDal = new FurnitureDAL();
 		this.rentalTransactionDal = new RentalTransactionDAL();
 		this.transactionDal = new ReturnTransactionDAL();
@@ -200,7 +204,7 @@ public class ReturnWindowCodeBehind {
 
 			TransactionWindowCodeBehind codeBehind = loader.getController();
 			
-			List<Item> items = this.rentalDal.rentalItems(transactionId);
+			List<Item> items = this.returnDal.getItems(transactionId);
 			
 			codeBehind.setTransactionText((Object) this.transactionDal.getReturnTransaction(transactionId), items);
 			

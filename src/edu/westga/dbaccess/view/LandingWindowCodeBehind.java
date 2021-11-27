@@ -53,11 +53,6 @@ public class LandingWindowCodeBehind {
     private Button searchBtn;
     
     private CustomerDAL customerDal;
-    
-    private RentalTransactionDAL rentalDal;
-
-    @FXML
-    private ComboBox<RentalTransaction> transactionComboBox;
 
     @FXML
     private Button returnFurnitureButton;
@@ -74,7 +69,6 @@ public class LandingWindowCodeBehind {
     
     public LandingWindowCodeBehind() {
     	this.customerDal = new CustomerDAL();
-    	this.rentalDal = new RentalTransactionDAL();
     	this.newWindow = new WindowGenerator();
     }
 
@@ -90,8 +84,6 @@ public class LandingWindowCodeBehind {
 			ReturnWindowCodeBehind codeBehind = loader.getController();
 					
 			codeBehind.setCustomer(this.customerComboBox.getSelectionModel().getSelectedItem());
-						
-			codeBehind.setTransaction(this.transaction);
 			
 			root = loader.load();
 
@@ -142,24 +134,12 @@ public class LandingWindowCodeBehind {
     	 this.customerComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
     		 if (newValue != null) {
     			 this.shopButton.setDisable(false);
-    			 try {
-					this.transactionComboBox.getItems().setAll(this.rentalDal.getCustomersTransactions(this.customerComboBox.getSelectionModel().getSelectedItem().getMemberID()));
-				} catch (SQLException e) {
-	    			Alert alert = new Alert(AlertType.ERROR, UI.ErrorMessages.FURNITURE_SOLD_OUT);
-	                alert.show();
-				}
+    			 this.returnFurnitureButton.setDisable(false);
     		 } else {
+    			 this.returnFurnitureButton.setDisable(true);
     			 this.shopButton.setDisable(true);
     		 }
     	 });
-    	 this.transactionComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-    		 if (newValue != null) {
-    			 this.returnFurnitureButton.setDisable(false);
-    			 this.transaction = this.transactionComboBox.getValue();
-    		 } else {
-    			 this.returnFurnitureButton.setDisable(true);
-    		 }
-    	});
     	 
     }
     

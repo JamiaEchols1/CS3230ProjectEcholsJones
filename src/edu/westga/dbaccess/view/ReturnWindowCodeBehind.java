@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 
 import edu.westga.dbaccess.dal.FurnitureDAL;
 import edu.westga.dbaccess.dal.RentalItemDAL;
+import edu.westga.dbaccess.dal.RentalTransactionDAL;
 import edu.westga.dbaccess.dal.ReturnTransactionDAL;
 import edu.westga.dbaccess.model.Customer;
 import edu.westga.dbaccess.model.Employee;
@@ -23,9 +24,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 /**
@@ -36,12 +40,15 @@ import javafx.stage.Stage;
  *
  */
 public class ReturnWindowCodeBehind {
+	
+    @FXML
+    private ComboBox<RentalTransaction> transactionComboBox;
 
     @FXML
     private ListView<Furniture> transactionListView;
 
     @FXML
-    private ListView<Entry<Furniture, Integer>> returnListView;
+    private ListView<Entry<Furniture, int[]>> returnListView;
 
     @FXML
     private Button addToReturnButton;
@@ -61,8 +68,6 @@ public class ReturnWindowCodeBehind {
     @FXML
     private Label transactionNumberLabel;
 
-//	private Employee employee;
-
 	private RentalTransaction transaction;
 	
 	private RentalItemDAL rentalDal;
@@ -73,9 +78,13 @@ public class ReturnWindowCodeBehind {
 
 	private Customer customer;
 	
-	private HashMap<Furniture, Integer> returnCart;
+	private HashMap<Furniture, int[]> returnCart;
 	
 	private double fineCost;
+	
+	private WindowGenerator newWindow;
+	
+	private RentalTransactionDAL rentalTransactionDal;
 	
 	/**
 	 * Initializes the return window code behind
@@ -87,20 +96,31 @@ public class ReturnWindowCodeBehind {
 	public ReturnWindowCodeBehind() {
 		this.rentalDal = new RentalItemDAL();
 		this.furnitureDal = new FurnitureDAL();
+		this.rentalTransactionDal = new RentalTransactionDAL();
 		this.transactionDal = new ReturnTransactionDAL();
-		this.returnCart = new HashMap<Furniture, Integer>();
+		this.returnCart = new HashMap<Furniture, int[]>();
+		this.newWindow = new WindowGenerator();
 		this.fineCost = 0.0;
 	}
 	
 	@FXML
 	void initialize() throws SQLException {
 		this.customerInformationLabel.setText(this.customerInformationLabel.getText() + " " + this.customer);
-		this.transactionNumberLabel.setText(this.transactionNumberLabel.getText() + " " + this.transaction.getTransactionId());
-		this.transactionListView.getItems().setAll(this.getFurniture());
+		this.transactionComboBox.getItems().setAll(this.rentalTransactionDal.getCustomersTransactions(this.customer.getMemberID()));
+   	 	this.transactionComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+   	 		if (newValue != null) {
+   	 			try {
+   	 				this.transaction = newValue;
+   	 				this.transactionListView.getItems().setAll(this.getFurniture(newValue));
+   	 			} catch (SQLException e) {
+   	 				e.printStackTrace();
+   	 			}
+   	 		} 
+   	 	});
 	}
 
-	private List<Furniture> getFurniture() throws SQLException {
-		List<Item> items = this.rentalDal.rentalItems(this.transaction.getTransactionId());
+	private List<Furniture> getFurniture(RentalTransaction transaction) throws SQLException {
+		List<Item> items = this.rentalDal.rentalItems(transaction.getTransactionId());
 		List<Furniture> furniture = new ArrayList<Furniture>();
 		
 		for (Item item : items) {
@@ -118,17 +138,18 @@ public class ReturnWindowCodeBehind {
     			
     	if (furniture != null) {
     		if (!this.returnCart.containsKey(furniture)) {
-					this.returnCart.put(furniture, 1);
+					this.returnCart.put(furniture, new int[] {this.transaction.getTransactionId(), 1});
     			} else {
-    				int quantity = this.returnCart.get(furniture);
+    				int quantity = this.returnCart.get(furniture)[1];
     				quantity++;
-    				this.returnCart.put(furniture, quantity);
+    				
+    				this.returnCart.put(furniture, new int[] {this.transaction.getTransactionId(), quantity});
     			}
     			furniture.setQuantity(furniture.getQuantity()+1);
     			this.transactionListView.getItems().remove(furniture);
     	
     			this.returnListView.getItems().setAll(this.returnCart.entrySet());
-    		this.transactionListView.getSelectionModel().clearSelection();
+    			this.transactionListView.getSelectionModel().clearSelection();
     		if (LocalDate.now().compareTo(this.transaction.getDueDate().toLocalDate()) > 0) {
     			this.fineCost += furniture.getPrice();
     			this.finesLabel.setText("Fines: $" + this.fineCost);
@@ -138,14 +159,14 @@ public class ReturnWindowCodeBehind {
     
     @FXML
     void handleRemoveClick(ActionEvent event) {
-    	for (Entry<Furniture, Integer> furniture: this.returnListView.getSelectionModel().getSelectedItems()) {
-    		if (this.returnCart.get(furniture.getKey()) > 1) {
-    			this.returnCart.put(furniture.getKey(), this.returnCart.get(furniture.getKey())-1);
+    	for (Entry<Furniture, int[]> furniture: this.returnListView.getSelectionModel().getSelectedItems()) {
+    		if (this.returnCart.get(furniture.getKey())[1] > 1) {
+    			this.returnCart.put(furniture.getKey(), new int[] {this.returnCart.get(furniture.getKey())[0],this.returnCart.get(furniture.getKey())[1] -1});
     		} else {
     			this.returnCart.remove(furniture.getKey());
     		}
     		this.transactionListView.getItems().add(furniture.getKey());
-    		if (LocalDate.now().compareTo(this.transaction.getDueDate().toLocalDate()) < 0) {
+    		if (LocalDate.now().compareTo(this.transaction.getDueDate().toLocalDate()) > 0) {
     			this.fineCost -= furniture.getKey().getPrice();
     			this.finesLabel.setText("Fines: $" + this.fineCost);
     		}
@@ -154,13 +175,18 @@ public class ReturnWindowCodeBehind {
     }
 
     @FXML
+    void handleBackButtonClick(ActionEvent event) {
+    	this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
+    }
+    
+    @FXML
     void handleSubmitButtonClick(ActionEvent event) throws SQLException {
     	int transactionId = this.transactionDal.getSizeOfTable() + 1;
     	String returnItems = "";
     	LocalDate date = LocalDate.now();
     	java.sql.Date sqlDate = java.sql.Date.valueOf(date.toString());
-    	for (Entry<Furniture, Integer> furniture: this.returnListView.getItems()) {
-    		returnItems += ",(" + this.transaction.getTransactionId() + "," + transactionId + ",'" + sqlDate.toString() + "'," + furniture.getKey().getFurnitureId() + "," + furniture.getValue() + ")";
+    	for (Entry<Furniture, int[]> furniture: this.returnListView.getItems()) {
+    		returnItems += ",(" + furniture.getValue()[0] + "," + transactionId + ",'" + sqlDate.toString() + "'," + furniture.getKey().getFurnitureId() + "," + furniture.getValue()[1] + ")";
     	}
     	this.transactionDal.createReturnTransaction(transactionId, sqlDate, this.customer.getMemberID(), Employee.getEmployee().getEmployeeId(), returnItems.replaceFirst(",", ""));
     	
@@ -214,20 +240,5 @@ public class ReturnWindowCodeBehind {
     	}
     	this.customer = customer;
     }
-
-    /**
-     * Sets the transaction
-     * 
-     * @precondition transaction cannot be null
-     * @postcondition none
-     * 
-     * @param transaction
-     */
-	public void setTransaction(RentalTransaction transaction) {
-		if (transaction == null) {
-			throw new IllegalArgumentException(UI.ErrorMessages.NULL_TRANSACTION);
-		}
-		this.transaction = transaction;
-	}
 
 }

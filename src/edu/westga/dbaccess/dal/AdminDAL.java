@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @Version Fall 2021
  *
  */
-public class AdminQueryInterfaceDAL {
+public class AdminDAL {
 
 	/**
 	 * Runs the enter query
@@ -45,6 +45,35 @@ public class AdminQueryInterfaceDAL {
 
 		}
 		return results;
+	}
+
+	/**
+	 * Validates an admin by their username and password.
+	 * 
+	 * @param username the admin's username
+	 * @param password the admin's password
+	 * 
+	 * @return the employeeId
+	 * @throws SQLException
+	 */
+	public int getAdminByLoginCredentials(String username, String password) throws SQLException {
+
+		int employeeId = 0;
+		String query = "select employee from admin where username=? and password=?";
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+
+			stmt.setString(1, username);
+			stmt.setString(2, password);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				employeeId = rs.getInt("employee");
+			}
+
+		}
+
+		return employeeId;
 	}
 
 }

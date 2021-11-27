@@ -109,10 +109,4 @@ public class LandingWindowCodeBehind {
 	void searchBtnClick(ActionEvent event) {
 		this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\SearchWindow.fxml", event);
 	}
-
-	@FXML
-	void handleOpenQueryInterfaceButton(ActionEvent event) {
-		this.newWindow.generateWindow("Admin Query Window", "edu\\westga\\dbaccess\\view\\AdminQueryWindow.fxml",
-				event);
-	}
 }

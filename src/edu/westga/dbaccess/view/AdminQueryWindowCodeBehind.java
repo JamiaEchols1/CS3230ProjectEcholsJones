@@ -1,7 +1,7 @@
 package edu.westga.dbaccess.view;
 import java.sql.SQLException;
 
-import edu.westga.dbaccess.dal.AdminQueryInterfaceDAL;
+import edu.westga.dbaccess.dal.AdminDAL;
 import edu.westga.dbaccess.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +39,7 @@ public class AdminQueryWindowCodeBehind {
     @FXML
     private Label adminInformationLabel;
     
-    private AdminQueryInterfaceDAL adminQueryInterfacedal;
+    private AdminDAL adminQueryInterfacedal;
     
     private WindowGenerator newWindow;
     
@@ -51,7 +51,7 @@ public class AdminQueryWindowCodeBehind {
      * 
      */
     public AdminQueryWindowCodeBehind() {
-    	this.adminQueryInterfacedal = new AdminQueryInterfaceDAL();
+    	this.adminQueryInterfacedal = new AdminDAL();
     	this.newWindow = new WindowGenerator();
     }
 
@@ -61,9 +61,10 @@ public class AdminQueryWindowCodeBehind {
     }
     
     @FXML
-    void handleBackButtonClick(ActionEvent event) {
-    	this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
-    }
+    void handleBackButtonClick(ActionEvent event) {		
+    	Employee.setEmployee(null);
+    	this.newWindow.generateWindow("Login Window", "edu\\westga\\dbaccess\\view\\LoginWindow.fxml", event);
+	}
 
     @FXML
     void handleClearButtonCLick(ActionEvent event) {

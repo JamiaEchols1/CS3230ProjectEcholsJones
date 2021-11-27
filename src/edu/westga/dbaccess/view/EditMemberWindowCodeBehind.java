@@ -1,6 +1,5 @@
 package edu.westga.dbaccess.view;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
@@ -8,10 +7,6 @@ import edu.westga.dbaccess.controller.EditMemberWindowController;
 import edu.westga.dbaccess.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -19,7 +14,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * Member edit window
@@ -114,12 +108,12 @@ public class EditMemberWindowCodeBehind {
 	private EditMemberWindowController controller;
 
 	private int memberID;
-	
+
 	private WindowGenerator newWindow;
 
 	@FXML
 	void handleCancelClick(ActionEvent event) {
-		this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\SearchWindow.fxml", event);	
+		this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\SearchWindow.fxml", event);
 	}
 
 	@FXML

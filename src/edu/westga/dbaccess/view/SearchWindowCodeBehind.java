@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -29,10 +28,9 @@ public class SearchWindowCodeBehind {
 
 	@FXML
 	private Label searchLabel;
-	
 
-    @FXML
-    private Label warningLabel;
+	@FXML
+	private Label warningLabel;
 
 	@FXML
 	private Button searchButton;
@@ -48,14 +46,14 @@ public class SearchWindowCodeBehind {
 
 	@FXML
 	private ComboBox<String> modeComboBox;
-	
+
 	@FXML
 	private TextField searchTextField;
 
 	private SearchController controller;
-	
+
 	private WindowGenerator newWindow;
-	
+
 	@FXML
 	void backButtonClick(ActionEvent event) {
 		this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
@@ -63,17 +61,18 @@ public class SearchWindowCodeBehind {
 
 	@FXML
 	void editButtonClick(ActionEvent event) throws NumberFormatException, SQLException {
-		if (this.customerListView.getSelectionModel().getSelectedItem() != null ) {
+		if (this.customerListView.getSelectionModel().getSelectedItem() != null) {
 			Parent root;
-			try{
+			try {
 				String memberId = this.customerListView.getSelectionModel().getSelectedItem().split(" ")[0];
 
-				FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\EditMemberWindow.fxml"));
+				FXMLLoader loader = new FXMLLoader(
+						getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\EditMemberWindow.fxml"));
 
 				root = loader.load();
-				
+
 				EditMemberWindowCodeBehind editWindow = loader.getController();
-				
+
 				editWindow.setUp(this.controller.getCustomerbyMemberId(memberId));
 
 				Stage stage = new Stage();
@@ -84,7 +83,7 @@ public class SearchWindowCodeBehind {
 
 				stage.show();
 
-				Node node = ((Node)(event.getSource()));
+				Node node = ((Node) (event.getSource()));
 
 				Stage thisStage = (Stage) node.getScene().getWindow();
 
@@ -92,30 +91,24 @@ public class SearchWindowCodeBehind {
 
 			} catch (IOException e) {
 
-	            e.printStackTrace();
+				e.printStackTrace();
 
-	        }
+			}
 		}
 	}
 
-	
-	/*private void addListeners() {
-		this.searchTextField.textProperty().addListener((obs, oldText, newText) -> {
-			if (this.modeComboBox.getSelectionModel().getSelectedItem() == "FullName") {
-				Pattern pattern = Pattern.compile("*");
-			    Matcher matcher = pattern.matcher(newText);
-			    boolean matchFound = matcher.find();
-			    if(matchFound) {
-			      this.searchButton.setDisable(true);
-			      this.warningLabel.setText("Must be in format FirstName LastName");
-			    } else {
-			    	this.searchButton.setDisable(false);
-				    this.warningLabel.setText("");
-			    }
-			}
-			
-		});
-	}*/
+	/*
+	 * private void addListeners() {
+	 * this.searchTextField.textProperty().addListener((obs, oldText, newText) -> {
+	 * if (this.modeComboBox.getSelectionModel().getSelectedItem() == "FullName") {
+	 * Pattern pattern = Pattern.compile("*"); Matcher matcher =
+	 * pattern.matcher(newText); boolean matchFound = matcher.find(); if(matchFound)
+	 * { this.searchButton.setDisable(true);
+	 * this.warningLabel.setText("Must be in format FirstName LastName"); } else {
+	 * this.searchButton.setDisable(false); this.warningLabel.setText(""); } }
+	 * 
+	 * }); }
+	 */
 
 	@FXML
 	void searchButtonClick(ActionEvent event) throws NumberFormatException, SQLException {
@@ -126,7 +119,7 @@ public class SearchWindowCodeBehind {
 			String first = this.searchTextField.getText().split(" ")[0];
 			String last = this.searchTextField.getText().split(" ")[1];
 			String[] customerArray = this.controller.getByFullName(first, last).split(",");
-			for(String customer : customerArray) {
+			for (String customer : customerArray) {
 				if (!customer.equals("")) {
 					this.customerListView.getItems().add(customer);
 				}
@@ -134,7 +127,7 @@ public class SearchWindowCodeBehind {
 
 		} else if (this.modeComboBox.getSelectionModel().getSelectedItem() == "Phone") {
 			String[] customerArray = this.controller.getByPhoneNumber(this.searchTextField.getText()).split(",");
-			for(String customer : customerArray) {
+			for (String customer : customerArray) {
 				if (!customer.equals("")) {
 					this.customerListView.getItems().add(customer);
 				}

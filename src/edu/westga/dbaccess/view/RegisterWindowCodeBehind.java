@@ -1,16 +1,11 @@
 package edu.westga.dbaccess.view;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
 import edu.westga.dbaccess.controller.RegisterWindowController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,7 +13,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * The register window
@@ -110,7 +104,7 @@ public class RegisterWindowCodeBehind {
 	private Button cancelButton;
 
 	private RegisterWindowController controller;
-	
+
 	private WindowGenerator newWindow;
 
 	@FXML
@@ -134,7 +128,7 @@ public class RegisterWindowCodeBehind {
 	@FXML
 	void handleCancelClick(ActionEvent event) {
 		this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
-		
+
 	}
 
 	@FXML

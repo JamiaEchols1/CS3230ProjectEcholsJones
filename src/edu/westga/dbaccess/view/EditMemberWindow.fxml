@@ -112,5 +112,6 @@
             </HBox>
          </children>
       </VBox>
+      <Label fx:id="customerInformationLabel" layoutX="28.0" layoutY="14.0" />
    </children>
 </AnchorPane>

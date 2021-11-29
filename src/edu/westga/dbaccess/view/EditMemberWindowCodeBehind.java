@@ -59,12 +59,12 @@ public class EditMemberWindowCodeBehind {
 
 	@FXML
 	private Label addressLabel;
+	
+	@FXML
+	private Label customerInformationLabel;
 
 	@FXML
 	private TextField addressTextField;
-
-	@FXML
-	private Label cityyLabel;
 
 	@FXML
 	private TextField cityTexfield;
@@ -146,6 +146,8 @@ public class EditMemberWindowCodeBehind {
 		this.genderComboBox.getItems().addAll("Male", "Female", "Other");
 		this.controller = new EditMemberWindowController();
 		this.newWindow = new WindowGenerator();
+		this.customerInformationLabel.setText(Customer.getCustomer().toString());
+		this.setUp(Customer.getCustomer());
 		this.setupListeners();
 	}
 

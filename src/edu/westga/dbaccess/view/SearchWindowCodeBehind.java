@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import edu.westga.dbaccess.controller.SearchController;
+import edu.westga.dbaccess.model.Customer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,38 +63,9 @@ public class SearchWindowCodeBehind {
 	@FXML
 	void editButtonClick(ActionEvent event) throws NumberFormatException, SQLException {
 		if (this.customerListView.getSelectionModel().getSelectedItem() != null) {
-			Parent root;
-			try {
-				String memberId = this.customerListView.getSelectionModel().getSelectedItem().split(" ")[0];
-
-				FXMLLoader loader = new FXMLLoader(
-						getClass().getClassLoader().getResource("edu\\westga\\dbaccess\\view\\EditMemberWindow.fxml"));
-
-				root = loader.load();
-
-				EditMemberWindowCodeBehind editWindow = loader.getController();
-
-				editWindow.setUp(this.controller.getCustomerbyMemberId(memberId));
-
-				Stage stage = new Stage();
-
-				stage.setTitle("Edit Member Window");
-
-				stage.setScene(new Scene(root));
-
-				stage.show();
-
-				Node node = ((Node) (event.getSource()));
-
-				Stage thisStage = (Stage) node.getScene().getWindow();
-
-				thisStage.close();
-
-			} catch (IOException e) {
-
-				e.printStackTrace();
-
-			}
+			String memberId = this.customerListView.getSelectionModel().getSelectedItem().split(" ")[0];
+			Customer.setCustomer(this.controller.getCustomerbyMemberId(memberId));
+			this.newWindow.generateWindow("Edit Member Window", "edu\\westga\\dbaccess\\view\\EditMemberWindow.fxml", event);
 		}
 	}
 

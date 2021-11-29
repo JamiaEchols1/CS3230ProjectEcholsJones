@@ -15,6 +15,9 @@ public class Employee {
 	private String password;
 	private String phoneNumber;
 	private String username;
+	private String zipcode;
+	private String state;
+	private String city;
 	
 	private static Employee employee = null;
 
@@ -30,7 +33,7 @@ public class Employee {
 	 * @param password the employee's password
 	 * @param username the employee's username
 	 */
-	public Employee(String address1, String address2, int employeeId, String fname, String lname, String phoneNumber, String password, String username) {
+	public Employee(String address1, String address2, int employeeId, String fname, String lname, String phoneNumber, String password, String username, String city, String zipcode, String state) {
 		this.address1 = address1;
 		this.address2 = address2;
 		this.employeeId = employeeId;
@@ -39,6 +42,9 @@ public class Employee {
 		this.password = password;
 		this.phoneNumber = phoneNumber;
 		this.username = username;
+		this.city = city;
+		this.state = state;
+		this.zipcode = zipcode;
 	}
 
 	/**
@@ -142,4 +148,40 @@ public class Employee {
 		return Employee.employee;
 	}
 	
+	
+	/**
+	 * Gets the zipcode
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the zipcode
+	 */
+	public String getZipcode() {
+		return this.zipcode;
+	}
+	
+	/**
+	 * Gets the state
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the state
+	 */
+	public String getState() {
+		return this.state;
+	}
+
+	/**
+	 * Gets the city
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the city
+	 */
+	public String getCity() {
+		return this.city;
+	}
 }

@@ -119,11 +119,11 @@ public class EditMemberWindowCodeBehind {
 	@FXML
 	void handleEditClick(ActionEvent event) {
 		try {
-			this.controller.editCustomer(this.memberID, this.firstNameTextField.getText(),
+			this.customerInformationLabel.setText(this.controller.editCustomer(this.memberID, this.firstNameTextField.getText(),
 					this.lastNameTextBox.getText(), this.genderComboBox.getSelectionModel().getSelectedItem(),
 					this.addressTextField.getText(), this.zipCodeTextField.getText(),
 					this.stateComboBox.getSelectionModel().getSelectedItem(), this.cityTexfield.getText(),
-					this.phoneNumberTextField.getText(), Date.valueOf(this.birthdateDatePicker.getValue()));
+					this.phoneNumberTextField.getText(), Date.valueOf(this.birthdateDatePicker.getValue())).toString());
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			alert.setContentText("Customer Updated");
 			alert.show();
@@ -151,7 +151,7 @@ public class EditMemberWindowCodeBehind {
 		this.setupListeners();
 	}
 
-	public void setUp(Customer customer) {
+	private void setUp(Customer customer) {
 		this.firstNameTextField.setText(customer.getFirstName());
 		this.lastNameTextBox.setText(customer.getLastName());
 		this.zipCodeTextField.setText(customer.getZipcode());

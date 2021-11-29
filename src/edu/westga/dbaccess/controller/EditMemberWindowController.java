@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 import edu.westga.dbaccess.dal.CustomerDAL;
+import edu.westga.dbaccess.model.Customer;
 
 /**
  * The class editmember window controller
@@ -40,10 +41,11 @@ public class EditMemberWindowController {
 	 * @param birthday the birthday
 	 * 
 	 * @throws SQLException
+	 * 
+	 * @return The Updated Customer
 	 */
-	public void editCustomer(int memberID, String firstName, String lastName, String zipcode, String state, String city, String gender, String address1, String phoneNumber, Date birthday) throws SQLException {
+	public Customer editCustomer(int memberID, String firstName, String lastName, String zipcode, String state, String city, String gender, String address1, String phoneNumber, Date birthday) throws SQLException {
 		this.customerDal.editCustomer(memberID, firstName, lastName, zipcode, state, city, gender, address1, phoneNumber, birthday);
-		// TODO Auto-generated method stub
-		
+		return this.customerDal.getCustomerWithMemberId(memberID);
 	}
 }

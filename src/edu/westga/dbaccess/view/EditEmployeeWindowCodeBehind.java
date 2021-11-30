@@ -1,6 +1,5 @@
 package edu.westga.dbaccess.view;
 
-import java.sql.Date;
 import java.sql.SQLException;
 
 import edu.westga.dbaccess.controller.EditEmployeeWindowController;

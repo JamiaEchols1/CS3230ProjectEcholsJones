@@ -49,8 +49,8 @@ public class EmployeeDAL {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				employee = new Employee(rs.getString("address1"), rs.getString("address2"), rs.getInt("employeeId"),
-						rs.getString("firstName"), rs.getString("lastName"), rs.getString("password"),
-						rs.getString("phoneNumber"), rs.getString("username"), rs.getString("zipcode"), rs.getString("city"), rs.getString("state"));
+						rs.getString("firstName"), rs.getString("lastName"), rs.getString("phoneNumber"),
+						rs.getString("password"), rs.getString("username"), rs.getString("zipcode"), rs.getString("city"), rs.getString("state"));
 			}
 
 		}
@@ -81,8 +81,8 @@ public class EmployeeDAL {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				employee = new Employee(rs.getString("address1"), rs.getString("address2"), rs.getInt("employeeId"),
-						rs.getString("firstName"), rs.getString("lastName"), rs.getString("password"),
-						rs.getString("phoneNumber"), rs.getString("username"), rs.getString("city"), rs.getString("state"), rs.getString("zipcode"));
+						rs.getString("firstName"), rs.getString("lastName"), rs.getString("phoneNumber"),
+						rs.getString("password"), rs.getString("username"), rs.getString("city"), rs.getString("state"), rs.getString("zipcode"));
 			}
 
 		}
@@ -107,8 +107,16 @@ public class EmployeeDAL {
 	public void editEmployee(int employeeID, String firstName, String lastName, String address1,
 				String zipcode, String state, String city, String phoneNumber, String username, String password) {
 			String query = " call uspEditEmployee(?,?,?,?,?,?,?,?, ?, ?)";
+			String hashedPassword = "";
 			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 					PreparedStatement stmt = connection.prepareStatement(query)) {
+				try {
+					byte[] passwordBytes = password.getBytes("UTF-8");
+					MessageDigest md = MessageDigest.getInstance("MD5");
+					hashedPassword =  Base64.getEncoder().encodeToString(md.digest(passwordBytes));
+				} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+					e.printStackTrace();
+				}
 				stmt.setInt(1, employeeID);
 				stmt.setString(2, firstName);
 				stmt.setString(3, lastName);
@@ -118,7 +126,7 @@ public class EmployeeDAL {
 				stmt.setString(7, city);
 				stmt.setString(8, phoneNumber);
 				stmt.setString(9, username);
-				stmt.setString(10, password);
+				stmt.setString(10, hashedPassword);
 				stmt.execute();
 			} catch (SQLException e) {
 				e.printStackTrace();

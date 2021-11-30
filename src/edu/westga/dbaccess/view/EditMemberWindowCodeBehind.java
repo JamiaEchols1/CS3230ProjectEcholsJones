@@ -103,7 +103,7 @@ public class EditMemberWindowCodeBehind {
 	private Button editButton;
 
 	@FXML
-	private Button cancelButton;
+	private Button closeButton;
 
 	private EditMemberWindowController controller;
 
@@ -112,7 +112,7 @@ public class EditMemberWindowCodeBehind {
 	private WindowGenerator newWindow;
 
 	@FXML
-	void handleCancelClick(ActionEvent event) {
+	void handleCloseClick(ActionEvent event) {
 		this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\SearchWindow.fxml", event);
 	}
 

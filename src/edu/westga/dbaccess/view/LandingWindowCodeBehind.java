@@ -67,6 +67,11 @@ public class LandingWindowCodeBehind {
 	void registerBtnClick(ActionEvent event) {
 		this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\RegisterWindow.fxml", event);
 	}
+	
+	@FXML
+	void handleEditProfileButtonClick(ActionEvent event) {
+		this.newWindow.generateWindow("Edit Profile", "edu\\westga\\dbaccess\\view\\EditEmployeeWindow.fxml", event);
+	}
 
 	@FXML
 	void handleLogoutButtonClick(ActionEvent event) {

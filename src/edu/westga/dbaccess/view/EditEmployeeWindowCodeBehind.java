@@ -12,6 +12,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * The editEmployeeWindowCOdebehind
+ * 
+ * @author Jamia Echols
+ * @version Fall 2021
+ *
+ */
 public class EditEmployeeWindowCodeBehind {
 
     @FXML
@@ -75,13 +82,15 @@ public class EditEmployeeWindowCodeBehind {
     private Button editButton;
 
     @FXML
-    private Button cancelButton;
+    private Button closeButton;
 
     @FXML
     private Label employeeInformationLabel;
     
     @FXML
     private int employeeId;
+    
+    private WindowGenerator newWindow;
     
     private EditEmployeeWindowController controller;
     
@@ -90,8 +99,8 @@ public class EditEmployeeWindowCodeBehind {
     }
 
     @FXML
-    void handleCancelClick(ActionEvent event) {
-
+    void handleCloseClick(ActionEvent event) {
+    	this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\SearchWindow.fxml", event);
     }
 
     @FXML
@@ -105,6 +114,7 @@ public class EditEmployeeWindowCodeBehind {
     
     @FXML
     void initialize() {
+    	this.newWindow = new WindowGenerator();
 		this.stateComboBox.getItems().addAll("Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
 				"Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois",
 				"Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Montana", "Nebraska", "Nevada",

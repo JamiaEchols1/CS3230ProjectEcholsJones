@@ -1,12 +1,7 @@
 package edu.westga.dbaccess.controller;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import edu.westga.dbaccess.dal.ConnectionString;
 import edu.westga.dbaccess.dal.EmployeeDAL;
 import edu.westga.dbaccess.model.Employee;
 
@@ -21,10 +16,34 @@ public class EditEmployeeWindowController {
 	
 	private EmployeeDAL employeeDal;
 	
+	/**
+	 * Initializes a new edit employee window controller
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 */
 	public EditEmployeeWindowController() {
 		this.employeeDal = new EmployeeDAL();
 	}
 	
+	/**
+	 * Edits the employee
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * @param employeeID
+	 * @param firstName
+	 * @param lastName
+	 * @param address1
+	 * @param zipcode
+	 * @param state
+	 * @param city
+	 * @param phoneNumber
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws SQLException
+	 */
 	public Employee edit(int employeeID, String firstName, String lastName, String address1,
 				String zipcode, String state, String city, String phoneNumber, String username, String password) throws SQLException {
 			

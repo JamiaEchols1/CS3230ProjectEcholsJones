@@ -19,6 +19,7 @@
             <Button fx:id="searchBtn" layoutX="205.0" layoutY="94.0" mnemonicParsing="false" onAction="#searchBtnClick" text="Search" />
             <Button fx:id="returnFurnitureButton" layoutX="206.0" layoutY="153.0" mnemonicParsing="false" onAction="#handleReturnFurnitureClick" text="Return Furniture" />
             <Button fx:id="logoutButton" layoutX="291.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleLogoutButtonClick" text="LOGOUT" />
+            <Button fx:id="editProfileButton" layoutX="32.0" layoutY="240.0" mnemonicParsing="false" onAction="#handleEditProfileButtonClick" text="Edit Profile" />
          </children>
       </AnchorPane>
    </children>

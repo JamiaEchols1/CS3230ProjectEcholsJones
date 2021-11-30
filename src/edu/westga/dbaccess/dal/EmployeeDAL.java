@@ -104,7 +104,7 @@ public class EmployeeDAL {
 	 * @param phoneNumber
 	 * @param birthday
 	 */
-	public void editEmployee(int employeeID, String firstName, String lastName, String gender, String address1,
+	public void editEmployee(int employeeID, String firstName, String lastName, String address1,
 				String zipcode, String state, String city, String phoneNumber, String username, String password) {
 			String query = " call uspEditEmployee(?,?,?,?,?,?,?,?, ?, ?)";
 			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);

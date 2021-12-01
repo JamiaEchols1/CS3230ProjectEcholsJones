@@ -33,7 +33,7 @@ public class Employee {
 	 * @param password the employee's password
 	 * @param username the employee's username
 	 */
-	public Employee(String address1, String address2, int employeeId, String fname, String lname, String phoneNumber, String password, String username, String city, String zipcode, String state) {
+	public Employee(String address1, String address2, int employeeId, String fname, String lname, String phoneNumber, String password, String username, String city, String state, String zipcode) {
 		this.address1 = address1;
 		this.address2 = address2;
 		this.employeeId = employeeId;

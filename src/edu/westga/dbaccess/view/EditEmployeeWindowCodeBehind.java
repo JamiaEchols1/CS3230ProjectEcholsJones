@@ -6,6 +6,7 @@ import edu.westga.dbaccess.controller.EditEmployeeWindowController;
 import edu.westga.dbaccess.model.Employee;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -96,7 +97,7 @@ public class EditEmployeeWindowCodeBehind {
 
     @FXML
     void handleCloseClick(ActionEvent event) {
-    	this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\SearchWindow.fxml", event);
+    	this.newWindow.generateWindow("Landing Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
     }
 
     @FXML
@@ -106,6 +107,9 @@ public class EditEmployeeWindowCodeBehind {
 		this.addressTextField.getText(), this.zipCodeTextField.getText(),
 		this.stateComboBox.getSelectionModel().getSelectedItem(), this.cityTexfield.getText(),
 		this.phoneNumberTextField.getText(), this.usernameTextField.getText());
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setContentText("User updated!");
+		alert.show();
     }
     @FXML
     void handleChangePasswordButtonClick(ActionEvent event) {
@@ -136,7 +140,6 @@ public class EditEmployeeWindowCodeBehind {
 		this.phoneNumberTextField.setText(Employee.getEmployee().getPhoneNumber());
 		this.usernameTextField.setText(Employee.getEmployee().getUsername());
 		this.employeeId = Employee.getEmployee().getEmployeeId();
-
 	}
 	
     private void setupListeners() {

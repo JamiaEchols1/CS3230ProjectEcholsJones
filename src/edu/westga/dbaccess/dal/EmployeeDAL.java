@@ -50,7 +50,7 @@ public class EmployeeDAL {
 			while (rs.next()) {
 				employee = new Employee(rs.getString("address1"), rs.getString("address2"), rs.getInt("employeeId"),
 						rs.getString("firstName"), rs.getString("lastName"), rs.getString("phoneNumber"),
-						rs.getString("password"), rs.getString("username"), rs.getString("zipcode"), rs.getString("city"), rs.getString("state"));
+						rs.getString("password"), rs.getString("username"), rs.getString("city"), rs.getString("state"), rs.getString("zipcode"));
 			}
 
 		}
@@ -72,7 +72,7 @@ public class EmployeeDAL {
 	 */
 	public Employee getEmployeeByEmployeeId(int employeeId) throws SQLException {
 		Employee employee = null;
-		String query = "select address1, address2, employeeId, firstName, lastName, password, phoneNumber, username from employee where employeeId=?";
+		String query = "select city, state, zipcode, address1, address2, employeeId, firstName, lastName, password, phoneNumber, username from employee where employeeId=?";
 		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 				PreparedStatement stmt = connection.prepareStatement(query)) {
 

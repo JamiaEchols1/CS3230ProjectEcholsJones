@@ -104,5 +104,44 @@ public class SearchWindowCodeBehind {
 		this.lastNameCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("lastName"));
 		this.memberIdCol.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("memberID"));
 		searchTableView.getColumns().addAll(firstNameCol, lastNameCol, memberIdCol);
+		this.searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+			this.checkRegex();
+		});
+		this.searchButton.setDisable(true);
 	}
+	
+	@FXML
+	void comboAction(ActionEvent event) {
+		this.checkRegex();
+	}
+	
+	private void checkRegex() {
+		if (this.modeComboBox.getSelectionModel().getSelectedItem() == "FullName") {
+			if (this.searchTextField.getText().matches("^\\S* \\S+$")) {
+				this.searchLabel.setText("Search");
+				this.searchButton.setDisable(false);
+			} else {
+				this.searchLabel.setText("Must be in format FirstName LastName");
+				this.searchButton.setDisable(true);
+			}
+		} else if (this.modeComboBox.getSelectionModel().getSelectedItem() == "MemberID") {
+
+			if (this.searchTextField.getText().matches("^[0-9]+$")) {
+				this.searchLabel.setText("Search");
+				this.searchButton.setDisable(false);
+			} else {
+				this.searchLabel.setText("Must use numbers only");
+				this.searchButton.setDisable(true);
+			}
+		} else if (this.modeComboBox.getSelectionModel().getSelectedItem() == "Phone") {
+			if (this.searchTextField.getText().matches("^[0-9]{10}$")) {
+				this.searchLabel.setText("Search");
+				this.searchButton.setDisable(false);
+			} else {
+				this.searchLabel.setText("Must use a 10 digit number (no hyphens)");
+				this.searchButton.setDisable(true);
+			}
+		}
+	}
+
 }

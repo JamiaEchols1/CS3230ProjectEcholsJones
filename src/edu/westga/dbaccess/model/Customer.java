@@ -11,7 +11,6 @@ import edu.westga.dbaccess.utils.UI;
  */
 public class Customer {
 	private int memberID;
-	private String memberIdString;
 	private String firstName;
 	private String lastName;
 	private String address1;
@@ -70,7 +69,6 @@ public class Customer {
 			throw new IllegalArgumentException(UI.ErrorMessages.REGISTATIONDATE_NULL);
 		}
 		this.memberID = id;
-		this.memberIdString = String.valueOf(id);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
@@ -91,7 +89,7 @@ public class Customer {
 	public int getMemberID() {
 		return this.memberID;
 	}
-	
+
 	/**
 	 * Gets the member Id string
 	 * 
@@ -198,7 +196,7 @@ public class Customer {
 	public static void setCustomer(Customer customer) {
 		Customer.customer = customer;
 	}
-	
+
 	/**
 	 * Gets the customer
 	 * 
@@ -210,7 +208,7 @@ public class Customer {
 	public static Customer getCustomer() {
 		return Customer.customer;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Customer [memberID=" + memberID + ", firstName=" + firstName + ", lastName=" + lastName

@@ -41,7 +41,7 @@ public class WindowGenerator {
 
 			stage.setTitle(title);
 
-			stage.setScene(new Scene(root, 452, 440));
+			stage.setScene(new Scene(root, 572, 440));
 
 			stage.show();
 

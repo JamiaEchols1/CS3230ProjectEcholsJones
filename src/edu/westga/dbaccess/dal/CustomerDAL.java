@@ -167,8 +167,8 @@ public class CustomerDAL {
 			stmt.setString(3, lastName);
 			stmt.setString(4, gender);
 			stmt.setString(5, address1);
-			stmt.setString(6, zipcode);
-			stmt.setString(7, state);
+			stmt.setString(6, state);
+			stmt.setString(7, zipcode);
 			stmt.setString(8, city);
 			stmt.setString(9, phoneNumber);
 			stmt.setDate(10, birthday);

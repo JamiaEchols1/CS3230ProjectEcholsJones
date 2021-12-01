@@ -37,10 +37,9 @@ public class SearchController {
 	 * @throws NumberFormatException
 	 * @throws SQLException
 	 */
-	public String getbyMemberId(String text) throws NumberFormatException, SQLException {
+	public Customer getbyMemberId(String text) throws NumberFormatException, SQLException {
 		Customer customer = this.customerDal.getCustomerWithMemberId(Integer.parseInt(text));
-		System.out.println(customer.getMemberID() + " " + customer.getFirstName() + " " + customer.getLastName());
-		return customer.getMemberID() + " " + customer.getFirstName() + " " + customer.getLastName();
+		return customer;
 
 	}
 
@@ -50,19 +49,14 @@ public class SearchController {
 	 * @param first the first name
 	 * @param last the last name
 	 * 
-	 * @return a string containing the customer's member Id, first name, and last name
+	 * @return a list of customers with the given full name
 	 * 
 	 * @throws NumberFormatException
 	 * @throws SQLException
 	 */
-	public String getByFullName(String first, String last) throws NumberFormatException, SQLException {
+	public ArrayList<Customer> getByFullName(String first, String last) throws NumberFormatException, SQLException {
 		ArrayList<Customer> customers = this.customerDal.getCustomerWithFullName(first, last);
-		String customerString = "";
-		for (Customer customer : customers) {
-			customerString += customer.getMemberID() + " " + customer.getFirstName() + " " + customer.getLastName()
-					+ ",";
-		}
-		return customerString;
+		return customers;
 	}
 
 	/**
@@ -75,14 +69,9 @@ public class SearchController {
 	 * @throws NumberFormatException
 	 * @throws SQLException
 	 */
-	public String getByPhoneNumber(String text) throws NumberFormatException, SQLException {
+	public ArrayList<Customer> getByPhoneNumber(String text) throws NumberFormatException, SQLException {
 		ArrayList<Customer> customers = this.customerDal.getCustomerWithPhoneNumber(text);
-		String customerString = "";
-		for (Customer customer : customers) {
-			customerString += customer.getMemberID() + " " + customer.getFirstName() + " " + customer.getLastName()
-					+ ",";
-		}
-		return customerString;
+		return customers;
 	}
 
 	/**
@@ -95,8 +84,8 @@ public class SearchController {
 	 * @throws NumberFormatException
 	 * @throws SQLException
 	 */
-	public Customer getCustomerbyMemberId(String memberId) throws NumberFormatException, SQLException {
-		Customer customer = this.customerDal.getCustomerWithMemberId(Integer.parseInt(memberId));
+	public Customer getCustomerbyMemberId(int memberId) throws NumberFormatException, SQLException {
+		Customer customer = this.customerDal.getCustomerWithMemberId(memberId);
 		return customer;
 
 	}

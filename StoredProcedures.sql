@@ -62,3 +62,13 @@ where
 employee.employeeId = employeeId;
 END$$
 DELIMITER ;
+
+-- edit customer --
+DELIMITER $$
+CREATE DEFINER=`rjones47`@`%` PROCEDURE `uspEditCustomer`(IN memberID int, firstName varchar(50), lastName varchar(50), gender varchar(8), address1 varchar(50), state varchar(50), zipcode varchar(50), city varchar(50), phoneNumber char(10), birthday date)
+BEGIN
+UPDATE customer c
+SET  c.firstName = firstName, c.lastName = lastName, c.gender = gender, c.address1 = address1, c.state = state, c.zipcode = zipcode, c.city = city, c.phoneNumber = phoneNumber, c.birthday = birthday
+WHERE c.memberID = memberID;
+END$$
+DELIMITER ;

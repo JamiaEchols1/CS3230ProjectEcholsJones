@@ -116,7 +116,7 @@ public class RegisterWindowCodeBehind {
 					this.cityTexfield.getText(), this.phoneNumberTextField.getText(),
 					Date.valueOf(this.birthdateDatePicker.getValue()), Date.valueOf(LocalDate.now()));
 			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-			alert.setContentText("Customer Updated");
+			alert.setContentText("Customer Created");
 			alert.show();
 		} catch (Exception exception) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);

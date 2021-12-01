@@ -40,14 +40,13 @@ public class EditEmployeeWindowController {
 	 * @param city
 	 * @param phoneNumber
 	 * @param username
-	 * @param password
-	 * @return
+	 * @return the edited employee
 	 * @throws SQLException
 	 */
 	public Employee edit(int employeeID, String firstName, String lastName, String address1,
-				String zipcode, String state, String city, String phoneNumber, String username, String password) throws SQLException {
+				String zipcode, String state, String city, String phoneNumber, String username) throws SQLException {
 			
-		this.employeeDal.editEmployee(employeeID, firstName, lastName, address1, zipcode, state, city, phoneNumber, username, password);
+		this.employeeDal.editEmployee(employeeID, firstName, lastName, address1, zipcode, state, city, phoneNumber, username);
 		Employee.setEmployee(this.employeeDal.getEmployeeByEmployeeId(employeeID));
 		return Employee.getEmployee();
 	}

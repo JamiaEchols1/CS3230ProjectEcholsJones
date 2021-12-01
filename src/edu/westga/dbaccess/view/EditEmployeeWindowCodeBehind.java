@@ -72,9 +72,6 @@ public class EditEmployeeWindowCodeBehind {
     private TextField usernameTextField;
 
     @FXML
-    private TextField passwordTextField;
-
-    @FXML
     private Label phoneNumberErrorLabel;
 
     @FXML
@@ -108,7 +105,11 @@ public class EditEmployeeWindowCodeBehind {
 		this.lastNameTextBox.getText(),
 		this.addressTextField.getText(), this.zipCodeTextField.getText(),
 		this.stateComboBox.getSelectionModel().getSelectedItem(), this.cityTexfield.getText(),
-		this.phoneNumberTextField.getText(), this.usernameTextField.getText(), this.passwordTextField.getText());
+		this.phoneNumberTextField.getText(), this.usernameTextField.getText());
+    }
+    @FXML
+    void handleChangePasswordButtonClick(ActionEvent event) {
+    	this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\ResetPasswordWindow.fxml", event);
     }
     
     @FXML
@@ -134,7 +135,6 @@ public class EditEmployeeWindowCodeBehind {
 		this.addressTextField.setText(Employee.getEmployee().getAddress1());
 		this.phoneNumberTextField.setText(Employee.getEmployee().getPhoneNumber());
 		this.usernameTextField.setText(Employee.getEmployee().getUsername());
-		this.passwordTextField.setText(Employee.getEmployee().getPassword());
 		this.employeeId = Employee.getEmployee().getEmployeeId();
 
 	}

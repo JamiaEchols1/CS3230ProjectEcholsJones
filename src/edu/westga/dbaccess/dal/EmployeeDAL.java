@@ -105,18 +105,12 @@ public class EmployeeDAL {
 	 * @param birthday
 	 */
 	public void editEmployee(int employeeID, String firstName, String lastName, String address1,
-				String zipcode, String state, String city, String phoneNumber, String username, String password) {
-			String query = " call uspEditEmployee(?,?,?,?,?,?,?,?, ?, ?)";
-			String hashedPassword = "";
+				String zipcode, String state, String city, String phoneNumber, String username) {
+			String query = " call uspEditEmployee(?,?,?,?,?,?,?,?,?)";
+
 			try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
 					PreparedStatement stmt = connection.prepareStatement(query)) {
-				try {
-					byte[] passwordBytes = password.getBytes("UTF-8");
-					MessageDigest md = MessageDigest.getInstance("MD5");
-					hashedPassword =  Base64.getEncoder().encodeToString(md.digest(passwordBytes));
-				} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
-					e.printStackTrace();
-				}
+	
 				stmt.setInt(1, employeeID);
 				stmt.setString(2, firstName);
 				stmt.setString(3, lastName);
@@ -126,10 +120,40 @@ public class EmployeeDAL {
 				stmt.setString(7, city);
 				stmt.setString(8, phoneNumber);
 				stmt.setString(9, username);
-				stmt.setString(10, hashedPassword);
 				stmt.execute();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+	}
+
+	public void resetPassword(int employeeId, String password,String newPassword) throws Exception {
+		String query = "update employee set password=? where employeeId=? and password=?";
+		String hashedNewPassword = "";
+		String hashedPassword = "";
+		try (Connection connection = DriverManager.getConnection(ConnectionString.CONNECTION_STRING);
+				PreparedStatement stmt = connection.prepareStatement(query)) {
+			
+			try {
+				byte[] passwordBytes = password.getBytes("UTF-8");
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				hashedPassword =  Base64.getEncoder().encodeToString(md.digest(passwordBytes));
+			} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+			try {
+				byte[] passwordBytes = newPassword.getBytes("UTF-8");
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				hashedNewPassword =  Base64.getEncoder().encodeToString(md.digest(passwordBytes));
+			} catch (UnsupportedEncodingException | NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+			stmt.setString(1, hashedNewPassword);
+			stmt.setInt(2, employeeId);
+			stmt.setString(3, hashedPassword);
+
+			if (stmt.executeUpdate() < 1) {
+				throw new IllegalArgumentException("Password not updated");
+			}
+		} 
 	}
 }

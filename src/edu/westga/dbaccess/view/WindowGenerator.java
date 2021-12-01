@@ -52,7 +52,6 @@ public class WindowGenerator {
 			thisStage.close();
 
 		} catch (IOException exception) {
-			exception.printStackTrace();
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText(exception.getMessage());
 			alert.show();

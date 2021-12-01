@@ -84,8 +84,7 @@
                      </HBox.margin>
                   </Label>
                   <TextField fx:id="usernameTextField" />
-                  <Label text="Password:" />
-                  <TextField fx:id="passwordTextField" />
+                  <Button fx:id="changePasswordButton" mnemonicParsing="false" onAction="#handleChangePasswordButtonClick" text="CHANGE PASSWORD" />
                </children>
             </HBox>
             <Label fx:id="phoneNumberErrorLabel" text="Must have valid phone number (ex. 1234567890)" textFill="RED" visible="false" />

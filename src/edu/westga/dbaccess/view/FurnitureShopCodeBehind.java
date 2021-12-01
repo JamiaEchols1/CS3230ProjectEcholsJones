@@ -55,6 +55,9 @@ public class FurnitureShopCodeBehind {
 
     @FXML
     private ComboBox<String> categoryComboBox;
+    
+    @FXML
+    private TextField furnitureIdTextField;
 
     @FXML
     private ListView<Furniture> furnitureListView;
@@ -80,6 +83,9 @@ public class FurnitureShopCodeBehind {
     
     @FXML
     private Button searchCategoryButton;
+    
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private Button addToCartButton;
@@ -139,6 +145,14 @@ public class FurnitureShopCodeBehind {
     	this.styles = this.styleDal.getStyles();
     	this.categories = this.categoryDal.getCategory();
     	this.customerInformationLabel.setText(Customer.getCustomer().toString());
+    	this.furnitureIdTextField.textProperty().addListener((observable,oldValue, newValue) -> {
+    		try {
+    			Integer.parseInt(newValue);
+    			this.errorLabel.setVisible(false);
+    		} catch (Exception e) {
+    			this.errorLabel.setVisible(true);
+    		}
+    	});
     }
 
     @FXML
@@ -202,6 +216,11 @@ public class FurnitureShopCodeBehind {
      	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByCategory(this.getCategoryId(this.categoryComboBox.getSelectionModel().getSelectedItem().toString())));        
     }
 
+    @FXML
+    void handleSearchIdButtonClick(ActionEvent event) throws NumberFormatException, SQLException {
+    	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureById(Integer.parseInt(this.furnitureIdTextField.getText())));        
+    }
+    
     @FXML
     void handleSearchStyleButtonClick(ActionEvent event) throws SQLException{
      	this.furnitureListView.getItems().setAll(this.furnitureDal.getFurnitureByStyle(this.getStyleId(this.styleFilterComboBox.getSelectionModel().getSelectedItem().toString())));

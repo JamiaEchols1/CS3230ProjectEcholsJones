@@ -11,6 +11,7 @@ import edu.westga.dbaccess.utils.UI;
  */
 public class Customer {
 	private int memberID;
+	private String memberIdString;
 	private String firstName;
 	private String lastName;
 	private String address1;
@@ -69,6 +70,7 @@ public class Customer {
 			throw new IllegalArgumentException(UI.ErrorMessages.REGISTATIONDATE_NULL);
 		}
 		this.memberID = id;
+		this.memberIdString = String.valueOf(id);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
@@ -87,6 +89,15 @@ public class Customer {
 	 * @return the memberID
 	 */
 	public int getMemberID() {
+		return this.memberID;
+	}
+	
+	/**
+	 * Gets the member Id string
+	 * 
+	 * @return the memberID string
+	 */
+	public int getMemberIdString() {
 		return this.memberID;
 	}
 

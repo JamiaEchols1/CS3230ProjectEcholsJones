@@ -152,7 +152,7 @@ public class EmployeeDAL {
 			stmt.setString(3, hashedPassword);
 
 			if (stmt.executeUpdate() < 1) {
-				throw new IllegalArgumentException("Password not updated");
+				throw new IllegalArgumentException("Password not updated. Check entered Password.");
 			}
 		} 
 	}

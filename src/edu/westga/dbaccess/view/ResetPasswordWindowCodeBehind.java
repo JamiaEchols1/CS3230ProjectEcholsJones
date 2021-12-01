@@ -56,6 +56,9 @@ public class ResetPasswordWindowCodeBehind {
     			throw new IllegalArgumentException("Passwords must match");
     		}
     		this.controller.resetPassword(Employee.getEmployee().getEmployeeId(), this.currentPasswordField.getText(), this.newPasswordField.getText());
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setContentText("Password Changed!");
+			alert.show();
     	} catch (Exception exception) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText(exception.getMessage());

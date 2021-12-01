@@ -109,7 +109,7 @@ public class EditEmployeeWindowCodeBehind {
     }
     @FXML
     void handleChangePasswordButtonClick(ActionEvent event) {
-    	this.newWindow.generateWindow("Search Window", "edu\\westga\\dbaccess\\view\\ResetPasswordWindow.fxml", event);
+    	this.newWindow.generateWindow("Change Password Window", "edu\\westga\\dbaccess\\view\\ResetPasswordWindow.fxml", event);
     }
     
     @FXML

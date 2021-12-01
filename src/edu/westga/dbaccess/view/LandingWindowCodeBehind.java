@@ -40,6 +40,9 @@ public class LandingWindowCodeBehind {
 	@FXML
 	private Button searchBtn;
 
+	@FXML
+	private Button historyButton;
+	
 	private CustomerDAL customerDal;
 
 	@FXML
@@ -78,11 +81,18 @@ public class LandingWindowCodeBehind {
 		Employee.setEmployee(null);
 		this.newWindow.generateWindow("Login Window", "edu\\westga\\dbaccess\\view\\LoginWindow.fxml", event);
 	}
+	
+	@FXML
+	void handleHistoryButtonClick(ActionEvent event) {
+		this.newWindow.generateWindow("Customer History Window", "edu\\westga\\dbaccess\\view\\CustomerHistoryWindow.fxml", event);
+	    
+	}
 
 	@FXML
 	void initialize() throws SQLException {
 		this.shopButton.setDisable(true);
 		this.returnFurnitureButton.setDisable(true);
+		this.historyButton.setDisable(true);
 		this.customerComboBox.getItems().setAll(this.customerDal.getAllCustomers().values());
 		this.employeeNameLbl.setText(Employee.getEmployee().getFullName());
 		this.usernameLbl.setText(Employee.getEmployee().getUsername());
@@ -96,9 +106,11 @@ public class LandingWindowCodeBehind {
 					if (newValue != null) {
 						this.shopButton.setDisable(false);
 						this.returnFurnitureButton.setDisable(false);
+						this.historyButton.setDisable(false);
 					} else {
 						this.returnFurnitureButton.setDisable(true);
 						this.shopButton.setDisable(true);
+						this.historyButton.setDisable(true);
 					}
 					Customer.setCustomer(newValue);
 				});

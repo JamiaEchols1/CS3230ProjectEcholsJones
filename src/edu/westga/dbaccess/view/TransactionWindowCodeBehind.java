@@ -32,7 +32,7 @@ public class TransactionWindowCodeBehind {
 
     @FXML
     void handleBackToHomeButtonClick(ActionEvent event) {
-    	this.newWindow.generateWindow("Registration Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
+    	this.newWindow.generateWindow("Landing Window", "edu\\westga\\dbaccess\\view\\LandingWindow.fxml", event);
     }
     
     /**
